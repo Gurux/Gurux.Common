@@ -1,0 +1,6 @@
+Name: Gurux.Common
+Description: Gurux.Common
+Version: 0.1
+
+Requires: 
+Libs: -r:/usr/lib/gurux-common/Gurux.Common.dll
