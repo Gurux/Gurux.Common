@@ -127,7 +127,7 @@ Thumbs.db
 Desktop.ini
 
 .svn/
-.nupkg
+*.nupkg
 #############
 ## Python
 #############
