@@ -46,8 +46,8 @@ using System.Text;
 using System.Linq;
 
 namespace Gurux.Common
-{
-	/// <summary>
+{    
+    /// <summary>
 	/// Common Gurux helpers. 
 	/// </summary>
 	public class GXCommon
@@ -76,7 +76,6 @@ namespace Gurux.Common
                 {
                     string version = Convert.ToString(subKey.GetValue("Version"));
                     string servicePack = Convert.ToString(subKey.GetValue("SP"));
-                    string str = ".NET Framework 3.5";
                     if (string.IsNullOrEmpty(servicePack))
                     {
                         throw new Exception(".Net framework 3.5 SP1 must be installed before the application can be used.");
@@ -97,11 +96,11 @@ namespace Gurux.Common
 		public static IWin32Window Owner = null;
 
         /// <summary>
-        /// Convert bytearray to hex string.
+        /// Convert byte array to hex string.
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="addSpace"></param>
-        /// <returns></returns>
+        /// <param name="bytes">Byte array to convert.</param>
+        /// <param name="addSpace">Is space added between bytes.</param>
+        /// <returns>Byte array as hex string.</returns>
         public static string ToHex(byte[] bytes, bool addSpace)
         {
             char[] c = new char[bytes.Length * (addSpace ? 3 : 2)];
@@ -129,7 +128,11 @@ namespace Gurux.Common
         /// <returns>Byte array.</returns>
         public static byte[] HexToBytes(string str, bool includeSpace)
         {
-            int cnt = includeSpace ? 3 : 2;
+            if (includeSpace && !string.IsNullOrEmpty(str) && str[str.Length -1] != ' ')
+            {
+                str += " ";
+            }
+            int cnt = includeSpace ? 3 : 2;            
             if (str.Length == 0 || str.Length % cnt != 0)
             {
                 throw new ArgumentException("Not hex string");
@@ -151,8 +154,9 @@ namespace Gurux.Common
         }
 
 		/// <summary>
-		/// Writes a timestamped line using System.Diagnostics.Trace.WriteLine
+        /// Writes a timestamped line using System.Diagnostics.Trace.WriteLine
 		/// </summary>
+		/// <param name="line">Trace string</param>
 		public static void TraceWriteLine(string line)
 		{
 			System.Diagnostics.Trace.WriteLine(DateTime.Now.ToString("HH:mm:ss.ffff") + " " + line);
@@ -161,16 +165,17 @@ namespace Gurux.Common
 		/// <summary>
 		/// Writes a timestamped string using System.Diagnostics.Trace.Write
 		/// </summary>
-		public static void TraceWrite(string text)
+        /// <param name="line">Trace string</param>
+        public static void TraceWrite(string line)
 		{
-			System.Diagnostics.Trace.Write(DateTime.Now.ToString("HH:mm:ss.ffff") + " " + text);
+            System.Diagnostics.Trace.Write(DateTime.Now.ToString("HH:mm:ss.ffff") + " " + line);
 		}
 
 		/// <summary>
 		/// Convert object to byte array.
 		/// </summary>
 		/// <param name="value"></param>
-		/// <returns></returns>
+		/// <returns>Object as byte array.</returns>
 		public static byte[] GetAsByteArray(object value)
 		{
 			if (value == null)
@@ -216,13 +221,13 @@ namespace Gurux.Common
         /// <summary>
         /// Convert byte array to object.
         /// </summary>
-        /// <param name="byteArray"></param>
-        /// <param name="type"></param>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <param name="reverse"></param>
-        /// <param name="readBytes"></param>
-        /// <returns></returns>
+        /// <param name="byteArray">Byte array where Object uis created.</param>
+        /// <param name="type">Object type.</param>
+        /// <param name="index">Byte array index.</param>
+        /// <param name="count">Byte count.</param>
+        /// <param name="reverse">Is value reversed.</param>
+        /// <param name="readBytes">Count of read bytes.</param>
+        /// <returns>Return object of given type.</returns>
 		public static object ByteArrayToObject(byte[] byteArray, Type type, int index, int count, bool reverse, out int readBytes)
 		{
 			if (byteArray == null)

@@ -159,6 +159,7 @@ namespace Gurux.Common
         /// Shows the media Properties dialog.
         /// </summary>
         /// <param name="parent">Parent window.</param>
+        /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
         bool Properties(System.Windows.Forms.Form parent);
 
         /// <summary>

@@ -48,7 +48,7 @@ namespace Gurux.Common
         /// <summary>
         /// Opens up directory access for Everyone at FullAccess.
         /// </summary>
-        /// <param name="dirPath"></param>
+        /// <param name="dirPath">Directory to updated.</param>
         public static void UpdateDirectorySecurity(string dirPath)
         {
             DirectorySecurity access = Directory.GetAccessControl(dirPath);
@@ -59,6 +59,7 @@ namespace Gurux.Common
         /// <summary>
         /// Opens up file access for Everyone at FullAccess.
         /// </summary>
+        /// <param name="filePath">File path.</param>
         public static void UpdateFileSecurity(string filePath)
         {
             FileSecurity access = File.GetAccessControl(filePath);

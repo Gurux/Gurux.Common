@@ -19,6 +19,7 @@ namespace Gurux.Common
         /// <summary>
         /// Copies data from items and sub items in the list view to the clipboard.
         /// </summary>
+        /// <param name="data">Data to copy.</param>
         static public void CopyDataToClipboard(object data)
         {
             string str = string.Empty;

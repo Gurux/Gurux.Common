@@ -76,8 +76,7 @@ namespace Gurux.Common
     {
         static readonly object m_sync = new object();
         internal delegate void ProgressEventHandler(GXAddIn sender);
-		private event CheckUpdatesEventHandler m_OnCheckUpdates;
-
+		private CheckUpdatesEventHandler m_OnCheckUpdates;
         
         [System.Runtime.InteropServices.DllImport("wininet.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
         internal extern static bool InternetGetConnectedState(ref InternetConnectionState lpdwFlags, int dwReserved);        
@@ -398,8 +397,8 @@ namespace Gurux.Common
         /// </summary>
         /// <param name="newVersion"></param>
         /// <param name="installerVersion"></param>
-        /// <returns></returns>
-        static public bool IsNewVersion(string newVersion, string installerVersion)
+        /// <returns>Returns true if this is new version.</returns>
+        static bool IsNewVersion(string newVersion, string installerVersion)
         {
             if (string.IsNullOrEmpty(newVersion) ||
                 string.IsNullOrEmpty(installerVersion))
