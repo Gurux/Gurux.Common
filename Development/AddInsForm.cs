@@ -101,6 +101,10 @@ namespace Gurux.Common
                 {
                     continue;
                 }
+                if (!GXUpdateChecker.IsNewVersion(it.Version, it.InstalledVersion))
+                {
+                    continue;
+                }
                 ListViewItem li = listView1.Items.Add(it.Name);
                 li.SubItems.Add(it.InstalledVersion);
                 li.SubItems.Add(it.Version);
@@ -153,7 +157,10 @@ namespace Gurux.Common
                     {
                         continue;
                     }
-
+                    if (!GXUpdateChecker.IsNewVersion(it.Version, it.InstalledVersion))
+                    {
+                        continue;
+                    }
                     ListViewItem li = listView1.Items.Add(it.Name);
                     li.SubItems.Add(it.InstalledVersion);
                     li.SubItems.Add(it.Version);
@@ -180,6 +187,10 @@ namespace Gurux.Common
                         continue;
                     }
                     if (it.Type == GXAddInType.Application && string.Compare(it.Name, System.IO.Path.GetFileNameWithoutExtension(Application.ExecutablePath), true) != 0)
+                    {
+                        continue;
+                    }
+                    if (!GXUpdateChecker.IsNewVersion(it.Version, it.InstalledVersion))
                     {
                         continue;
                     }

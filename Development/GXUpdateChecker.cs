@@ -398,12 +398,15 @@ namespace Gurux.Common
         /// <param name="newVersion"></param>
         /// <param name="installerVersion"></param>
         /// <returns>Returns true if this is new version.</returns>
-        static bool IsNewVersion(string newVersion, string installerVersion)
+        internal static bool IsNewVersion(string newVersion, string installerVersion)
         {
-            if (string.IsNullOrEmpty(newVersion) ||
-                string.IsNullOrEmpty(installerVersion))
+            if (string.IsNullOrEmpty(newVersion))
             {
                 return false;
+            }
+            if (string.IsNullOrEmpty(installerVersion))
+            {
+                return true;
             }
             string[] newVersions = newVersion.Split(new char[] { '.', ',' });
             string[] oldVersions = installerVersion.Split(new char[] { '.', ',' });
