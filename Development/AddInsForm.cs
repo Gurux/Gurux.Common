@@ -101,7 +101,7 @@ namespace Gurux.Common
                 {
                     continue;
                 }
-                if (!GXUpdateChecker.IsNewVersion(it.Version, it.InstalledVersion))
+                if (onlyNew && !GXUpdateChecker.IsNewVersion(it.Version, it.InstalledVersion))
                 {
                     continue;
                 }
@@ -116,7 +116,7 @@ namespace Gurux.Common
 
         static public void CheckUpdates(object target)
         {
-            GXAddInList list = GXUpdateChecker.GetUpdatesOnline();
+            GXAddInList list = GXUpdateChecker.GetUpdatesOnline(false);
             if (list.Count != 0)
             {
                 //GXProtocolUpdater.

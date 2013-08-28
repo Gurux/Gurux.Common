@@ -376,11 +376,6 @@ namespace Gurux.Common
             DisabledItems = new string[0];
             return ProtocolUpdateStatus.None;
         }
-
-        /// <summary>
-        /// Only Application updates are shown. Protocol AddIn or Media updates are not shown.
-        /// </summary>
-        public static bool ApplicationsOnly = false;
        
         /// <summary>
         /// Is there any new updates avaialble.
@@ -388,7 +383,7 @@ namespace Gurux.Common
         /// <returns>Returns True, if new updates are available.</returns>
         public static bool IsUpdatesOnline()
         {
-            return GetUpdatesOnline().Count != 0;
+            return GetUpdatesOnline(false).Count != 0;
         }
 
         /// <summary>
@@ -431,7 +426,7 @@ namespace Gurux.Common
         /// Check if there are any updates available in Gurux www server.
         /// </summary>
         /// <returns>Returns true if there are any updates available.</returns>
-        internal static GXAddInList GetUpdatesOnline()
+        internal static GXAddInList GetUpdatesOnline(bool applicationsOnly)
         {
 			lock (m_sync)
 			{
@@ -466,7 +461,7 @@ namespace Gurux.Common
 						foreach (GXAddIn it in onlineAddIns)
 						{
                             //Check only applications updates.
-                            if (ApplicationsOnly && it.Type != GXAddInType.Application)
+                            if (applicationsOnly && it.Type != GXAddInType.Application)
                             {
                                 continue;
                             }
