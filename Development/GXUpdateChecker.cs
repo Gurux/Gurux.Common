@@ -93,12 +93,25 @@ namespace Gurux.Common
         }
 
         GXAddIn Target;
-        AutoResetEvent Downloaded = new AutoResetEvent(false);       
+        AutoResetEvent Downloaded = new AutoResetEvent(false);
 
         /// <summary>
         /// Update protocols from the Gurux www server.
         /// </summary>        
-        public ProtocolUpdateStatus UpdateProtocols()
+        internal ProtocolUpdateStatus UpdateProtocols()
+        {
+            return Update(true);
+        }
+
+        /// <summary>
+        /// Update applications from the Gurux www server.
+        /// </summary>        
+        internal ProtocolUpdateStatus UpdateApplications()
+        {
+            return Update(false);
+        }
+
+        ProtocolUpdateStatus Update(bool protocols)
         {
             lock (m_sync)
             {
@@ -125,7 +138,8 @@ namespace Gurux.Common
 				client.DownloadDataCompleted += new System.Net.DownloadDataCompletedEventHandler(client_DownloadDataCompleted);				
                 foreach (GXAddIn it in localAddins)
                 {
-                    if (it.Type != GXAddInType.AddIn)
+                    if ((protocols && it.Type != GXAddInType.AddIn) ||
+                        (!protocols && it.Type != GXAddInType.Application))
                     {
                         continue;
                     }
@@ -492,7 +506,7 @@ namespace Gurux.Common
                             else //Compare versions.
 							{
                                 bool newVersion = IsNewVersion(it.Version, localAddin.InstalledVersion);
-                                if ((localAddin.State & AddInStates.Disabled) == 0 && (localAddin.State == AddInStates.Available || newVersion))
+                                if ((localAddin.State & AddInStates.Disabled) == 0 && (localAddin.State == AddInStates.Available && newVersion))
                                 {
                                     if (it.Type == GXAddInType.Application && string.Compare(Path.GetFileNameWithoutExtension(Application.ExecutablePath), it.Name, true) != 0)
                                     {

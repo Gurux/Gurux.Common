@@ -58,6 +58,8 @@ namespace Gurux.Common
         private ColumnHeader StateCH;
         private System.ComponentModel.Container m_Components = null;
         GXAddInList AddIns;
+        private ColumnHeader InstalledCH;
+        private ColumnHeader AvailableCH;
         internal ProtocolUpdateStatus Status = ProtocolUpdateStatus.None;
         /// <summary>
         /// Initializes a new instance of the AddIns form.
@@ -70,7 +72,7 @@ namespace Gurux.Common
             OnlyNewItems = onlyNew;
             if (onlyNew)
             {
-                this.Text = Gurux.Common.Properties.Resources.NewProtocolsAvailableTxt;
+                this.Text = Gurux.Common.Properties.Resources.AvailableUpdatesTxt;
             }
             else
             {
@@ -106,6 +108,7 @@ namespace Gurux.Common
                     continue;
                 }
                 ListViewItem li = listView1.Items.Add(it.Name);
+                li.SubItems.Add(it.State.ToString());
                 li.SubItems.Add(it.InstalledVersion);
                 li.SubItems.Add(it.Version);
                 li.Tag = it;
@@ -162,6 +165,7 @@ namespace Gurux.Common
                         continue;
                     }
                     ListViewItem li = listView1.Items.Add(it.Name);
+                    li.SubItems.Add(it.State.ToString());
                     li.SubItems.Add(it.InstalledVersion);
                     li.SubItems.Add(it.Version);
                     li.Tag = it;
@@ -271,6 +275,8 @@ namespace Gurux.Common
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DownloadMnu = new System.Windows.Forms.ToolStripMenuItem();
             this.EnableMnu = new System.Windows.Forms.ToolStripMenuItem();
+            this.InstalledCH = new System.Windows.Forms.ColumnHeader();
+            this.AvailableCH = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -278,7 +284,7 @@ namespace Gurux.Common
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(231, 237);
+            this.CancelBtn.Location = new System.Drawing.Point(291, 237);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(80, 24);
             this.CancelBtn.TabIndex = 1;
@@ -287,7 +293,7 @@ namespace Gurux.Common
             // OKBtn
             // 
             this.OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OKBtn.Location = new System.Drawing.Point(135, 237);
+            this.OKBtn.Location = new System.Drawing.Point(195, 237);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(80, 24);
             this.OKBtn.TabIndex = 2;
@@ -301,7 +307,9 @@ namespace Gurux.Common
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.NameCH,
-            this.StateCH});
+            this.StateCH,
+            this.InstalledCH,
+            this.AvailableCH});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -309,7 +317,7 @@ namespace Gurux.Common
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
             this.listView1.OwnerDraw = true;
-            this.listView1.Size = new System.Drawing.Size(299, 219);
+            this.listView1.Size = new System.Drawing.Size(359, 219);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -322,7 +330,7 @@ namespace Gurux.Common
             // NameCH
             // 
             this.NameCH.Text = "Name";
-            this.NameCH.Width = 204;
+            this.NameCH.Width = 161;
             // 
             // StateCH
             // 
@@ -350,12 +358,20 @@ namespace Gurux.Common
             this.EnableMnu.Text = "Enable";
             this.EnableMnu.Click += new System.EventHandler(this.EnableMnu_Click);
             // 
+            // InstalledCH
+            // 
+            this.InstalledCH.Text = "Installed:";
+            // 
+            // AvailableCH
+            // 
+            this.AvailableCH.Text = "Available:";
+            // 
             // AddInsForm
             // 
             this.AcceptButton = this.OKBtn;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(319, 266);
+            this.ClientSize = new System.Drawing.Size(379, 266);
             this.ControlBox = false;
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.OKBtn);
@@ -483,43 +499,51 @@ namespace Gurux.Common
                         break;
                     }
                 }
+                DialogResult res = DialogResult.Yes;
                 if (updatesAvailable)
                 {
-                    DialogResult res = MessageBox.Show(this, Gurux.Common.Properties.Resources.NewProtocolsDownloadTxt, Gurux.Common.Properties.Resources.NewProtocolsAvailableTxt, MessageBoxButtons.YesNoCancel);
-                    //Add downloadable items to the list or thay are not shown anymore.
-                    foreach (ListViewItem it in listView1.Items)
+                    res = MessageBox.Show(this, Gurux.Common.Properties.Resources.NewProtocolsDownloadTxt, Gurux.Common.Properties.Resources.NewProtocolsAvailableTxt, MessageBoxButtons.YesNoCancel);
+                    if (res != DialogResult.Yes)
                     {
-                        GXAddIn addIn = it.Tag as GXAddIn;
-                        if (addIn.State == AddInStates.Available)
-                        {
-                            if (addIn.State == AddInStates.Available)
-                            {
-                                if (res == DialogResult.Yes)
-                                {
-                                    addIn.State = AddInStates.Download;
-                                }
-                                else if (res == DialogResult.No)
-                                {
-                                    addIn.State = AddInStates.Disabled;
-                                }
-                            }
-                            //Add new Addins.
-                            bool exists = false;
-                            foreach (var a in AddIns)
-                            {
-                                if (a.Name == addIn.Name)
-                                {
-                                    exists = true;
-                                    break;
-                                }
-                            }
-                            if (!exists)
-                            {
-                                AddIns.Add(addIn);
-                            }
-                        }
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                        return;
                     }
                 }
+                //Add downloadable items to the list or they are not shown anymore.
+                foreach (ListViewItem it in listView1.Items)
+                {
+                    GXAddIn addIn = it.Tag as GXAddIn;
+                    if (addIn.State == AddInStates.Available ||
+                        addIn.State == AddInStates.Download)
+                    {
+                        if (addIn.State == AddInStates.Available)
+                        {
+                            if (res == DialogResult.Yes)
+                            {
+                                addIn.State = AddInStates.Download;
+                            }
+                            else if (res == DialogResult.No)
+                            {
+                                addIn.State = AddInStates.Disabled;
+                            }
+                        }
+                        //Add new Addins.
+                        bool exists = false;
+                        foreach (var a in AddIns)
+                        {
+                            if (a.Name == addIn.Name)
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                        {
+                            AddIns.Add(addIn);
+                        }
+                    }
+                }                
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Indent = true;
                 settings.Encoding = System.Text.Encoding.UTF8;
@@ -536,6 +560,7 @@ namespace Gurux.Common
                 GXUpdateChecker updater = new GXUpdateChecker();
                 updater.OnProgress += new GXUpdateChecker.ProgressEventHandler(updater_OnProgress);
                 Status = updater.UpdateProtocols();
+                updater.UpdateApplications();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
