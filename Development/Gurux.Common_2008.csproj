@@ -68,9 +68,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ClipboardCopy.cs" />
+    <Compile Include="AsyncState.cs" />
     <Compile Include="GXAboutForm.cs" />
     <Compile Include="ConnectionEventArgs.cs" />
     <Compile Include="GXAddIn.cs" />
+    <Compile Include="GXAsyncWork.cs" />
     <Compile Include="GXCommon.cs" />
     <Compile Include="GXFileSystemSecurity.cs" />
     <Compile Include="GXUpdateChecker.cs" />

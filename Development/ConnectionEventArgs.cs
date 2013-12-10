@@ -87,7 +87,7 @@ namespace Gurux.Common
                 {
                     return ASCIIEncoding.ASCII.GetString(Data as byte[]);
                 }
-                return BitConverter.ToString(Data as byte[]).Replace('-', ' ');
+                return GXCommon.ToHex((Data as byte[]), true);
             }
             return Convert.ToString(Data);
         }

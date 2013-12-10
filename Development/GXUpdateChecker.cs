@@ -506,7 +506,7 @@ namespace Gurux.Common
                             else //Compare versions.
 							{
                                 bool newVersion = IsNewVersion(it.Version, localAddin.InstalledVersion);
-                                if ((localAddin.State & AddInStates.Disabled) == 0 && (localAddin.State == AddInStates.Available && newVersion))
+                                if ((localAddin.State & AddInStates.Disabled) == 0 && newVersion)
                                 {
                                     if (it.Type == GXAddInType.Application && string.Compare(Path.GetFileNameWithoutExtension(Application.ExecutablePath), it.Name, true) != 0)
                                     {
@@ -517,8 +517,7 @@ namespace Gurux.Common
                                     if (newVersion)
                                     {
                                         localAddin.State = AddInStates.Update;
-                                    }
-                                    localAddin.Version = it.Version;
+                                    }                                    
                                     newItems.Add(localAddin);
                                 }
 							}
@@ -537,6 +536,10 @@ namespace Gurux.Common
                                 if (newVersion)
                                 {
                                     localAddin.State = AddInStates.Update;
+                                }
+                                else
+                                {
+                                    newItems.Remove(localAddin);
                                 }
                             }
 						}
@@ -599,11 +602,6 @@ namespace Gurux.Common
         {
             try
             {
-                //Do not check updates while debugging.
-                if (System.Diagnostics.Debugger.IsAttached)
-                {
-                    return;
-                }
                 DateTime LastUpdateCheck = DateTime.MinValue;
                 //Wait for a while before check updates.
                 //Check new updates once a day.
@@ -628,8 +626,13 @@ namespace Gurux.Common
                             break;
                         }
                     }
+                    if (target == null)
+                    {
+                        break;
+                    }
                     //Wait for a day before next check.
                     System.Threading.Thread.Sleep(DateTime.Now.AddDays(1) - DateTime.Now);
+
                 }
             }
             catch

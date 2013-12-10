@@ -103,21 +103,20 @@ namespace Gurux.Common
         /// <returns>Byte array as hex string.</returns>
         public static string ToHex(byte[] bytes, bool addSpace)
         {
-            char[] c = new char[bytes.Length * (addSpace ? 3 : 2)];
-            byte b;
-            for (int bx = 0, cx = 0; bx != bytes.Length; ++bx, ++cx)
+            char[] str = new char[bytes.Length * (addSpace ? 3 : 2)];
+            byte tmp;
+            for (int pos = 0, cx = 0; pos != bytes.Length; ++pos, ++cx)
             {
-                b = ((byte)(bytes[bx] >> 4));
-                c[cx] = (char)(b > 9 ? b + 0x37 + 0x20 : b + 0x30);
-                b = ((byte)(bytes[bx] & 0x0F));
-                c[++cx] = (char)(b > 9 ? b + 0x37 + 0x20 : b + 0x30);
+                tmp = ((byte)(bytes[pos] >> 4));
+                str[cx] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                tmp = ((byte)(bytes[pos] & 0x0F));
+                str[++cx] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
                 if (addSpace)
                 {
-                    c[++cx] = ' ';
+                    str[++cx] = ' ';
                 }
             }
-
-            return new string(c);
+            return new string(str);
         }
 
         /// <summary>
@@ -339,7 +338,7 @@ namespace Gurux.Common
 		public static int IndexOf(byte[] input, byte[] pattern, int index, int count)
 		{
 			//If not enought data available.
-			if (count < pattern.Length)
+            if ((count - index) < pattern.Length)
 			{
 				return -1;
 			}
@@ -347,13 +346,20 @@ namespace Gurux.Common
 			int pos = -1;
 			if ((pos = Array.IndexOf(input, firstByte, index, count - index)) >= 0)
 			{
-				for (int i = 0; i < pattern.Length; i++)
-				{
-					if (pos + i >= input.Length || pattern[i] != input[pos + i])
-					{
-						return -1;
-					}
-				}
+                if (count - pos < pattern.Length)
+                {
+                    pos = -1;
+                }
+                else
+                {
+                    for (int i = 0; i < pattern.Length; i++)
+                    {
+                        if (pos + i >= input.Length || pattern[i] != input[pos + i])
+                        {
+                            return IndexOf(input, pattern, pos + 1, count);
+                        }
+                    }
+                }
 			}
 			return pos;
 		}
