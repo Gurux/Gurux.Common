@@ -42,6 +42,7 @@ using System.Windows.Forms;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Threading;
 using Microsoft.Win32;
+using Gurux.Common.Properties;
 
 namespace Gurux.Common
 {
@@ -157,7 +158,7 @@ namespace Gurux.Common
                         }
                         else 
                         {
-                            throw new Exception("Unknown type " + it.Type.ToString());
+                            throw new Exception(Resources.UnknownType + it.Type.ToString());
                         }
                         try
                         {							

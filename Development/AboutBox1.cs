@@ -12,7 +12,7 @@ namespace Gurux.Common
     {
         public AboutBox1(string application, string title, string copyrightText, string aboutText, string version)
         {
-            InitializeComponent();
+            InitializeComponent();            
             this.ApplicationLbl.Text = application;
             this.Text = title;
             this.CopyrightTextLbl.Text = copyrightText;

@@ -1,4 +1,5 @@
-﻿namespace Gurux.Common
+using Gurux.Common.Properties;
+namespace Gurux.Common
 {
     partial class LibraryVersionsDlg
     {
@@ -89,8 +90,7 @@
             this.VersionHeader.Width = 185;
             // 
             // LocationHeader
-            // 
-            this.LocationHeader.Text = "Location";
+            //             
             // 
             // LibraryVersionsDlg
             // 

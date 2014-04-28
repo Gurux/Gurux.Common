@@ -48,7 +48,7 @@ namespace Gurux.Common
                             foreach (ListViewItem.ListViewSubItem sub in it.SubItems)
                             {
                                 sb.Append(sub.Text);
-                                sb.Append(";");
+                                sb.Append('\t');
                             }
                             sb.Remove(sb.Length - 1, 1);
                             sb.Append(Environment.NewLine);
@@ -63,7 +63,7 @@ namespace Gurux.Common
                             foreach (ListViewItem.ListViewSubItem sub in it.SubItems)
                             {
                                 sb.Append(sub.Text);
-                                sb.Append(";");
+                                sb.Append('\t');
                             }
                             sb.Remove(sb.Length - 1, 1);
                             sb.Append(Environment.NewLine);

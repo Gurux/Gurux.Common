@@ -1,4 +1,5 @@
-﻿namespace Gurux.Common
+using Gurux.Common.Properties;
+namespace Gurux.Common
 {
     partial class AboutBox1
     {
@@ -86,7 +87,7 @@
             // ApplicationLbl
             // 
             this.ApplicationLbl.AutoSize = true;
-            this.ApplicationLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplicationLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplicationLbl.Location = new System.Drawing.Point(12, 9);
             this.ApplicationLbl.Name = "ApplicationLbl";
             this.ApplicationLbl.Size = new System.Drawing.Size(118, 25);
@@ -121,7 +122,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 17);
             this.label1.TabIndex = 32;
-            this.label1.Text = "Version:";
+            this.label1.Text = "Version";
             // 
             // AboutBox1
             // 

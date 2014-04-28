@@ -117,106 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SP" xml:space="preserve">
-    <value> SP </value>
-  </data>
-  <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
-  </data>
-  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
-  </data>
-  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
-  </data>
-  <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
-  </data>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>Saatavilla:</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>Käytettävät lisäosat:</value>
+  </data>
+  <data name="AvailableUpdates" xml:space="preserve">
+    <value>Päivitykset</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
-  </data>
-  <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
-  </data>
-  <data name="CancelTxt" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Olemassa olevat päivitykset</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Sulkee valintaikkunan tallentamatta muutoksia..</value>
   </data>
-  <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+  <data name="CancelTxt" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
+    <value>Sulje valintaikkuna tallentamatta tehtyjä muutoksia.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>Kopioi</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Poista</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Poistettu</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Lataa</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Käytä</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>In use</value>
-  </data>
-  <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
-  </data>
-  <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
-  </data>
-  <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>Etsi protokollia</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>Ei apua aiheeseen joka  liittyy tähän kohteen.</value>
   </data>
-  <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+  <data name="Installed" xml:space="preserve">
+    <value>Asennettu:</value>
   </data>
-  <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+  <data name="InUse" xml:space="preserve">
+    <value>Käytössä</value>
+  </data>
+  <data name="LibraryCopyHelp" xml:space="preserve">
+    <value>Kopioi tiedostoja leikepöydälle.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>Näyttää tuotteen ja kirjastojen versioita .</value>
   </data>
-  <data name="State" xml:space="preserve">
-    <value>State</value>
+  <data name="LibraryVersionsTxt" xml:space="preserve">
+    <value>Kirjasto versiot</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Sijainti</value>
+  </data>
+  <data name="NameTxt" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="NETFramework35" xml:space="preserve">
+    <value>. NET Framework 3.5</value>
+  </data>
+  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
+    <value>. NET Framework 3.5 SP1 on asennettava ennensovellusta voidaan käyttää .</value>
+  </data>
+  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
+    <value>. NET Framework 3.5 SP1 tai 4,0 on asennettava ennensovellusta voidaan käyttää .</value>
+  </data>
+  <data name="NETFramework40" xml:space="preserve">
+    <value>. NET Framework 4.0</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>Uusia päivityksiä saatavilla . Haluatko ladata niitä ?</value>
+  </data>
+  <data name="NewUpdatesAvailableTxt" xml:space="preserve">
+    <value>Uusia päivityksiä saatavilla</value>
+  </data>
+  <data name="NoHelpTopicIsAssociatedWithThisItem" xml:space="preserve">
+    <value>Ei apua aihe liittyy tämän kohteen .</value>
+  </data>
+  <data name="NotHexString" xml:space="preserve">
+    <value>Ei hex string</value>
+  </data>
+  <data name="ProtocolsTxt" xml:space="preserve">
+    <value>Protokollat</value>
+  </data>
+  <data name="ShowsProductAndLibraryVersions" xml:space="preserve">
+    <value>Näyttää tuotteen ja kirjastojen versioita .</value>
+  </data>
+  <data name="SP" xml:space="preserve">
+    <value>SP</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Tila:</value>
+  </data>
+  <data name="ThereAreNewUpdatesAvailableDoYouWantToDownloadThem" xml:space="preserve">
+    <value>On uusia päivityksiä saatavilla . Haluatko ladata niitä ?</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>Tuntematon tyyppi</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>Päivitys saatavilla</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>Versio</value>
   </data>
 </root>

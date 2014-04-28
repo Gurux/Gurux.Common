@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +12,7 @@ using Gurux.Common;
 using System.IO;
 using System.Threading;
 using Microsoft.Win32;
+using Gurux.Common.Properties;
 
 namespace Gurux.Common
 {
@@ -33,15 +34,16 @@ namespace Gurux.Common
         {
             try
             {
-                this.CancelBtn.Text = Gurux.Common.Properties.Resources.CancelTxt;
-                this.NameHeader.Text = Gurux.Common.Properties.Resources.NameTxt;
-                this.VersionHeader.Text = Gurux.Common.Properties.Resources.VersionTxt;
-                this.CopyBtn.Text = Gurux.Common.Properties.Resources.CopyTxt;
-                this.Text = Gurux.Common.Properties.Resources.LibraryVersionsTxt;
+                this.LocationHeader.Text = Resources.LocationTxt;
+                this.CancelBtn.Text = Resources.CancelTxt;
+                this.NameHeader.Text = Resources.NameTxt;
+                this.VersionHeader.Text = Resources.VersionTxt;
+                this.CopyBtn.Text = Resources.CopyTxt;
+                this.Text = Resources.LibraryVersionsTxt;
                 //Update help strings from the resource.
-                this.helpProvider1.SetHelpString(this.listView1, Gurux.Common.Properties.Resources.LibraryListHelp);
-                this.helpProvider1.SetHelpString(this.CopyBtn, Gurux.Common.Properties.Resources.LibraryCopyHelp);
-                this.helpProvider1.SetHelpString(this.CancelBtn, Gurux.Common.Properties.Resources.CancelHelp);
+                this.helpProvider1.SetHelpString(this.listView1, Resources.LibraryListHelp);
+                this.helpProvider1.SetHelpString(this.CopyBtn, Resources.CopyTxt);
+                this.helpProvider1.SetHelpString(this.CancelBtn, Resources.ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade);
             }
             catch (Exception Ex)
             {
@@ -62,10 +64,10 @@ namespace Gurux.Common
                     {
                         string version = Convert.ToString(subKey.GetValue("Version"));
                         string servicePack = Convert.ToString(subKey.GetValue("SP"));
-                        string str = ".NET Framework 3.5";
+                        string str = Resources.NETFramework35;
                         if (!string.IsNullOrEmpty(servicePack))
                         {
-                            str += " SP " + servicePack;
+                            str += Resources.SP + servicePack;
                         }
                         it = listView1.Items.Add(str);
                         it.SubItems.Add(version);
@@ -80,10 +82,10 @@ namespace Gurux.Common
                     {
                         string version = Convert.ToString(subKey.GetValue("Version"));
                         string servicePack = Convert.ToString(subKey.GetValue("SP"));
-                        string str = ".NET Framework 4.0";
+                        string str = Resources.NETFramework40;
                         if (!string.IsNullOrEmpty(servicePack))
                         {
-                            str += " SP " + servicePack;
+                            str += Resources.SP + servicePack;
                         }
                         it = listView1.Items.Add(str);
                         it.SubItems.Add(version);
@@ -199,7 +201,7 @@ namespace Gurux.Common
         {
             // Get the control where the user clicked
             Control ctl = this.GetChildAtPoint(this.PointToClient(hevent.MousePos));
-            string str = Gurux.Common.Properties.Resources.HelpNotAvailable;
+            string str = Resources.HelpNotAvailable;
             // Show as a Help pop-up
             if (str != "")
             {

@@ -44,6 +44,7 @@ using System.Security.Principal;
 using System.Security.AccessControl;
 using System.Text;
 using System.Linq;
+using Gurux.Common.Properties;
 
 namespace Gurux.Common
 {    
@@ -78,12 +79,12 @@ namespace Gurux.Common
                     string servicePack = Convert.ToString(subKey.GetValue("SP"));
                     if (string.IsNullOrEmpty(servicePack))
                     {
-                        throw new Exception(".Net framework 3.5 SP1 must be installed before the application can be used.");
+                        throw new Exception(Resources.NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed);
                     }
                     return;
                 }
             }
-            throw new Exception(".Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.");
+            throw new Exception(Resources.NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed);
         }
 
 		/// <summary>
@@ -134,7 +135,7 @@ namespace Gurux.Common
             int cnt = includeSpace ? 3 : 2;            
             if (str.Length == 0 || str.Length % cnt != 0)
             {
-                throw new ArgumentException("Not hex string");
+                throw new ArgumentException(Resources.NotHexString);
             }
             byte[] buffer = new byte[str.Length / cnt];
             char c;
@@ -181,7 +182,11 @@ namespace Gurux.Common
 			{
 				return new byte[0];
 			}
-			if (value is string)
+            if (value is byte[])
+            {
+                return (byte[])value;
+            }
+            if (value is string)
 			{
 				return Encoding.UTF8.GetBytes((string)value);
 			}

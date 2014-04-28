@@ -45,30 +45,17 @@ namespace Gurux.Common
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="parameters"></param>
-    public delegate object AsyncTransaction(System.Windows.Forms.Control sender, object[] parameters);
+    public delegate void AsyncTransaction(object sender, GXAsyncWork work, object[] parameters);
     
     /// <summary>
     /// Status of work is changed.
     /// </summary>
     /// <param name="work">Work to execute</param>
     /// <param name="sender">Sender Form.</param>
-    /// <param name="parameters">Wrok parameters.</param>   
+    /// <param name="parameters">Work parameters.</param>   
     /// <param name="state">New state.</param>
     /// <param name="text">Shown text.</param>
-    public delegate void AsyncStateChangeEventHandler(GXAsyncWork work, System.Windows.Forms.Control sender, object[] parameters, AsyncState state, string text);
-
-    /// <summary>
-    /// Show progress form.
-    /// </summary>
-    /// <param name="form"></param>
-    /// <param name="parent"></param>
-    delegate void ShowProgressForm(Form form, Form parent);
-
-    /// <summary>
-    /// Close progress form.
-    /// </summary>
-    /// <param name="parent"></param>
-    delegate void CloseProgressForm(Form parent);
+    public delegate void AsyncStateChangeEventHandler(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text);
 
     /// <summary>
     /// This class is used to start work that requires thread.
@@ -77,12 +64,12 @@ namespace Gurux.Common
     {
         ManualResetEvent Done = new ManualResetEvent(false);
         string Text;
-        Form Sender;
+        object Sender;
         AsyncTransaction Command;
         object[] Parameters;
         Thread Thread;
         AsyncStateChangeEventHandler OnAsyncStateChangeEventHandler;
-        Form ProgressForm;
+        ErrorEventHandler OnError;
 
         /// <summary>
         /// Constructor.
@@ -90,22 +77,17 @@ namespace Gurux.Common
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="command"></param>
+        /// <param name="error"></param>
         /// <param name="text"></param>
         /// <param name="parameters"></param>
-        public GXAsyncWork(Form sender, AsyncStateChangeEventHandler e, AsyncTransaction command, string text, object[] parameters, Form progressForm)
+        public GXAsyncWork(object sender, AsyncStateChangeEventHandler e, AsyncTransaction command, ErrorEventHandler error, string text, object[] parameters)
         {
-            ProgressForm = progressForm;
-            ProgressForm.FormClosing += new FormClosingEventHandler(ProgressForm_FormClosing);
+            OnError = error;
             Text = text;
             OnAsyncStateChangeEventHandler = e;
             Sender = sender;
             Command = command;
             Parameters = parameters;
-        }
-
-        void ProgressForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Cancel();
         }
 
         /// <summary>
@@ -114,89 +96,78 @@ namespace Gurux.Common
         public object Result
         {
             get;
-            private set;
+            set;
         }
 
-        void OnError(object sender, Exception ex)
+        void ShowError(object sender, Exception ex)
         {
-            System.Windows.Forms.MessageBox.Show(Sender, ex.Message);
-        }
-
-        void OnShowProgressForm(Form form, Form parent)
-        {
-            try
-            {
-                //form.ShowDialog(parent);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-
-        void OnCloseProgressForm(Form form)
-        {
-            try
-            {
-                form.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+            System.Windows.Forms.MessageBox.Show(Sender as System.Windows.Forms.Control, ex.Message);
+        }               
 
         void Run()
         {
+            System.Windows.Forms.Control tmp = Sender as System.Windows.Forms.Control;
             try
-            {   
-                /*
-                if (Sender.InvokeRequired)
+            {
+                Command(Sender, this, Parameters);               
+                if (tmp != null && tmp.InvokeRequired)
                 {
-                    Sender.Invoke(new ShowProgressForm(OnShowProgressForm), ProgressForm, Sender);
-                }
-                else
-                {
-                    OnShowProgressForm(ProgressForm, Sender);
-                } 
-                 * */
-                Result = Command(Sender, Parameters);                
-                if (Sender.InvokeRequired)
-                {
-                    Sender.BeginInvoke(OnAsyncStateChangeEventHandler, this, Sender, Parameters, AsyncState.Finish, null);
+                    tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
                 }
                 else
                 {                    
-                    OnAsyncStateChangeEventHandler(this, Sender, Parameters, AsyncState.Finish, null);
+                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
                 }
             }
             catch (Exception ex)
             {
-                if (Sender.InvokeRequired)
+                if (OnError == null)
                 {
-                    Sender.Invoke(new ErrorEventHandler(OnError), Sender, ex);
+                    if (tmp != null && tmp.InvokeRequired)
+                    {
+                        tmp.Invoke(new ErrorEventHandler(ShowError), Sender, ex);
+                    }
+                    else
+                    {
+                        ShowError(Sender, ex);
+                    }
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show(Sender, ex.Message);
+                    if (tmp != null && tmp.InvokeRequired)
+                    {
+                        tmp.Invoke(new ErrorEventHandler(OnError), Sender, ex);
+                    }
+                    else
+                    {
+                        OnError(Sender, ex);
+                    }
                 }
             }
             finally
             {
-                ProgressForm.FormClosing -= new FormClosingEventHandler(ProgressForm_FormClosing);
-                /*
-                if (Sender.InvokeRequired)
-                {
-                    Sender.BeginInvoke(new CloseProgressForm(OnCloseProgressForm), ProgressForm);
-                }
-                else
-                {
-                    OnCloseProgressForm(ProgressForm);
-                } 
-                 * */
                 Done.Set();
             }
+        }
+
+        /// <summary>
+        /// Is Async work active.
+        /// </summary>
+        public bool IsRunning
+        {
+            get
+            {
+                return Thread != null && Thread.IsAlive;
+            }
+        }
+
+        /// <summary>
+        /// Is work canceled.
+        /// </summary>
+        public bool IsCanceled
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -204,17 +175,16 @@ namespace Gurux.Common
         /// </summary>
         public void Start()
         {
-            Done.Reset();
-            int w = ProgressForm.Width;
-            int h = ProgressForm.Height;
-            ProgressForm.Location = Sender.Location;
-    //        ProgressForm.Width = w;
-      //      ProgressForm.Height = h;
-            ProgressForm.Show(Sender);
-            OnAsyncStateChangeEventHandler(this, Sender, Parameters, AsyncState.Start, Text);
-            Thread = new Thread(new ThreadStart(Run));
-            Thread.IsBackground = true;
-            Thread.Start();
+            lock (this)
+            {
+                Result = null;
+                IsCanceled = false;
+                Done.Reset();
+                OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Start, Text);
+                Thread = new Thread(new ThreadStart(Run));
+                Thread.IsBackground = true;
+                Thread.Start();
+            }
         }
 
         /// <summary>
@@ -223,8 +193,12 @@ namespace Gurux.Common
         public void Cancel()
         {
             try
-            {                                
-                OnAsyncStateChangeEventHandler(this, Sender, Parameters, AsyncState.Cancel, null);
+            {
+                if (IsRunning)
+                {
+                    IsCanceled = true;
+                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Cancel, null);
+                }
             }
             catch (Exception ex)
             {
@@ -243,12 +217,10 @@ namespace Gurux.Common
             {
                 if (wt > 0 && (DateTime.Now - start).TotalMilliseconds > wt)
                 {
-                    ProgressForm.Close();
                     return false;
                 }
                 System.Windows.Forms.Application.DoEvents();
             }
-            ProgressForm.Close();
             return true;
         }
     }

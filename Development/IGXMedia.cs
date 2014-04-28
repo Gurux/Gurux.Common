@@ -289,6 +289,6 @@ namespace Gurux.Common
         {
             get;
             set;
-        }
+        }        
     }
 }

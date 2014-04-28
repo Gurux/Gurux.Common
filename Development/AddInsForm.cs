@@ -38,6 +38,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Xml;
 using System.Runtime.Serialization;
+using Gurux.Common.Properties;
 
 namespace Gurux.Common
 {
@@ -67,20 +68,30 @@ namespace Gurux.Common
         public AddInsForm(GXAddInList addIns, bool showAddins, bool onlyNew)
         {
             InitializeComponent();
+            //Update resources.
+            this.CancelBtn.Text = Resources.CancelTxt;
+            this.NameCH.Text = Resources.NameTxt;
+            this.StateCH.Text = Resources.State;
+            this.InstalledCH.Text = Resources.Installed;
+            this.AvailableCH.Text = Resources.Available;
+            this.DownloadMnu.Text = Resources.Download;
+            this.EnableMnu.Text = Resources.Enable;
+            this.Text = Resources.AvailableAddIns;
+
             ShowAddins = showAddins;
             AddIns = addIns;
             OnlyNewItems = onlyNew;
             if (onlyNew)
             {
-                this.Text = Gurux.Common.Properties.Resources.AvailableUpdatesTxt;
+                this.Text = Resources.AvailableUpdatesTxt;
             }
             else
             {
-                this.Text = Gurux.Common.Properties.Resources.ProtocolsTxt;
+                this.Text = Resources.ProtocolsTxt;
             }
             if (addIns.Count == 0)
             {
-                listView1.Items.Add("Finding protocols.");
+                listView1.Items.Add(Resources.FindingProtocols);
                 OKBtn.Enabled = listView1.Enabled = false;
             }                                   
             foreach (GXAddIn it in addIns)
@@ -228,23 +239,23 @@ namespace Gurux.Common
         {
             if (state == AddInStates.Available)
             {
-                it.SubItems[1].Text = "Available";
+                it.SubItems[1].Text = Resources.Available;
             }
             else if (state == AddInStates.Download)
             {
-                it.SubItems[1].Text = "Download";
+                it.SubItems[1].Text = Resources.Download;
             }
             else if (state == AddInStates.Installed)
             {
-                it.SubItems[1].Text = "In use";
+                it.SubItems[1].Text = Resources.InUse;
             }
             else if ((state & AddInStates.Disabled) != 0)
             {
-                it.SubItems[1].Text = "Disabled";
+                it.SubItems[1].Text = Resources.Disabled;
             }
             else if (state == AddInStates.Update)
             {
-                it.SubItems[1].Text = "Update available";
+                it.SubItems[1].Text = Resources.UpdateAvailable;
             }
         }
 
@@ -333,6 +344,7 @@ namespace Gurux.Common
             this.NameCH.Width = 161;
             // 
             // StateCH
+            //             
             // 
             this.StateCH.Text = "State";
             // 
@@ -360,11 +372,11 @@ namespace Gurux.Common
             // 
             // InstalledCH
             // 
-            this.InstalledCH.Text = "Installed:";
+            this.InstalledCH.Text = "Installed";
             // 
             // AvailableCH
             // 
-            this.AvailableCH.Text = "Available:";
+            this.AvailableCH.Text = "Available";
             // 
             // AddInsForm
             // 
@@ -380,7 +392,7 @@ namespace Gurux.Common
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Available AddIns";
+            this.Text = "AvailableAddIns";
             this.ResizeEnd += new System.EventHandler(this.AddInsForm_ResizeEnd);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -450,11 +462,11 @@ namespace Gurux.Common
                     contextMenuStrip1.Enabled = true;
                     if ((addIn.State & AddInStates.Disabled) != 0)
                     {
-                        EnableMnu.Text = "Enable";                        
+                        EnableMnu.Text = Resources.Enable;                        
                     }
                     else
                     {
-                        EnableMnu.Text = "Disable";
+                        EnableMnu.Text = Resources.Disable;
                     }
                     DownloadMnu.Visible = addIn.State == AddInStates.Update || addIn.State == AddInStates.Available || addIn.State == AddInStates.Disabled;
                 }
@@ -502,7 +514,7 @@ namespace Gurux.Common
                 DialogResult res = DialogResult.Yes;
                 if (updatesAvailable)
                 {
-                    res = MessageBox.Show(this, Gurux.Common.Properties.Resources.NewProtocolsDownloadTxt, Gurux.Common.Properties.Resources.NewProtocolsAvailableTxt, MessageBoxButtons.YesNoCancel);
+                    res = MessageBox.Show(this, Resources.LibraryListHelp, Resources.NewProtocolsAvailableTxt, MessageBoxButtons.YesNoCancel);
                     if (res != DialogResult.Yes)
                     {
                         this.DialogResult = DialogResult.OK;
