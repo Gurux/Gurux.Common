@@ -71,6 +71,15 @@ namespace Gurux.Common
         }
 
         /// <summary>
+        /// Data receiver.
+        /// </summary>
+        public string Receiver
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Convert data to string.
         /// </summary>
         /// <param name="ascii">Is content get as ascii or hex string.</param>
@@ -104,23 +113,25 @@ namespace Gurux.Common
         /// <summary>
         /// Constructor
         /// </summary>
-        public TraceEventArgs(TraceTypes type, object data)
+        public TraceEventArgs(TraceTypes type, object data, string receiver)
         {
             Timestamp = DateTime.Now;
             Type = type;
             Data = data;
+            Receiver = receiver;
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public TraceEventArgs(TraceTypes type, byte[] data, int index, int length)
+        public TraceEventArgs(TraceTypes type, byte[] data, int index, int length, string receiver)
         {
             Timestamp = DateTime.Now;
             Type = type;
             byte[] tmp = new byte[length];
             Array.Copy(data, index, tmp, 0, length);
             Data = tmp;
+            Receiver = receiver;
         }
     }
 

@@ -90,7 +90,7 @@ namespace Gurux.Common
             this.ApplicationLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplicationLbl.Location = new System.Drawing.Point(12, 9);
             this.ApplicationLbl.Name = "ApplicationLbl";
-            this.ApplicationLbl.Size = new System.Drawing.Size(118, 25);
+            this.ApplicationLbl.Size = new System.Drawing.Size(77, 17);
             this.ApplicationLbl.TabIndex = 27;
             this.ApplicationLbl.Text = "Application";
             // 
@@ -120,7 +120,7 @@ namespace Gurux.Common
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(139, 68);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 17);
+            this.label1.Size = new System.Drawing.Size(56, 17);
             this.label1.TabIndex = 32;
             this.label1.Text = "Version";
             // 
@@ -140,11 +140,11 @@ namespace Gurux.Common
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBox1";
             this.Padding = new System.Windows.Forms.Padding(9);
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AboutBox1";

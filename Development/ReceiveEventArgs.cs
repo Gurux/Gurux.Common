@@ -59,7 +59,7 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Pointer to the (safe array) byte buffer containing the data, 
+        /// Pointer to the byte buffer containing the data, 
         /// which is received from the device.
         /// </summary>
         public object Data

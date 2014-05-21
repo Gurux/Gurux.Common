@@ -43,8 +43,9 @@ namespace Gurux.Common
     /// <summary>
     /// Method to execute.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="parameters"></param>
+    /// <param name="sender">Work creator.</param>
+    /// <param name="work">Work to execute.</param>
+    /// <param name="parameters">Additional parameters.</param>
     public delegate void AsyncTransaction(object sender, GXAsyncWork work, object[] parameters);
     
     /// <summary>
@@ -143,6 +144,14 @@ namespace Gurux.Common
                         OnError(Sender, ex);
                     }
                 }
+                if (tmp != null && tmp.InvokeRequired)
+                {
+                    tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
+                }
+                else
+                {
+                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
+                }
             }
             finally
             {
@@ -167,7 +176,7 @@ namespace Gurux.Common
         public bool IsCanceled
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>

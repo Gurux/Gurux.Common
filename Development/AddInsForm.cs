@@ -514,7 +514,7 @@ namespace Gurux.Common
                 DialogResult res = DialogResult.Yes;
                 if (updatesAvailable)
                 {
-                    res = MessageBox.Show(this, Resources.LibraryListHelp, Resources.NewProtocolsAvailableTxt, MessageBoxButtons.YesNoCancel);
+                    res = MessageBox.Show(this, Resources.NewProtocolsDownloadTxt, Resources.NewProtocolsAvailableTxt, MessageBoxButtons.YesNoCancel);
                     if (res != DialogResult.Yes)
                     {
                         this.DialogResult = DialogResult.OK;

@@ -372,7 +372,7 @@ namespace Gurux.Common
 		/// <summary>
 		/// Compares two byte or byte array values.
 		/// </summary>
-		public static bool EqualBytes(object a, object b)
+        public static bool EqualBytes(byte[] a, byte[] b)
 		{
 			if (a == null)
 			{
@@ -502,14 +502,24 @@ namespace Gurux.Common
 					path = Path.Combine (path, "Gurux");
 				}
                 path = Path.Combine(path, "LastError.txt");
-                System.IO.TextWriter tw = System.IO.File.CreateText(path);
-				tw.Write(ex.ToString());
-                if (ex.StackTrace != null)
+                try
                 {
-                    tw.Write("----------------------------------------------------------\r\n");
-                    tw.Write(ex.StackTrace.ToString());
+                    using (System.IO.TextWriter tw = System.IO.File.CreateText(path))
+                    {
+                        tw.Write(ex.ToString());
+                        if (ex.StackTrace != null)
+                        {
+                            tw.Write("----------------------------------------------------------\r\n");
+                            tw.Write(ex.StackTrace.ToString());
+                        }
+                        tw.Close();
+                    }
+                    GXFileSystemSecurity.UpdateFileSecurity(path);
                 }
-				tw.Close();
+                catch (Exception)
+                {
+                    //Skip error.
+                }
 				if (parent != null && !((Control)parent).IsDisposed && !((Control)parent).InvokeRequired)
 				{
 					MessageBox.Show(parent, ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);

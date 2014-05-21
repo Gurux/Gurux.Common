@@ -289,6 +289,82 @@ namespace Gurux.Common
         {
             get;
             set;
-        }        
+        }
+
+        /// <summary>
+        /// Gets or sets an object that contains data to associate with the item.
+        /// </summary>
+        object Tag
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Parent media container if Gateway is used.
+        /// </summary>
+        IGXMediaContainer MediaContainer
+        {
+            get;
+            set;
+        }
+    }
+
+    /// <summary>
+    /// Media container is used to create Gateway Media.
+    /// </summary>
+    public interface IGXMediaContainer
+    {
+        /// <summary>
+        /// Child media.
+        /// </summary>
+        IGXMedia Media
+        {
+            get;
+            set;
+        }
+    }
+
+    /// <summary>
+    /// Get value of virtual property.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <returns></returns>
+    public delegate string GetPropertyValueEventHandler(string propertyName);
+    
+    /// <summary>
+    /// Virtual media is used to create virtual media.
+    /// </summary>
+    public interface IGXVirtualMedia
+    {
+        /// <summary>
+        /// Is media virtual.
+        /// </summary>
+        /// <remarks>
+        /// If media is virtual actual data is not send only notifications.
+        /// </remarks>
+        bool Virtual
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Occurs when a property value is asked.
+        /// </summary>
+        event GetPropertyValueEventHandler OnGetPropertyValue;
+
+        /// <summary>
+        /// Notifies that new data is received.
+        /// </summary>
+        event ReceivedEventHandler OnDataSend;
+
+        /// <summary>
+        /// Called when new data is received to the virtual media.
+        /// </summary>
+        /// <param name="data">Received data.</param>
+        /// <param name="sender">Data sender.</param>
+        void DataReceived(byte[] data, string sender);
+        
     }
 }

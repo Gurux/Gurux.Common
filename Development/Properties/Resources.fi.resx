@@ -130,7 +130,7 @@
     <value>Olemassa olevat päivitykset</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Sulkee valintaikkunan tallentamatta muutoksia..</value>
+    <value>Sulkee valintaikkunan tallentamatta muutoksia.</value>
   </data>
   <data name="CancelTxt" xml:space="preserve">
     <value>Peruuta</value>
@@ -193,13 +193,13 @@
     <value>. NET Framework 4.0</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>Uusia päivityksiä saatavilla . Haluatko ladata niitä ?</value>
+    <value>Uusia päivityksiä saatavilla. Haluatko ladata niitä?</value>
   </data>
   <data name="NewUpdatesAvailableTxt" xml:space="preserve">
     <value>Uusia päivityksiä saatavilla</value>
   </data>
   <data name="NoHelpTopicIsAssociatedWithThisItem" xml:space="preserve">
-    <value>Ei apua aihe liittyy tämän kohteen .</value>
+    <value>Ei apua aihe liittyy tämän kohteen.</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
     <value>Ei hex string</value>
