@@ -132,8 +132,7 @@ namespace Gurux.Common
         {
             GXAddInList list = GXUpdateChecker.GetUpdatesOnline(false);
             if (list.Count != 0)
-            {
-                //GXProtocolUpdater.
+            {                
                 AddInsForm form = target as AddInsForm;
                 if (form.IsHandleCreated)
                 {

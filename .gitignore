@@ -28,6 +28,7 @@ local.properties
 # PDT-specific
 .buildpath
 
+Gurux.Common_Test/
 
 #################
 ## Visual Studio

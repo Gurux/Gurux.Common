@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace Gurux.Common
 {   
@@ -307,6 +308,15 @@ namespace Gurux.Common
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets an object that can be used to synchronize the media.
+        /// </summary>        
+        [Browsable(false), ReadOnly(true)]
+        object SyncRoot
+        {
+            get;
         }
     }
 

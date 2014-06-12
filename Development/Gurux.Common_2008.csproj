@@ -75,6 +75,7 @@
     <Compile Include="GXAsyncWork.cs" />
     <Compile Include="GXCommon.cs" />
     <Compile Include="GXFileSystemSecurity.cs" />
+    <Compile Include="GXJsonParser.cs" />
     <Compile Include="GXUpdateChecker.cs" />
     <Compile Include="IGXMedia.cs" />
     <Compile Include="IGXPropertyPage.cs" />

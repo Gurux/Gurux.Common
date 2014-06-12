@@ -336,7 +336,7 @@ namespace Gurux.Common
         /// Show updates.
         /// </summary>
         /// <param name="owner"></param>
-        /// <param name="showAddins"></param>
+        /// <param name="showAddins">Are addIns show or only application updates.</param>
         /// <param name="onlyNew"></param>
         /// <param name="DisabledItems">collection of disabled addins.</param>
         /// <returns></returns>
