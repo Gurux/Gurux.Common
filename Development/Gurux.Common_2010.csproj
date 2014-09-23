@@ -103,10 +103,16 @@
     <Compile Include="GXAsyncWork.cs" />
     <Compile Include="GXCommon.cs" />
     <Compile Include="GXFileSystemSecurity.cs" />
-    <Compile Include="GXJsonParser.cs" />
+    <Compile Include="IGXReturn.cs" />
+    <Compile Include="JSon\GXCreateObjectEventArgs.cs" />
+    <Compile Include="JSon\GXErrorWrapper.cs" />
+    <Compile Include="JSon\GXJsonClient.cs" />
+    <Compile Include="JSon\GXJsonParser.cs" />
     <Compile Include="GXUpdateChecker.cs" />
     <Compile Include="IGXMedia.cs" />
     <Compile Include="IGXPropertyPage.cs" />
+    <Compile Include="JSon\GXResponseError.cs" />
+    <Compile Include="Internal\Internal.cs" />
     <Compile Include="LibraryVersionsDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,7 @@
   <ItemGroup>
     <Content Include="Gurux.Common.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

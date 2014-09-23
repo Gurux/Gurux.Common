@@ -54,6 +54,34 @@ namespace Gurux.Common
 	public class GXCommon
 	{
         /// <summary>
+        /// Is string guid.
+        /// </summary>
+        /// <param name="possibleGuid"></param>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static bool IsGuid(string possibleGuid, out Guid guid)
+        {
+            try
+            {
+                if (possibleGuid.Length == 32 && possibleGuid[8] == '-')
+                {
+                    guid = new Guid(possibleGuid);
+                    return true;
+                }
+                else
+                {
+                    guid = Guid.Empty;
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                guid = Guid.Empty;
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Check that correct framework is installed.
         /// </summary>
         static public void CheckFramework()
@@ -94,7 +122,7 @@ namespace Gurux.Common
 		/// <summary>
 		/// Parent window of messagebox
 		/// </summary>
-		public static IWin32Window Owner = null;
+		public static Control Owner = null;
 
         /// <summary>
         /// Convert byte array to hex string.
@@ -132,8 +160,12 @@ namespace Gurux.Common
             {
                 str += " ";
             }
+            if (str.Length == 0)
+            {
+                return new byte[0];
+            }
             int cnt = includeSpace ? 3 : 2;            
-            if (str.Length == 0 || str.Length % cnt != 0)
+            if (str.Length % cnt != 0)
             {
                 throw new ArgumentException(Resources.NotHexString);
             }
@@ -570,7 +602,7 @@ namespace Gurux.Common
 		/// <summary>
 		/// Shows an error question dialog.
 		/// </summary>
-		public static DialogResult ShowQuestion(IWin32Window parent, string str)
+        public static DialogResult ShowQuestion(IWin32Window parent, string str)
 		{
 			return ShowQuestion(parent, Title, str);
 		}
@@ -578,23 +610,31 @@ namespace Gurux.Common
 		/// <summary>
 		/// Shows an error exclamation dialog.
 		/// </summary>
-		public static DialogResult ShowExclamation(IWin32Window parent, string str)
+        public static DialogResult ShowExclamation(IWin32Window parent, string str)
 		{
 			return ShowExclamation(parent, Title, str);
 		}
-
-
+        
 		/// <summary>
 		/// Shows an error question dialog.
 		/// </summary>
-		public static DialogResult ShowQuestion(IWin32Window parent, string title, string str)
+        public static DialogResult ShowQuestion(IWin32Window parent, string title, string str)
 		{
 			try
 			{
 				if (Environment.UserInteractive)
 				{
-					if (parent != null)
+                    Control tmp = parent as Control;
+                    if (tmp != null)
 					{
+                        if (tmp.InvokeRequired)
+                        {
+                            if (tmp.IsHandleCreated)
+                            {
+                                return (DialogResult)tmp.Invoke(new ShowDialogEventHandler(ShowQuestion), new object[] { parent, title, str });
+                            }
+                            return MessageBox.Show(str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                        }
 						return MessageBox.Show(parent, str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 					}
 					else
@@ -614,21 +654,36 @@ namespace Gurux.Common
 			}
 		}
 
+        delegate DialogResult ShowDialogEventHandler(IWin32Window parent, string title, string str);        
+
 		/// <summary>
 		/// Shows an error exclamation dialog.
 		/// </summary>
-		public static DialogResult ShowExclamation(IWin32Window parent, string title, string str)
+        public static DialogResult ShowExclamation(IWin32Window parent, string title, string str)
 		{
 			try
 			{
-				if (parent != null)
-				{
-					return MessageBox.Show(parent, str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-				}
-				else
-				{
-					return MessageBox.Show(str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-				}
+                if (Environment.UserInteractive)
+                {
+                    Control tmp = parent as Control;
+                    if (tmp != null)
+                    {
+                        if (tmp.InvokeRequired)
+                        {
+                            if (tmp.IsHandleCreated)
+                            {
+                                return (DialogResult)tmp.Invoke(new ShowDialogEventHandler(ShowExclamation), new object[] { parent, title, str });
+                            }
+                            return MessageBox.Show(str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                        }
+                        return MessageBox.Show(parent, str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        return MessageBox.Show(str, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                    }
+                }
+                return DialogResult.OK;
 			}
 			catch
 			{
