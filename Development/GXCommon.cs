@@ -45,6 +45,8 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Linq;
 using Gurux.Common.Properties;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace Gurux.Common
 {    
@@ -63,7 +65,7 @@ namespace Gurux.Common
         {
             try
             {
-                if (possibleGuid.Length == 32 && possibleGuid[8] == '-')
+                if (possibleGuid.Length == 36 && possibleGuid[8] == '-')
                 {
                     guid = new Guid(possibleGuid);
                     return true;
@@ -116,11 +118,11 @@ namespace Gurux.Common
         }
 
 		/// <summary>
-		/// Title of messagebox
+		/// Title of message box
 		/// </summary>
 		public static string Title = "";
 		/// <summary>
-		/// Parent window of messagebox
+		/// Parent window of message box
 		/// </summary>
 		public static Control Owner = null;
 
@@ -274,7 +276,7 @@ namespace Gurux.Common
 			{
 				count = byteArray.Length - index;
 			}
-			//If count is higger than one and type is not array.
+			//If count is higher than one and type is not array.
 			if (count != 1 && !type.IsArray && type != typeof(string))
 			{
 				throw new ArgumentException("count");
@@ -374,7 +376,7 @@ namespace Gurux.Common
 		/// <returns></returns>
 		public static int IndexOf(byte[] input, byte[] pattern, int index, int count)
 		{
-			//If not enought data available.
+			//If not enough data available.
             if ((count - index) < pattern.Length)
 			{
 				return -1;
@@ -467,7 +469,7 @@ namespace Gurux.Common
 		}
 
         /// <summary>
-        /// If we are runnign program from debugger, all protocol Add-Ins are loaded from child "Protocols"- directory. 
+        /// If we are running program from debugger, all protocol Add-Ins are loaded from child "Protocols"- directory. 
         /// </summary>
 		public static string ProtocolAddInsPath
 		{
@@ -563,7 +565,7 @@ namespace Gurux.Common
 			}
 			catch
 			{
-				//Do nothing. Fatal exception blew up messagebox.
+				//Do nothing. Fatal exception blew up message box.
 			}
 		}
 
@@ -649,7 +651,7 @@ namespace Gurux.Common
 			}
 			catch
 			{
-				//Do nothing. Fatal exception blew up messagebox.
+				//Do nothing. Fatal exception blew up message box.
 				return DialogResult.Abort;
 			}
 		}
@@ -687,10 +689,78 @@ namespace Gurux.Common
 			}
 			catch
 			{
-				//Do nothing. Fatal exception blew up messagebox.
+				//Do nothing. Fatal exception blew up message box.
 				return DialogResult.Abort;
 			}
 		}
+
+        /// <summary>
+        /// Check an assembly to see if it has the given public key token
+        /// </summary>
+        /// <remarks>
+        /// Does not check to make sure the assembly's signature is valid.
+        /// Loads the assembly in the LoadFrom context.
+        /// </remarks>
+        /// <param name='assembly'>Path to the assembly to check</param>
+        /// <param name='expectedToken'>Token to search for</param>
+        /// <exception cref='System.ArgumentNullException'>If assembly or expectedToken are null</exception>
+        /// <returns>true if the assembly was signed with a key that has this token, false otherwise</returns>
+        private static bool CheckToken(Assembly asm, byte[] expectedToken)
+        {
+            try
+            {
+                // Get the public key token of the given assembly 
+                byte[] asmToken = asm.GetName().GetPublicKeyToken();
+
+                // Compare it to the given token
+                if (asmToken.Length != expectedToken.Length)
+                    return false;
+
+                for (int i = 0; i < asmToken.Length; i++)
+                    if (asmToken[i] != expectedToken[i])
+                        return false;
+
+                return true;
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                // couldn't find the assembly
+                return false;
+            }
+            catch (BadImageFormatException)
+            {
+                // the given file couldn't get through the loader
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Is assembly default .Net assembly.
+        /// </summary>
+        /// <param name="asm"></param>
+        /// <returns></returns>
+        public static bool IsDefaultAssembly(Assembly asm)
+        {
+            // Check to see if it is a Microsoft assembly
+            byte[] msClrToken = new byte[]    { 0xb7, 0x7a, 0x5c, 0x56, 0x19, 0x34, 0xe0, 0x89 };
+            byte[] msFxToken = new byte[]    { 0xb0, 0x3f, 0x5f, 0x7f, 0x11, 0xd5, 0x0a, 0x3a };
+            bool isMsAsm = CheckToken(asm, msClrToken) || CheckToken(asm, msFxToken);
+            if (isMsAsm)
+            {
+                return true;
+            }
+
+            //If Gurux common assembly
+            if (CheckToken(asm, typeof(GXCommon).Assembly.GetName().GetPublicKeyToken()))
+            {
+                return true;
+            }
+            if (asm.GetTypes().Length == 0)
+            {
+                return true;
+            }
+            return false;
+        }
 
 		/// <summary>
 		/// Removes case sensitivity of given string.

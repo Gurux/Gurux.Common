@@ -37,7 +37,14 @@ using System.Runtime.CompilerServices;
 using System.ComponentModel;
 
 namespace Gurux.Common
-{   
+{
+    /// <summary>
+    /// Async work is done.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="result">Result of async work.</param>
+    public delegate void DoneEventHandler(object sender, object result);
+
     /// <summary>
     /// Represents the method that will handle the error event of a Gurux component.
     /// </summary>

@@ -786,6 +786,10 @@ namespace Gurux.Common.Internal
                     return null;
                 }
             }
+            else if (value is Type)
+            {
+                return value;                
+            }
             else if (value is System.Collections.IEnumerable)
             {
                 //If collection is empty.

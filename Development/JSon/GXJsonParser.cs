@@ -45,7 +45,7 @@ using System.Runtime.Serialization;
 namespace Gurux.Common.JSon
 {  
     /// <summary>
-    /// This class is used to handle JSON serialization and deserialization.
+    /// This class is used to handle JSON serialization.
     /// </summary>
     public class GXJsonParser
     {
@@ -55,7 +55,7 @@ namespace Gurux.Common.JSon
         static Hashtable CachedObjects = new Hashtable();
 
         /// <summary>
-        /// Serialized and deserialization objects are saved to cache to make serialization faster.
+        /// Serialized objects are saved to cache to make serialization faster.
         /// </summary>
         private readonly Dictionary<Type, SortedDictionary<string, GXSerializedItem>> SerializedObjects = new Dictionary<Type, SortedDictionary<string, GXSerializedItem>>();
 
@@ -194,7 +194,7 @@ namespace Gurux.Common.JSon
         /// <param name="pd"></param>
         /// <param name="value"></param>
         /// <param name="type"></param>
-        static void SetValue(object target, GXSerializedItem item, string value, Type type)
+        void SetValue(object target, GXSerializedItem item, string value, Type type)
         {
             object val;
             if (type == typeof(byte[]))
@@ -230,21 +230,33 @@ namespace Gurux.Common.JSon
             {
                 val = Enum.Parse(type, value);
             }
+            else if (type == typeof(Type))
+            {
+                val = Type.GetType(value);
+            }
             else if (type == typeof(object))
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    int pos = value.IndexOf(':');
+                    int pos = value.IndexOf(";");
                     if (pos != -1)
                     {
                         string tmp = value.Substring(0, pos);
                         Type tp = Type.GetType(tmp);
-                        tmp = value.Substring(pos + 1);
-                        val = Convert.ChangeType(tmp, tp);
+                        if (tp.IsClass && tp != typeof(string) && tp != typeof(Guid) && tp != typeof(DateTime))
+                        {
+                            tmp = value.Substring(pos + 1);
+                            val = Deserialize(tmp, tp);
+                        }
+                        else
+                        {
+                            tmp = value.Substring(pos + 1);
+                            val = Convert.ChangeType(tmp, tp);
+                        }
                     }
                     else
                     {
-                        val = null;
+                        val = value;
                     }
                 }
                 else
@@ -303,7 +315,7 @@ namespace Gurux.Common.JSon
         public object Deserialize(System.IO.Stream stream, Type type)
         {
             TextReader reader = new StreamReader(stream);
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();           
             Dictionary<string, object> list = ParseObjects(reader, sb, false);
             return Deserialize(list, type);
         }
@@ -340,21 +352,27 @@ namespace Gurux.Common.JSon
             GXJsonParser parser = new GXJsonParser();            
             using (TextWriter writer = File.CreateText(path))
             {
-                parser.Serialize(target, writer, false, false, true);
+                parser.Serialize(target, writer, false, false, true, false);
             }
             GXFileSystemSecurity.UpdateFileSecurity(path);
         }
 
         public void Serialize(object target, System.IO.Stream stream)
         {
-            TextWriter writer = new StreamWriter(stream);            
-            Serialize(target, writer, false, false, Indent);
+            TextWriter writer = new StreamWriter(stream);
+            Serialize(target, writer, false, false, Indent, false);
+        }
+
+        public void Serialize(object target, System.IO.Stream stream, bool http, bool get)
+        {
+            TextWriter writer = new StreamWriter(stream);
+            Serialize(target, writer, http, get, Indent, false);
         }
        
         /// <summary>
         /// Load JSON object.
         /// </summary>
-        /// <typeparam name="T">Onject type to load.</typeparam>
+        /// <typeparam name="T">Object type to load.</typeparam>
         /// <param name="path">File path.</param>
         /// <returns>Loaded object.</returns>
         public static T Load<T>(string path)
@@ -392,7 +410,7 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Try load JSON object.
         /// </summary>
-        /// <typeparam name="T">Onject type to load.</typeparam>
+        /// <typeparam name="T">Object type to load.</typeparam>
         /// <param name="path">File path.</param>
         /// <returns>Loaded object.</returns>
         public static bool TryLoad<T>(string path, out T result)
@@ -462,19 +480,19 @@ namespace Gurux.Common.JSon
         public string Serialize(object target)
         {
             TextWriter writer = new StringWriter();
-            Serialize(target, writer, false, false, Indent);
+            Serialize(target, writer, false, false, Indent, false);
             return writer.ToString();            
         }
 
         /// <summary>
-        /// Serialize object to http stream.
+        /// Serialize object to HTTP stream.
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
         public string SerializeToHttp(object target)
         {
             TextWriter writer = new StringWriter();
-            Serialize(target, writer, true, false, Indent);
+            Serialize(target, writer, true, false, Indent, false);
             return writer.ToString();
         }
 
@@ -506,18 +524,21 @@ namespace Gurux.Common.JSon
         /// <param name="get"></param>
         /// <param name="indent">Is indent used.</param>
         /// <returns></returns>
-        internal void Serialize(object target, TextWriter writer, bool http, bool get, bool indent)
+        internal void Serialize(object target, TextWriter writer, bool http, bool get, bool indent, bool isObject)
         {
             SortedDictionary<string, GXSerializedItem> list;
             Type type = target.GetType();
-            if (SerializedObjects.ContainsKey(type))
+            lock (SerializedObjects)
             {
-                list = SerializedObjects[type];
-            }
-            else
-            {
-                list = (SortedDictionary<string, GXSerializedItem>)GXInternal.GetValues(type, true, UpdateAttributes);
-                SerializedObjects.Add(type, list);
+                if (SerializedObjects.ContainsKey(type))
+                {
+                    list = SerializedObjects[type];
+                }
+                else
+                {
+                    list = (SortedDictionary<string, GXSerializedItem>)GXInternal.GetValues(type, true, UpdateAttributes);
+                    SerializedObjects.Add(type, list);
+                }
             }
             if (list == null)
             {
@@ -543,7 +564,7 @@ namespace Gurux.Common.JSon
                             writer.Write(Environment.NewLine);
                         }
                     }
-                    Serialize(coll.Current, writer, http, get, false);
+                    Serialize(coll.Current, writer, http, get, false, isObject);
                 }
                 writer.Write("]");                
             }
@@ -594,17 +615,29 @@ namespace Gurux.Common.JSon
                         }
                         if (!get)
                         {
-                            writer.Write("\"");
+                            if (isObject)
+                            {
+                                writer.Write('\\');
+                            }
+                            writer.Write("\"");                            
                         }
                         writer.Write(it.Key);
                         if (!http)
                         {
+                            if (isObject)
+                            {
+                                writer.Write('\\');
+                            }
                             writer.Write("\":");
                         }
                         else
                         {
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                             writer.Write("=");
@@ -615,6 +648,10 @@ namespace Gurux.Common.JSon
                             string str = (value as string);
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");                                
                                 if (str.Contains("\\"))
                                 {
@@ -628,26 +665,48 @@ namespace Gurux.Common.JSon
                             writer.Write(str);
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                         }   
                         else if (value is byte[])
                         {
-                            writer.Write("\"" + Convert.ToBase64String((byte[])value) + "\"");
+                            if (isObject)
+                            {
+                                writer.Write('\\');
+                            }
+                            writer.Write("\"");
+                            writer.Write(Convert.ToBase64String((byte[])value));
+                            if (isObject)
+                            {
+                                writer.Write('\\');
+                            } 
+                            writer.Write("\"");
                         }                        
                         else if (value is DateTime)
                         {
-                            writer.Write(GXInternal.ToString((DateTime)value, get));
+                            writer.Write(GXInternal.ToString((DateTime)value, isObject ? true : get));
                         }
                         else if (value is Guid)
                         {
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                             writer.Write(value.ToString().Replace("-", ""));
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                         }
@@ -670,7 +729,7 @@ namespace Gurux.Common.JSon
                                         writer.Write(Environment.NewLine);
                                     }
                                 }
-                                Serialize(coll.Current, writer, http, get, false);
+                                Serialize(coll.Current, writer, http, get, false, isObject);
                             }
                             writer.Write("]");
                         }                                             
@@ -686,11 +745,19 @@ namespace Gurux.Common.JSon
                         {
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                             writer.Write(System.Xml.XmlConvert.ToString((TimeSpan)value));
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                         }
@@ -698,11 +765,39 @@ namespace Gurux.Common.JSon
                         {
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                             writer.Write(value.ToString());
                             if (!get)
                             {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
+                                writer.Write("\"");
+                            }
+                        }
+                        else if (value is Type)
+                        {
+                            if (!get)
+                            {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
+                                writer.Write("\"");
+                            }
+                            writer.Write(value.ToString());
+                            if (!get)
+                            {
+                                if (isObject)
+                                {
+                                    writer.Write('\\');
+                                }
                                 writer.Write("\"");
                             }
                         }
@@ -711,10 +806,19 @@ namespace Gurux.Common.JSon
                             if (!get)
                             {
                                 writer.Write("\"");
+                            }                            
+                            if (!(value is string || value is Guid) && value.GetType().IsClass)
+                            {
+                                writer.Write(value.GetType().AssemblyQualifiedName);
+                                writer.Write(";");
+                                Serialize(value, writer, http, get, false, true);
                             }
-                            writer.Write(value.GetType().FullName);
-                            writer.Write(":");
-                            writer.Write(value.ToString());
+                            else
+                            {
+                                writer.Write(value.GetType().FullName);
+                                writer.Write(";");
+                                writer.Write(value.ToString());
+                            }
                             if (!get)
                             {
                                 writer.Write("\"");
@@ -722,7 +826,7 @@ namespace Gurux.Common.JSon
                         }
                         else if (value.GetType().IsClass)
                         {
-                            Serialize(value, writer, http, get, false);
+                            Serialize(value, writer, http, get, false, isObject);
                         }
                         else
                         {
@@ -750,19 +854,21 @@ namespace Gurux.Common.JSon
         
         public static object CreateInstance(Type type)
         {
-            Func<object> tmp = (Func<object>)CachedObjects[type];
-            if (tmp != null)
+            lock (CachedObjects)
             {
+                Func<object> tmp = (Func<object>)CachedObjects[type];
+                if (tmp != null)
+                {
+                    return tmp();
+                }
+
+                tmp = Expression.Lambda<Func<object>>
+                (
+                    Expression.New(type)
+                ).Compile();
+                CachedObjects.Add(type, tmp);
                 return tmp();
             }
-            
-            tmp = Expression.Lambda<Func<object>>
-            (
-                Expression.New(type)
-            ).Compile();            
-            CachedObjects.Add(type, tmp);             
-            return tmp();
-             
         }
 
         /// <summary>
@@ -772,14 +878,14 @@ namespace Gurux.Common.JSon
         /// <param name="type"></param>        
         /// <returns></returns>
         private object Deserialize(Dictionary<string, object> data, Type type, object tmp)
-        {            
+        {
             if (tmp == null && !type.IsArray)
             {
                 if (type.IsAbstract)
                 {
                     if (m_CreateObject == null)
                     {
-                        throw new Exception("Can't create abstact class: " + type.FullName);
+                        throw new Exception("Can't create abstract class: " + type.FullName);
                     }
                     GXCreateObjectEventArgs e = new GXCreateObjectEventArgs(type, data, ExtraTypes);
                     m_CreateObject(this, e);
@@ -800,19 +906,29 @@ namespace Gurux.Common.JSon
                     }
                     else
                     {
-                        tmp = CreateInstance(type);
+                        if (type.IsEnum)
+                        {
+                            tmp = Enum.ToObject(type, 0);
+                        }
+                        else
+                        {
+                            tmp = CreateInstance(type);
+                        }
                     }
                 }
             }
-            SortedDictionary<string, GXSerializedItem> list;            
-            if (SerializedObjects.ContainsKey(type))
+            SortedDictionary<string, GXSerializedItem> list;
+            lock (SerializedObjects)
             {
-                list = SerializedObjects[type];
-            }
-            else
-            {
-                list = (SortedDictionary<string, GXSerializedItem>)GXInternal.GetValues(type, true, UpdateAttributes);
-                SerializedObjects.Add(type, list);                
+                if (SerializedObjects.ContainsKey(type))
+                {
+                    list = SerializedObjects[type];
+                }
+                else
+                {
+                    list = (SortedDictionary<string, GXSerializedItem>)GXInternal.GetValues(type, true, UpdateAttributes);
+                    SerializedObjects.Add(type, list);
+                }
             }
             Dictionary<string, object>.Enumerator serializedItem = data.GetEnumerator();
             SortedDictionary<string, GXSerializedItem>.Enumerator item = list.GetEnumerator();
@@ -898,7 +1014,7 @@ namespace Gurux.Common.JSon
             if (ret)
             {
                 Type tp = item.Value.Type;
-                if (tp != typeof(object) && tp != typeof(string) && tp.IsClass && !tp.IsArray)
+                if (tp != typeof(object) && tp != typeof(string) && tp != typeof(Type) && tp.IsClass && !tp.IsArray)
                 {
                     if (serializedItem.Value is List<object>)
                     {
@@ -994,7 +1110,14 @@ namespace Gurux.Common.JSon
                             int pos = 0;
                             foreach (object it in items)
                             {
-                                list2.SetValue(Convert.ChangeType(it, itemType), pos);
+                                if (itemType == typeof(Guid) && it.GetType() == typeof(string))
+                                {
+                                    list2.SetValue(new Guid((string) it), pos);
+                                }
+                                else
+                                {
+                                    list2.SetValue(Convert.ChangeType(it, itemType), pos);
+                                }
                                 ++pos;
                             }                            
                         }
@@ -1067,7 +1190,7 @@ namespace Gurux.Common.JSon
                     }
                     else if (ch == ':' || ch == '=')
                     {
-                        key = sb.ToString();
+                        key = sb.ToString();                        
                         sb.Length = 0;
                     }
                     else if (ch == ',')

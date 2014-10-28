@@ -155,7 +155,7 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         public virtual T Get<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send("GET", request);           
+            HttpWebRequest req = Send<T>("GET", request, null);
             return GetResponse<T>(req);
         }
 
@@ -167,7 +167,7 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         public virtual T Put<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send("PUT", request);
+            HttpWebRequest req = Send<T>("PUT", request, null);
             return GetResponse<T>(req);
         }
 
@@ -179,7 +179,7 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         public virtual T Delete<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send("DELETE", request);
+            HttpWebRequest req = Send<T>("DELETE", request, null);
             return GetResponse<T>(req);
         }
 
@@ -191,8 +191,36 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         public virtual T Post<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send("POST", request);         
+            HttpWebRequest req = Send<T>("POST", request, null);
             return GetResponse<T>(req);
+        }
+
+        private void AsyncReponse<T>(IAsyncResult asyncResult)        
+        {
+            GXAsyncData<T> data = (GXAsyncData<T>)asyncResult.AsyncState;
+            WebResponse res = data.Request.EndGetResponse(asyncResult);
+            T result = GetResponse<T>(res);           
+            if (data.OnDone != null)
+            {
+                data.OnDone(this, result);
+            }
+        }
+
+        internal class GXAsyncData<T>
+        {
+
+            public HttpWebRequest Request;
+            public ErrorEventHandler OnError;
+            public DoneEventHandler OnDone;
+            public string Data;
+        }
+       
+        public void PostAsync<T>(IGXRequest<T> request, DoneEventHandler onDone, ErrorEventHandler onError)        
+        {
+            GXAsyncData<T> data = new GXAsyncData<T>();
+            data.OnError = onError;
+            data.OnDone = onDone;
+            Send<T>("POST", request, data);            
         }
 
         /// <summary>
@@ -203,6 +231,20 @@ namespace Gurux.Common.JSon
             CancelOperation = true;
         }
 
+        private void SendAsync<T>(IAsyncResult result)
+        {
+            GXAsyncData<T> data = (GXAsyncData<T>)result.AsyncState;            
+            using (Stream stream = data.Request.EndGetRequestStream(result))
+            {
+                using (var streamWriter = new StreamWriter(stream))
+                {
+                    streamWriter.Write(data.Data);
+                    streamWriter.Flush();
+                }                
+            }
+            data.Request.BeginGetResponse(AsyncReponse<T>, data);            
+        }
+
         /// <summary>
         /// Parse to JSON and send to the server.
         /// </summary>
@@ -210,14 +252,15 @@ namespace Gurux.Common.JSon
         /// <param name="method"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        private HttpWebRequest Send<T>(string method, IGXRequest<T> request)
-        {
+        private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data)
+        {            
             CancelOperation = false;
-            string cmd;
+            string cmd = null;
             bool content = method == "POST" || method == "PUT";
+            //Serialize to string because we want to know length.
             using (TextWriter writer = new StringWriter())
             {
-                Parser.Serialize(request, writer, true, !content, false);
+                Parser.Serialize(request, writer, true, !content, false, false);
                 cmd = writer.ToString();
             }
             HttpWebRequest req;
@@ -243,17 +286,36 @@ namespace Gurux.Common.JSon
             }
             if (content)
             {
-                using (var streamWriter = new StreamWriter(req.GetRequestStream()))
+                req.ContentLength = cmd.Length;
+                if (data != null)
                 {
-                    List<string> packets = GXInternal.SplitInParts(cmd, 1024);
-                    foreach (string it in packets)
+                    System.Threading.AutoResetEvent sent = new System.Threading.AutoResetEvent(false);
+                    data.Data = cmd;
+                    data.Request = req;
+                    //req.BeginGetRequestStream(SendAsync<T>, data);                    
+                    req.BeginGetRequestStream(delegate(IAsyncResult result)
                     {
-                        streamWriter.Write(it);
-                        //If user has canceled transaction.
-                        if (CancelOperation)
+                        GXAsyncData<T> tmp = (GXAsyncData<T>)result.AsyncState;                        
+                        using (Stream stream = tmp.Request.EndGetRequestStream(result))
                         {
-                            return null;
+                            using (var streamWriter = new StreamWriter(stream))
+                            {
+                                streamWriter.Write(tmp.Data);
+                                streamWriter.Flush();
+                            }
                         }
+                        sent.Set();
+                        tmp.Request.BeginGetResponse(AsyncReponse<T>, tmp); 
+
+                    }, data);
+                    sent.WaitOne();                    
+                }
+                else
+                {
+                    using (var streamWriter = new StreamWriter(req.GetRequestStream()))
+                    {
+                        streamWriter.Write(cmd);
+                        streamWriter.Flush();
                     }
                 }
             }
@@ -268,6 +330,15 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         private T GetResponse<T>(WebResponse response)
         {
+            return (T)GetResponse(response, typeof(T));
+        }
+
+        private object GetResponse(WebResponse response, Type type)
+        {
+            if (response == null)
+            {
+                throw new Exception("Timeout.");
+            }
             int length = 0;
             var d = response.Headers["Content-Length"];
             if (d != null)
@@ -302,7 +373,7 @@ namespace Gurux.Common.JSon
                     read = stream.BeginRead(buffer, 0, buffer.Length, null, null);
                 }
                 ms.Position = 0;
-                return Parser.Deserialize<T>(ms);
+                return Parser.Deserialize(ms, type);
             }
             finally
             {

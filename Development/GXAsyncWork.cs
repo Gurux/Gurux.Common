@@ -81,7 +81,9 @@ namespace Gurux.Common
         /// <param name="error"></param>
         /// <param name="text"></param>
         /// <param name="parameters"></param>
-        public GXAsyncWork(object sender, AsyncStateChangeEventHandler e, AsyncTransaction command, ErrorEventHandler error, string text, object[] parameters)
+        public GXAsyncWork(object sender, AsyncStateChangeEventHandler e, 
+            AsyncTransaction command, ErrorEventHandler error, 
+            string text, object[] parameters)
         {
             OnError = error;
             Text = text;
@@ -89,7 +91,7 @@ namespace Gurux.Common
             Sender = sender;
             Command = command;
             Parameters = parameters;
-        }
+        }       
 
         /// <summary>
         /// Result of async work.
@@ -110,15 +112,18 @@ namespace Gurux.Common
             System.Windows.Forms.Control tmp = Sender as System.Windows.Forms.Control;
             try
             {
-                Command(Sender, this, Parameters);               
-                if (tmp != null && tmp.InvokeRequired)
+                Command(Sender, this, Parameters);
+                if (OnAsyncStateChangeEventHandler != null)
                 {
-                    tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
-                }
-                else
-                {                    
-                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
-                }
+                    if (tmp != null && tmp.InvokeRequired)
+                    {
+                        tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
+                    }
+                    else
+                    {                    
+                        OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
+                    }                    
+                }                
             }
             catch (Exception ex)
             {
@@ -144,13 +149,16 @@ namespace Gurux.Common
                         OnError(Sender, ex);
                     }
                 }
-                if (tmp != null && tmp.InvokeRequired)
+                if (OnAsyncStateChangeEventHandler != null)
                 {
-                    tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
-                }
-                else
-                {
-                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
+                    if (tmp != null && tmp.InvokeRequired)
+                    {
+                        tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
+                    }
+                    else
+                    {
+                        OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
+                    }
                 }
             }
             finally
@@ -189,7 +197,10 @@ namespace Gurux.Common
                 Result = null;
                 IsCanceled = false;
                 Done.Reset();
-                OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Start, Text);
+                if (OnAsyncStateChangeEventHandler != null)
+                {
+                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Start, Text);
+                }
                 Thread = new Thread(new ThreadStart(Run));
                 Thread.IsBackground = true;
                 Thread.Start();
@@ -206,7 +217,10 @@ namespace Gurux.Common
                 if (IsRunning)
                 {
                     IsCanceled = true;
-                    OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Cancel, null);
+                    if (OnAsyncStateChangeEventHandler != null)
+                    {
+                        OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Cancel, null);
+                    }
                 }
             }
             catch (Exception ex)
