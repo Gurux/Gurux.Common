@@ -393,12 +393,21 @@ namespace Gurux.Common
         }
        
         /// <summary>
-        /// Is there any new updates avaialble.
+        /// Is there any new updates available.
         /// </summary>
         /// <returns>Returns True, if new updates are available.</returns>
         public static bool IsUpdatesOnline()
         {
             return GetUpdatesOnline(false).Count != 0;
+        }
+
+        /// <summary>
+        /// Is there any new updates available.
+        /// </summary>
+        /// <returns>Returns True, if new updates are available.</returns>
+        public static bool IsUpdatesOnline(bool applicationsOnly)
+        {
+            return GetUpdatesOnline(applicationsOnly).Count != 0;
         }
 
         /// <summary>
@@ -618,7 +627,7 @@ namespace Gurux.Common
                         	isConnected = InternetGetConnectedState(ref flags, 0);
 						}
                         //If there are updates available.
-                        if (isConnected && IsUpdatesOnline())
+                        if (isConnected && IsUpdatesOnline(true))
                         {
                             if (target != null)
                             {

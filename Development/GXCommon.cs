@@ -134,20 +134,33 @@ namespace Gurux.Common
         /// <returns>Byte array as hex string.</returns>
         public static string ToHex(byte[] bytes, bool addSpace)
         {
-            char[] str = new char[bytes.Length * (addSpace ? 3 : 2)];
-            byte tmp;
+            if (bytes == null)
+            {
+                return string.Empty;
+            }
+            int len = bytes.Length * (addSpace ? 3 : 2);
+            if (len == 0)
+            {
+                return string.Empty;
+            }
+            byte[] str = new byte[len];
+            int tmp;
             for (int pos = 0, cx = 0; pos != bytes.Length; ++pos, ++cx)
             {
-                tmp = ((byte)(bytes[pos] >> 4));
-                str[cx] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
-                tmp = ((byte)(bytes[pos] & 0x0F));
-                str[++cx] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                tmp = (bytes[pos] >> 4);
+                str[cx] = (byte)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                tmp = (bytes[pos] & 0x0F);
+                str[++cx] = (byte)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
                 if (addSpace)
                 {
-                    str[++cx] = ' ';
+                    str[++cx] = (byte)' ';
                 }
             }
-            return new string(str);
+            if (addSpace)
+            {
+                --len;
+            }
+            return ASCIIEncoding.ASCII.GetString(str, 0, len);
         }
 
         /// <summary>
@@ -158,6 +171,10 @@ namespace Gurux.Common
         /// <returns>Byte array.</returns>
         public static byte[] HexToBytes(string str, bool includeSpace)
         {
+            if (string.IsNullOrEmpty(str))
+            {
+                return new byte[0];
+            }
             if (includeSpace && !string.IsNullOrEmpty(str) && str[str.Length -1] != ' ')
             {
                 str += " ";

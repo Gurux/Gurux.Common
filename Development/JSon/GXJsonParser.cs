@@ -344,7 +344,7 @@ namespace Gurux.Common.JSon
         public static void Save(object target, string path)
         {
             string dir = Path.GetDirectoryName(path);
-            if (!Directory.Exists(dir))
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
                 GXFileSystemSecurity.UpdateDirectorySecurity(dir);

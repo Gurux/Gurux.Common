@@ -130,10 +130,10 @@ namespace Gurux.Common
 
         static public void CheckUpdates(object target)
         {
-            GXAddInList list = GXUpdateChecker.GetUpdatesOnline(false);
+            AddInsForm form = target as AddInsForm;
+            GXAddInList list = GXUpdateChecker.GetUpdatesOnline(!form.ShowAddins);
             if (list.Count != 0)
             {                
-                AddInsForm form = target as AddInsForm;
                 if (form.IsHandleCreated)
                 {
                     form.BeginInvoke(new CheckUpdatesEventHandler(form.OnCheckUpdatesDone), list);

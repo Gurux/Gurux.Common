@@ -53,7 +53,7 @@ namespace Gurux.Common
         /// </summary>
         Finish,
         /// <summary>
-        /// Work ic chanceled.
+        /// Work is canceled.
         /// </summary>
         Cancel
     }

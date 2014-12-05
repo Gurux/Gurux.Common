@@ -671,6 +671,22 @@ namespace Gurux.Common.Internal
                 }
                 return value;
             }
+            if (type.IsArray)
+            {
+                Type pt = GXInternal.GetPropertyType(type);
+                string[] tmp = ((string)value).Split(new char[] { ';' });
+                Array items = Array.CreateInstance(pt, tmp.Length);
+                int pos2 = -1;
+                foreach (string it in tmp)
+                {
+                    items.SetValue(GXInternal.ChangeType(it, pt), ++pos2);
+                }
+                return items;
+            }
+            if (type == typeof(Type))
+            {
+                return Type.GetType(value.ToString());
+            }
             return Convert.ChangeType(value, type);
         }
 
@@ -815,11 +831,17 @@ namespace Gurux.Common.Internal
             {
                 type = Nullable.GetUnderlyingType(type);
             }
-            return type.IsPrimitive || type == typeof(string);
+            return type.IsPrimitive || type.IsEnum || type == typeof(Guid) || type == typeof(DateTime) || 
+                type == typeof(string) || type == typeof(Type) || type == typeof(object) ||
+                type == typeof(decimal) || type == typeof(TimeSpan) || type == typeof(DateTimeOffset);            
         }
 
         internal static Type GetPropertyType(Type target)
         {
+            if (target == typeof(object))
+            {
+                return target;
+            }
             if (target.IsArray)
             {
                 return target.GetElementType();
@@ -827,6 +849,10 @@ namespace Gurux.Common.Internal
             Type[] types = target.GetGenericArguments();
             if (types.Length == 0)
             {
+                if (target.BaseType == typeof(object))
+                {
+                    return target;
+                }
                 return GetPropertyType(target.BaseType);
             }
             return types[0];
