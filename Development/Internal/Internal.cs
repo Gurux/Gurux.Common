@@ -402,7 +402,7 @@ namespace Gurux.Common.Internal
             PropertyInfo pi = target as PropertyInfo;
             if (pi != null)
             {
-                if (value is IList)
+                if (value is IEnumerable)                
                 {
                     if (!pi.PropertyType.IsAssignableFrom(value.GetType()))
                     {
@@ -416,6 +416,16 @@ namespace Gurux.Common.Internal
                                 ++pos;
                             }
                             value = items;
+                        }
+                        else if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(System.Data.Linq.EntitySet<>))
+                        {
+                            Type listT = typeof(System.Data.Linq.EntitySet<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
+                            IList list = (IList)GXJsonParser.CreateInstance(listT);
+                            foreach (object it in (IList)value)
+                            {
+                                list.Add(it);
+                            }
+                            value = list;
                         }
                         else
                         {
