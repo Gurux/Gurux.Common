@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Gurux.Common</id>
+        <version>$version$</version>
+        <title>Gurux.Common</title>
+        <authors>Gurux Ltd</authors>
+        <owners>Gurux Ltd</owners>
+        <licenseUrl>http://www.gnu.org/licenses/gpl-2.0.txt</licenseUrl>
+        <projectUrl>http://www.gurux.org</projectUrl>
+        <iconUrl>http://www.gurux.org/gurux.ico</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>Gurux.Common class implements interfaces that are needed for Gurux Media components and Gurux Device Framework.</description>
+        <releaseNotes>Initial version.</releaseNotes>
+        <copyright>Copyright (c) 1998-2015 Gurux Ltd. All rights reserved.</copyright>
+        <tags>Gurux device framework</tags>
+        <dependencies>
+            <dependency id="ICSharpCode.SharpZipLib.dll" version="0.85.4.369" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\Gurux.Common.XML" target="content\Gurux.Common.XML" />
+        <file src="lib\net35\Gurux.Common.dll" target="lib\net35\Gurux.Common.dll" />
+        <file src="Gurux.Common\**\*.cs" exclude="**\obj\**\*.*" target="src" />
+    </files>
+</package>
