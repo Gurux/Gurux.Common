@@ -360,9 +360,9 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Get custom attribute.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="target"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Target class type.</typeparam>
+        /// <param name="type">Custom attribute type to search for.</param>
+        /// <returns>Find custom attribute.</returns>
         static public T GetAttribute<T>(Type type)
         {
             T[] atts = type.GetCustomAttributes(typeof(T), true) as T[];
@@ -376,8 +376,8 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Get property value.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="value"></param>
+        /// <param name="instance">Class instance where value is get.</param>
+        /// <param name="target">Property what is get from the instance.</param>
         public static object GetValue(object instance, object target)
         {
             PropertyInfo pi = target as PropertyInfo;
@@ -395,8 +395,9 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Set property value.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="value"></param>
+        /// <param name="instance">Instance where value is set.</param>
+        /// <param name="target">Property type.</param>
+        /// <param name="value">New value.</param>
         public static void SetValue(object instance, object target, object value)
         {
             PropertyInfo pi = target as PropertyInfo;
@@ -453,8 +454,10 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Get serialized property and field values.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type">Instance type.</param>
+        /// <param name="sorted">Are values returned as sorted dictionary.</param>
+        /// <param name="attributeUpdater">Updater that is called to get wanted value. Can be null.</param>
+        /// <returns>Dictionary of values.</returns>
         internal static IDictionary<string, GXSerializedItem> GetValues(Type type, bool sorted, UpdateAttributes attributeUpdater)
         {
             GXSerializedItem s;
@@ -871,8 +874,9 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Convert date time to epoch string.
         /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
+        /// <param name="dt">Date time to convert.</param>
+        /// <param name="get">Is this http get request.</param>
+        /// <returns>Date time as epoch string.</returns>
         public static string ToString(DateTime dt, bool get)
         {
             double offset = 0;

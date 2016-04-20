@@ -134,33 +134,33 @@ namespace Gurux.Common
         /// <returns>Byte array as hex string.</returns>
         public static string ToHex(byte[] bytes, bool addSpace)
         {
-            if (bytes == null)
+            if (bytes == null || bytes.Length == 0)
             {
                 return string.Empty;
             }
             int len = bytes.Length * (addSpace ? 3 : 2);
-            if (len == 0)
-            {
-                return string.Empty;
-            }
-            byte[] str = new byte[len];
+            char[] str = new char[len];
             int tmp;
-            for (int pos = 0, cx = 0; pos != bytes.Length; ++pos, ++cx)
+            len = 0;
+            for (int pos = 0; pos != bytes.Length; ++pos)
             {
                 tmp = (bytes[pos] >> 4);
-                str[cx] = (byte)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                str[len] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                ++len;
                 tmp = (bytes[pos] & 0x0F);
-                str[++cx] = (byte)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                str[len] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
+                ++len;
                 if (addSpace)
                 {
-                    str[++cx] = (byte)' ';
+                    str[len] = ' ';
+                    ++len;
                 }
             }
             if (addSpace)
             {
                 --len;
             }
-            return ASCIIEncoding.ASCII.GetString(str, 0, len);
+            return new string(str, 0, len);
         }
 
         /// <summary>
@@ -171,6 +171,11 @@ namespace Gurux.Common
         /// <returns>Byte array.</returns>
         public static byte[] HexToBytes(string str, bool includeSpace)
         {
+            //Remove spaces.
+            if (str != null)
+            {
+                str = str.Trim();
+            }
             if (string.IsNullOrEmpty(str))
             {
                 return new byte[0];
@@ -718,16 +723,16 @@ namespace Gurux.Common
         /// Does not check to make sure the assembly's signature is valid.
         /// Loads the assembly in the LoadFrom context.
         /// </remarks>
-        /// <param name='assembly'>Path to the assembly to check</param>
+        /// <param name='target'>Path to the assembly to check</param>
         /// <param name='expectedToken'>Token to search for</param>
         /// <exception cref='System.ArgumentNullException'>If assembly or expectedToken are null</exception>
         /// <returns>true if the assembly was signed with a key that has this token, false otherwise</returns>
-        private static bool CheckToken(Assembly asm, byte[] expectedToken)
+        private static bool CheckToken(Assembly target, byte[] expectedToken)
         {
             try
             {
                 // Get the public key token of the given assembly 
-                byte[] asmToken = asm.GetName().GetPublicKeyToken();
+                byte[] asmToken = target.GetName().GetPublicKeyToken();
 
                 // Compare it to the given token
                 if (asmToken.Length != expectedToken.Length)

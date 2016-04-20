@@ -32,10 +32,18 @@
 
 namespace Gurux.Common
 {
+
+    /// <summary>
+    /// IGXRequest is used to send syncronous JSON messages over HttpWebRequest.
+    /// </summary>
     public interface IGXRequest
     {
     }
 
+    /// <summary>
+    /// IGXRequest is used to send syncronous JSON messages over HttpWebRequest.
+    /// </summary>
+    /// <typeparam name="T">JSON message type.</typeparam>
     public interface IGXRequest<T> : IGXRequest
     {
 

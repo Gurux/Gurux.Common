@@ -128,7 +128,7 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Parse JSON Objects from File.
         /// </summary>
-        /// <param name="data">data string.</param>
+        /// <param name="path">Text file where objects are loaded.</param>
         /// <returns>Name/value pair of found objects.</returns>
         public static Dictionary<string, object> ParseObjectsFromFile(string path)
         {
@@ -190,11 +190,11 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Set object value.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="pd"></param>
-        /// <param name="value"></param>
-        /// <param name="type"></param>
-        void SetValue(object target, GXSerializedItem item, string value, Type type)
+        /// <param name="target">Instance where parsed data is saved.</param>
+        /// <param name="item">GXSerializedItem</param>
+        /// <param name="value">String value to parse.</param>
+        /// <param name="type">String value type.</param>
+        private void SetValue(object target, GXSerializedItem item, string value, Type type)
         {
             object val;
             if (type == typeof(byte[]))
@@ -298,6 +298,12 @@ namespace Gurux.Common.JSon
             return (T) Deserialize(data, typeof(T));
         }
 
+        /// <summary>
+        /// Deserialize JSON data to objects.
+        /// </summary>
+        /// <typeparam name="T">Deserialized type.</typeparam>
+        /// <param name="stream">Strem where object is deserialized.</param>
+        /// <returns>Deserialized object.</returns>
         public T Deserialize<T>(System.IO.Stream stream)
         {            
             TextReader reader = new StreamReader(stream);
@@ -339,7 +345,7 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Save object as JSON object.
         /// </summary>
-        /// <param name="target">object to save.</param>
+        /// <param name="target">Object to save.</param>
         /// <param name="path">File path.</param>
         public static void Save(object target, string path)
         {
@@ -357,13 +363,25 @@ namespace Gurux.Common.JSon
             GXFileSystemSecurity.UpdateFileSecurity(path);
         }
 
+        /// <summary>
+        /// Save object as JSON object.
+        /// </summary>
+        /// <param name="target">Object to save.</param>
+        /// <param name="stream">Stream shere object is saved.</param>
         public void Serialize(object target, System.IO.Stream stream)
         {
             TextWriter writer = new StreamWriter(stream);
             Serialize(target, writer, false, false, Indent, false);
         }
 
-        public void Serialize(object target, System.IO.Stream stream, bool http, bool get)
+        /// <summary>
+        /// Save object as JSON object.
+        /// </summary>
+        /// <param name="target">Object to save.</param>
+        /// <param name="stream">Stream shere object is saved.</param>
+        /// <param name="http">Is stream http stream.</param>
+        /// <param name="get">Is this get message.</param>
+        private void Serialize(object target, System.IO.Stream stream, bool http, bool get)
         {
             TextWriter writer = new StreamWriter(stream);
             Serialize(target, writer, http, get, Indent, false);
@@ -412,7 +430,8 @@ namespace Gurux.Common.JSon
         /// </summary>
         /// <typeparam name="T">Object type to load.</typeparam>
         /// <param name="path">File path.</param>
-        /// <returns>Loaded object.</returns>
+        /// <param name="result">Loaded object.</param>
+        /// <returns>Returns is object loaded.</returns>
         public static bool TryLoad<T>(string path, out T result)
         {            
             if (File.Exists(path))
@@ -519,11 +538,12 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Serialize object to JSON string.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="writer"></param>
-        /// <param name="get"></param>
+        /// <param name="target">Serialized object.</param>
+        /// <param name="writer">Text writer that us used for serializing.</param>
+        /// <param name="http">Is this http request.</param>
+        /// <param name="get">Is this http get request.</param>
         /// <param name="indent">Is indent used.</param>
-        /// <returns></returns>
+        /// <param name="isObject">Is target serialized as generic object.</param>
         internal void Serialize(object target, TextWriter writer, bool http, bool get, bool indent, bool isObject)
         {
             SortedDictionary<string, GXSerializedItem> list;
@@ -852,6 +872,11 @@ namespace Gurux.Common.JSon
             return Deserialize(data, type, null);
         }
         
+        /// <summary>
+        /// Creates instance of given type.
+        /// </summary>
+        /// <param name="type">Created data type.</param>
+        /// <returns>Created instance.</returns>
         public static object CreateInstance(Type type)
         {
             lock (CachedObjects)
@@ -874,12 +899,13 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Deserialize JSON data to objects.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="type"></param>        
-        /// <returns></returns>
-        private object Deserialize(Dictionary<string, object> data, Type type, object tmp)
+        /// <param name="parameters">Deserialized target if created yet.</param>
+        /// <param name="type">Object type.</param>        
+        /// <param name="target"></param>
+        /// <returns>Deserialized object.</returns>
+        private object Deserialize(Dictionary<string, object> parameters, Type type, object target)
         {
-            if (tmp == null && !type.IsArray)
+            if (target == null && !type.IsArray)
             {
                 if (type.IsAbstract)
                 {
@@ -887,32 +913,32 @@ namespace Gurux.Common.JSon
                     {
                         throw new Exception("Can't create abstract class: " + type.FullName);
                     }
-                    GXCreateObjectEventArgs e = new GXCreateObjectEventArgs(type, data, ExtraTypes);
+                    GXCreateObjectEventArgs e = new GXCreateObjectEventArgs(type, parameters, ExtraTypes);
                     m_CreateObject(this, e);
-                    tmp = e.Object;
-                    type = tmp.GetType();
+                    target = e.Object;
+                    type = target.GetType();
                 }
                 else
                 {
                     if (m_CreateObject != null)
                     {
-                        GXCreateObjectEventArgs e = new GXCreateObjectEventArgs(type, data, ExtraTypes);
+                        GXCreateObjectEventArgs e = new GXCreateObjectEventArgs(type, parameters, ExtraTypes);
                         m_CreateObject(this, e);
-                        tmp = e.Object;
+                        target = e.Object;
                     }
-                    if (tmp != null)
+                    if (target != null)
                     {
-                        type = tmp.GetType();
+                        type = target.GetType();
                     }
                     else
                     {
                         if (type.IsEnum)
                         {
-                            tmp = Enum.ToObject(type, 0);
+                            target = Enum.ToObject(type, 0);
                         }
                         else
                         {
-                            tmp = CreateInstance(type);
+                            target = CreateInstance(type);
                         }
                     }
                 }
@@ -930,16 +956,16 @@ namespace Gurux.Common.JSon
                     SerializedObjects.Add(type, list);
                 }
             }
-            Dictionary<string, object>.Enumerator serializedItem = data.GetEnumerator();
+            Dictionary<string, object>.Enumerator serializedItem = parameters.GetEnumerator();
             SortedDictionary<string, GXSerializedItem>.Enumerator item = list.GetEnumerator();
             while (serializedItem.MoveNext())
             {
-                if (tmp is System.Collections.IList && string.Compare(serializedItem.Current.Key, "Items") == 0)
+                if (target is System.Collections.IList && string.Compare(serializedItem.Current.Key, "Items") == 0)
                 {                    
                     Type tp = GXInternal.GetPropertyType(type);
                     if (serializedItem.Current.Value != null)
                     {
-                        System.Collections.IList list2 = tmp as System.Collections.IList;
+                        System.Collections.IList list2 = target as System.Collections.IList;
                         foreach (object it in (System.Collections.IEnumerable)serializedItem.Current.Value)
                         {
                             list2.Add(Deserialize((Dictionary<string, object>)it, tp));
@@ -953,7 +979,7 @@ namespace Gurux.Common.JSon
                     {
                         System.Collections.IList sItems = (System.Collections.IList)serializedItem.Current.Value;
                         Array items = Array.CreateInstance(itemType, sItems.Count);
-                        tmp = items;
+                        target = items;
                         if (sItems.Count != 0)
                         {
                             int pos = -1;
@@ -965,7 +991,7 @@ namespace Gurux.Common.JSon
                     }
                     else//If array is empty.
                     {
-                        tmp = Array.CreateInstance(itemType, 0);
+                        target = Array.CreateInstance(itemType, 0);
                     }
                 }
                 else
@@ -974,12 +1000,12 @@ namespace Gurux.Common.JSon
                     {
                         break;
                     }
-                    if (!UpdateValue(tmp, item.Current, serializedItem.Current))
+                    if (!UpdateValue(target, item.Current, serializedItem.Current))
                     {
                         bool found = false;
                         while (item.MoveNext())
                         {
-                            if (UpdateValue(tmp, item.Current, serializedItem.Current))
+                            if (UpdateValue(target, item.Current, serializedItem.Current))
                             {
                                 found = true;                                
                                 break;
@@ -993,12 +1019,12 @@ namespace Gurux.Common.JSon
                 }
             }
             //If array is empty.
-            if (type.IsArray && tmp == null)
+            if (type.IsArray && target == null)
             {
                 Type itemType = type.GetElementType();
-                tmp = Array.CreateInstance(itemType, 0);
+                target = Array.CreateInstance(itemType, 0);
             }            
-            return tmp;
+            return target;
         }
 
         /// <summary>
@@ -1161,7 +1187,9 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Parse JSON Objects.
         /// </summary>
-        /// <param name="stream">data string.</param>
+        /// <param name="stream">Data string where JSON objects ar parsed.</param>
+        /// <param name="sb">Target string builder where found name/value pair is saved. It's faster give it as a parameter than create new one for every time this function is called.</param>
+        /// <param name="collection">Is this a collection.</param>
         /// <returns>Name/value pair of found objects.</returns>
         static Dictionary<string, object> ParseObjects(TextReader stream, StringBuilder sb, bool collection)
         {

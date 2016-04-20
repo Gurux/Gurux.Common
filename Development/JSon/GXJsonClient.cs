@@ -82,12 +82,20 @@ namespace Gurux.Common.JSon
             private set;
         }
 
+        /// <summary>
+        /// Is basic authentication header send on every http message.
+        /// </summary>
         public bool AlwaysSendBasicAuthHeader
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Set used credentials to connect to Gurux JSON server.
+        /// </summary>
+        /// <param name="name">User name.</param>
+        /// <param name="password">User password.</param>
         public void SetCredentials(string name, string password)
         {
             this.UserName = name;
@@ -129,6 +137,8 @@ namespace Gurux.Common.JSon
         /// Constructor.
         /// </summary>
         /// <param name="address">Server address.</param>
+        /// <param name="userName">Authentication user name.</param>
+        /// <param name="password">Authentication user password.</param>
         public GXJsonClient(string address, string userName, string password)
         {
             Address = address;
@@ -136,6 +146,9 @@ namespace Gurux.Common.JSon
             Password = password;
         }
 
+        /// <summary>
+        /// Timeout tells how long (ms) reply is waited from the server.
+        /// </summary>
         public TimeSpan Timeout
         {
             get;
@@ -150,9 +163,9 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Send JSON data.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
         public virtual T Get<T>(IGXRequest<T> request)
         {
             HttpWebRequest req = Send<T>("GET", request, null);
@@ -162,9 +175,9 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Send JSON data.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
         public virtual T Put<T>(IGXRequest<T> request)
         {
             HttpWebRequest req = Send<T>("PUT", request, null);
@@ -174,9 +187,9 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Send JSON data.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="request"></param>
-        /// <returns></returns>
+         /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
         public virtual T Delete<T>(IGXRequest<T> request)
         {
             HttpWebRequest req = Send<T>("DELETE", request, null);
@@ -186,15 +199,20 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Post JSON data.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
         public virtual T Post<T>(IGXRequest<T> request)
         {
             HttpWebRequest req = Send<T>("POST", request, null);
             return GetResponse<T>(req);
         }
 
+        /// <summary>
+        /// Send http message asyncronously.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="asyncResult">Http stream.</param>
         private void AsyncReponse<T>(IAsyncResult asyncResult)        
         {
             GXAsyncData<T> data = (GXAsyncData<T>)asyncResult.AsyncState;
@@ -215,6 +233,13 @@ namespace Gurux.Common.JSon
             public string Data;
         }
        
+        /// <summary>
+        /// Send JSON message asyncronously over http request.
+        /// </summary>
+         /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="request">Request to send.</param>
+        /// <param name="onDone"></param>
+        /// <param name="onError"></param>
         public void PostAsync<T>(IGXRequest<T> request, DoneEventHandler onDone, ErrorEventHandler onError)        
         {
             GXAsyncData<T> data = new GXAsyncData<T>();
@@ -248,10 +273,11 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Parse to JSON and send to the server.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="method"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="method">Sent JSON object as a string.</param>
+        /// <param name="request">Request to send.</param>
+        /// <param name="data">Async request.</param>
+        /// <returns>Http request that is sent to the server.</returns>
         private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data)
         {            
             CancelOperation = false;
@@ -325,7 +351,7 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// De-serialize response to REST object.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+         /// <typeparam name="T">JSON message type.</typeparam>
         /// <param name="response"></param>
         /// <returns></returns>
         private T GetResponse<T>(WebResponse response)

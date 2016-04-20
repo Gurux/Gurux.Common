@@ -8,6 +8,9 @@ using System.Runtime.Serialization;
 
 namespace Gurux.Common.JSon
 {
+    /// <summary>
+    /// GXErrorWrapper is used to save occurred excetion so it can be move over HttpWebRequest.
+    /// </summary>
     [DataContractAttribute]
     public class GXErrorWrapper
     {
@@ -68,6 +71,9 @@ namespace Gurux.Common.JSon
             }
         }
 
+        /// <summary>
+        /// Occurred exception.
+        /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string Message
         {
@@ -75,6 +81,9 @@ namespace Gurux.Common.JSon
             private set;
         }
 
+        /// <summary>
+        /// Exception data that is moved over HttpWebRequest.
+        /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public byte[] Data
         {

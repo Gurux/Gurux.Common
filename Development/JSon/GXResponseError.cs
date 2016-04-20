@@ -34,6 +34,9 @@ using System.Runtime.Serialization;
 
 namespace Gurux.Common.JSon
 {
+    /// <summary>
+    /// TODO: Is this needed anymore or is GXErrorWrapper used?
+    /// </summary>
     [DataContract]
     public class GXResponseError
     {
