@@ -1,7 +1,7 @@
 //
 // --------------------------------------------------------------------------
 //  Gurux Ltd
-// 
+//
 //
 //
 // Filename:        $HeadURL$
@@ -19,14 +19,14 @@
 // This file is a part of Gurux Device Framework.
 //
 // Gurux Device Framework is Open Source software; you can redistribute it
-// and/or modify it under the terms of the GNU General Public License 
+// and/or modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; version 2 of the License.
 // Gurux Device Framework is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of 
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU General Public License for more details.
 //
-// This code is licensed under the GNU General Public License v2. 
+// This code is licensed under the GNU General Public License v2.
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
@@ -39,7 +39,6 @@ using System.Xml;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 using System.Windows.Forms;
-using ICSharpCode.SharpZipLib.Zip;
 using System.Threading;
 using Microsoft.Win32;
 using Gurux.Common.Properties;
@@ -77,10 +76,10 @@ namespace Gurux.Common
     {
         static readonly object m_sync = new object();
         internal delegate void ProgressEventHandler(GXAddIn sender);
-		private CheckUpdatesEventHandler m_OnCheckUpdates;
-        
+        private CheckUpdatesEventHandler m_OnCheckUpdates;
+
         [System.Runtime.InteropServices.DllImport("wininet.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        internal extern static bool InternetGetConnectedState(ref InternetConnectionState lpdwFlags, int dwReserved);        
+        internal extern static bool InternetGetConnectedState(ref InternetConnectionState lpdwFlags, int dwReserved);
 
         [Flags]
         internal enum InternetConnectionState : int
@@ -98,7 +97,7 @@ namespace Gurux.Common
 
         /// <summary>
         /// Update protocols from the Gurux www server.
-        /// </summary>        
+        /// </summary>
         internal ProtocolUpdateStatus UpdateProtocols()
         {
             return Update(true);
@@ -106,7 +105,7 @@ namespace Gurux.Common
 
         /// <summary>
         /// Update applications from the Gurux www server.
-        /// </summary>        
+        /// </summary>
         internal ProtocolUpdateStatus UpdateApplications()
         {
             return Update(false);
@@ -134,21 +133,21 @@ namespace Gurux.Common
                 {
                     localAddins = (GXAddInList)x.ReadObject(reader);
                 }
-                System.Net.WebClient client = new System.Net.WebClient();                
-				client.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-				client.DownloadDataCompleted += new System.Net.DownloadDataCompletedEventHandler(client_DownloadDataCompleted);				
+                System.Net.WebClient client = new System.Net.WebClient();
+                client.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                client.DownloadDataCompleted += new System.Net.DownloadDataCompletedEventHandler(client_DownloadDataCompleted);
                 foreach (GXAddIn it in localAddins)
                 {
                     if ((protocols && it.Type != GXAddInType.AddIn) ||
-                        (!protocols && it.Type != GXAddInType.Application))
+                            (!protocols && it.Type != GXAddInType.Application))
                     {
                         continue;
                     }
                     if (it.State == AddInStates.Download || it.State == AddInStates.Update)
-                    {						
+                    {
                         string AddInPath = Path.Combine(GXCommon.ProtocolAddInsPath, it.File);
                         if (it.Type == GXAddInType.AddIn ||
-                            it.Type == GXAddInType.None)
+                                it.Type == GXAddInType.None)
                         {
                             AddInPath = GXCommon.ProtocolAddInsPath;
                         }
@@ -156,19 +155,19 @@ namespace Gurux.Common
                         {
                             AddInPath = Path.GetDirectoryName(typeof(GXUpdateChecker).Assembly.Location);
                         }
-                        else 
+                        else
                         {
                             throw new Exception(Resources.UnknownType + it.Type.ToString());
                         }
                         try
-                        {							
+                        {
                             string ext = Path.GetExtension(it.File);
                             if (string.Compare(ext, ".zip", true) == 0 ||
-                                string.Compare(ext, ".msi", true) == 0)
+                                    string.Compare(ext, ".msi", true) == 0)
                             {
                                 Target = it;
-                                string tmpPath = Path.Combine(System.IO.Path.GetTempPath(), it.File);                                
-								Downloaded.Reset();
+                                string tmpPath = Path.Combine(System.IO.Path.GetTempPath(), it.File);
+                                Downloaded.Reset();
                                 if (string.Compare(ext, ".zip", true) == 0)
                                 {
                                     client.DownloadDataAsync(new Uri("http://www.gurux.org/updates/" + it.File), tmpPath);
@@ -177,63 +176,14 @@ namespace Gurux.Common
                                 {
                                     client.DownloadDataAsync(new Uri("http://www.gurux.org/Downloads/" + it.File), tmpPath);
                                 }
-                                
+
                                 while (!Downloaded.WaitOne(100))
                                 {
-                                    Application.DoEvents();                                    
+                                    Application.DoEvents();
                                 }
                                 if (string.Compare(ext, ".zip", true) == 0)
                                 {
-                                    ZipInputStream s = new ZipInputStream(File.OpenRead(tmpPath));
-                                    ZipEntry theEntry;
-                                    byte[] data = new byte[2000]; //2MB buffer
-                                    while ((theEntry = s.GetNextEntry()) != null)
-                                    {
-                                        if (theEntry.IsFile)
-                                        {
-                                            string FileName = Path.Combine(AddInPath, Path.GetFileName(theEntry.Name));
-                                            int size;
-                                            if (File.Exists(FileName))
-                                            {
-                                                status |= ProtocolUpdateStatus.Restart;
-                                                FileName = Path.Combine(Path.GetDirectoryName(FileName), "cached");
-                                                if (!Directory.Exists(FileName))
-                                                {
-                                                    Directory.CreateDirectory(FileName);
-                                                    Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(FileName);
-                                                }
-                                                FileName = Path.Combine(FileName, Path.GetFileName(theEntry.Name));
-                                            }
-                                            if (File.Exists(FileName))
-                                            {
-                                                File.Delete(FileName);
-                                            }
-                                            using (BinaryWriter b = new BinaryWriter(File.Create(FileName)))
-                                            {
-                                                do
-                                                {
-                                                    size = s.Read(data, 0, 2000);
-                                                    if (size > 0)
-                                                    {
-                                                        b.Write(data, 0, size);
-                                                    }
-                                                    else
-                                                    {
-                                                        b.Close();
-                                                    }
-                                                }
-                                                while (size > 0);
-                                                ext = Path.GetExtension(FileName);
-                                                if (string.Compare(ext, ".dll", true) == 0 || string.Compare(ext, ".exe", true) == 0)
-                                                {
-                                                    System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFile(FileName);
-                                                    System.Diagnostics.FileVersionInfo newVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
-                                                    it.Version = it.InstalledVersion = newVersion.FileVersion;
-                                                }
-                                            }
-                                            Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(FileName);
-                                        }
-                                    }
+                                    throw new ArgumentException("Zip is not supported");
                                 }
                                 else //If .msi
                                 {
@@ -266,11 +216,11 @@ namespace Gurux.Common
                             System.IO.File.WriteAllBytes(cachedPath, client.DownloadData("http://www.gurux.org/updates/" + it.File));
                             Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(cachedPath);
                             AppDomain domain = AppDomain.CreateDomain("import", null, AppDomain.CurrentDomain.SetupInformation);
-                            //Get version number and unload assmbly.                          
+                            //Get version number and unload assmbly.
                             System.Reflection.Assembly asm = domain.Load(System.Reflection.AssemblyName.GetAssemblyName(cachedPath));
                             System.Diagnostics.FileVersionInfo newVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
                             it.Version = it.InstalledVersion = newVersion.FileVersion;
-                            AppDomain.Unload(domain); 
+                            AppDomain.Unload(domain);
                             status |= ProtocolUpdateStatus.Restart;
                         }
                         status |= ProtocolUpdateStatus.Changed;
@@ -391,7 +341,7 @@ namespace Gurux.Common
             DisabledItems = new string[0];
             return ProtocolUpdateStatus.None;
         }
-       
+
         /// <summary>
         /// Is there any new updates available.
         /// </summary>
@@ -411,7 +361,7 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Compares version strings. A ersion string is assumed to 
+        /// Compares version strings. A ersion string is assumed to
         /// contain four digits separated by '.' or ',', for example "1.2.3.4".
         /// </summary>
         /// <param name="newVersion"></param>
@@ -452,46 +402,46 @@ namespace Gurux.Common
         /// <returns>Returns true if there are any updates available.</returns>
         internal static GXAddInList GetUpdatesOnline(bool applicationsOnly)
         {
-			lock (m_sync)
-			{
-				try
-				{
+            lock (m_sync)
+            {
+                try
+                {
                     //Do not check updates while debugging.
                     string path = Path.Combine(GXCommon.ProtocolAddInsPath, "updates.xml");
-					DataContractSerializer x = new DataContractSerializer(typeof(GXAddInList));
-					System.Net.WebClient client = new System.Net.WebClient();
-					GXAddInList onlineAddIns, localAddins;
-					// Put the byte array into a stream and rewind it to the beginning 
+                    DataContractSerializer x = new DataContractSerializer(typeof(GXAddInList));
+                    System.Net.WebClient client = new System.Net.WebClient();
+                    GXAddInList onlineAddIns, localAddins;
+                    // Put the byte array into a stream and rewind it to the beginning
                     using (MemoryStream ms = new MemoryStream(client.DownloadData("http://www.gurux.org/updates/updates.xml")))
-					{
-						ms.Flush();
-						ms.Position = 0;
-						onlineAddIns = (GXAddInList)x.ReadObject(ms);
-					}
-					GXAddInList newItems = new GXAddInList();
-					if (System.IO.File.Exists(path))
-					{
-						using (FileStream reader = new FileStream(path, FileMode.Open))
-						{
-							try
-							{
-								localAddins = (GXAddInList)x.ReadObject(reader);
-							}
-							catch
-							{
-								localAddins = new GXAddInList();
-							}
-						}
-						foreach (GXAddIn it in onlineAddIns)
-						{
+                    {
+                        ms.Flush();
+                        ms.Position = 0;
+                        onlineAddIns = (GXAddInList)x.ReadObject(ms);
+                    }
+                    GXAddInList newItems = new GXAddInList();
+                    if (System.IO.File.Exists(path))
+                    {
+                        using (FileStream reader = new FileStream(path, FileMode.Open))
+                        {
+                            try
+                            {
+                                localAddins = (GXAddInList)x.ReadObject(reader);
+                            }
+                            catch
+                            {
+                                localAddins = new GXAddInList();
+                            }
+                        }
+                        foreach (GXAddIn it in onlineAddIns)
+                        {
                             //Check only applications updates.
                             if (applicationsOnly && it.Type != GXAddInType.Application)
                             {
                                 continue;
                             }
-							GXAddIn localAddin = localAddins.FindByName(it.Name);
-							if (localAddin == null)
-							{
+                            GXAddIn localAddin = localAddins.FindByName(it.Name);
+                            if (localAddin == null)
+                            {
                                 if (string.Compare(Path.GetFileNameWithoutExtension(Application.ExecutablePath), it.Name, true) != 0)
                                 {
                                     newItems.Add(it);
@@ -511,10 +461,10 @@ namespace Gurux.Common
                                         newItems.Add(it);
                                     }
                                 }
-								localAddins.Add(it);
-							}
+                                localAddins.Add(it);
+                            }
                             else //Compare versions.
-							{
+                            {
                                 bool newVersion = IsNewVersion(it.Version, localAddin.InstalledVersion);
                                 if ((localAddin.State & AddInStates.Disabled) == 0 && newVersion)
                                 {
@@ -527,10 +477,10 @@ namespace Gurux.Common
                                     if (newVersion)
                                     {
                                         localAddin.State = AddInStates.Update;
-                                    }                                    
+                                    }
                                     newItems.Add(localAddin);
                                 }
-							}
+                            }
                             if (localAddin != null && string.IsNullOrEmpty(it.InstalledVersion) && it.Type == GXAddInType.Application &&
                                     string.Compare(Path.GetFileNameWithoutExtension(Application.ExecutablePath), it.Name, true) == 0)
                             {
@@ -552,11 +502,11 @@ namespace Gurux.Common
                                     newItems.Remove(localAddin);
                                 }
                             }
-						}
-					}
-					else
-					{
-						newItems = localAddins = onlineAddIns;
+                        }
+                    }
+                    else
+                    {
+                        newItems = localAddins = onlineAddIns;
                         //Update product version.
                         foreach (GXAddIn it in onlineAddIns)
                         {
@@ -573,35 +523,35 @@ namespace Gurux.Common
                                 break;
                             }
                         }
-					}
-					if (newItems.Count != 0)
-					{
-						XmlWriterSettings settings = new XmlWriterSettings();
-						settings.Indent = true;
-						settings.Encoding = System.Text.Encoding.UTF8;
-						settings.CloseOutput = true;
-						settings.CheckCharacters = false;
+                    }
+                    if (newItems.Count != 0)
+                    {
+                        XmlWriterSettings settings = new XmlWriterSettings();
+                        settings.Indent = true;
+                        settings.Encoding = System.Text.Encoding.UTF8;
+                        settings.CloseOutput = true;
+                        settings.CheckCharacters = false;
                         string tmp = Path.GetDirectoryName(path);
                         if (!System.IO.Directory.Exists(tmp))
                         {
                             Directory.CreateDirectory(tmp);
                             Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(tmp);
                         }
-						using (XmlWriter writer = XmlWriter.Create(path, settings))
-						{
-							x.WriteObject(writer, localAddins);
-							writer.Close();
-						}
+                        using (XmlWriter writer = XmlWriter.Create(path, settings))
+                        {
+                            x.WriteObject(writer, localAddins);
+                            writer.Close();
+                        }
                         Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(path);
-					}
-					return newItems;
-				}
-				catch(Exception ex)
-				{
+                    }
+                    return newItems;
+                }
+                catch (Exception ex)
+                {
                     System.Diagnostics.Debug.WriteLine(ex.Message);
-					return new GXAddInList();
-				}
-			}
+                    return new GXAddInList();
+                }
+            }
         }
 
         /// <summary>
@@ -620,12 +570,12 @@ namespace Gurux.Common
                     if (LastUpdateCheck.AddDays(1) < DateTime.Now)
                     {
                         LastUpdateCheck = DateTime.Now;
-						bool isConnected = true;
-						if (System.Environment.OSVersion.Platform != PlatformID.Unix)
-						{
-                        	InternetConnectionState flags = InternetConnectionState.Lan | InternetConnectionState.Configured;
-                        	isConnected = InternetGetConnectedState(ref flags, 0);
-						}
+                        bool isConnected = true;
+                        if (System.Environment.OSVersion.Platform != PlatformID.Unix)
+                        {
+                            InternetConnectionState flags = InternetConnectionState.Lan | InternetConnectionState.Configured;
+                            isConnected = InternetGetConnectedState(ref flags, 0);
+                        }
                         //If there are updates available.
                         if (isConnected && IsUpdatesOnline(true))
                         {
@@ -651,20 +601,20 @@ namespace Gurux.Common
             }
         }
 
-		/// <summary>
-		/// Represents the method that will handle the event that has no event data.
-		/// </summary>
-		public event CheckUpdatesEventHandler OnCheckUpdates
-		{
-			add
-			{
-				m_OnCheckUpdates += value;
-			}
-			remove
-			{
-				m_OnCheckUpdates += value;
-			}
-		}
+        /// <summary>
+        /// Represents the method that will handle the event that has no event data.
+        /// </summary>
+        public event CheckUpdatesEventHandler OnCheckUpdates
+        {
+            add
+            {
+                m_OnCheckUpdates += value;
+            }
+            remove
+            {
+                m_OnCheckUpdates += value;
+            }
+        }
 
         internal event ProgressEventHandler OnProgress;
     }

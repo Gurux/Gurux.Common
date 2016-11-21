@@ -1,7 +1,7 @@
 ﻿//
 // --------------------------------------------------------------------------
 //  Gurux Ltd
-// 
+//
 //
 //
 // Filename:        $HeadURL$
@@ -19,14 +19,14 @@
 // This file is a part of Gurux Device Framework.
 //
 // Gurux Device Framework is Open Source software; you can redistribute it
-// and/or modify it under the terms of the GNU General Public License 
+// and/or modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; version 2 of the License.
 // Gurux Device Framework is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of 
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU General Public License for more details.
 //
-// This code is licensed under the GNU General Public License v2. 
+// This code is licensed under the GNU General Public License v2.
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace Gurux.Common.JSon
-{  
+{
     /// <summary>
     /// This class is used to handle JSON serialization.
     /// </summary>
@@ -76,7 +76,7 @@ namespace Gurux.Common.JSon
         {
             get;
             private set;
-        }      
+        }
 
         /// <summary>
         /// Indent elements.
@@ -109,7 +109,7 @@ namespace Gurux.Common.JSon
             {
                 m_CreateObject -= value;
             }
-        }        
+        }
 
         /// <summary>
         /// Parse JSON Objects.
@@ -122,7 +122,7 @@ namespace Gurux.Common.JSon
             {
                 StringBuilder sb = new StringBuilder();
                 return ParseObjects(reader, sb, false);
-            }            
+            }
         }
 
         /// <summary>
@@ -150,12 +150,12 @@ namespace Gurux.Common.JSon
             {
                 DateTime dt;
                 int index = str.Length - 8;
-                char ch = str[index];                
+                char ch = str[index];
                 if (ch == '-' || ch == '+')
                 {
                     var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                     int hours = int.Parse(str.Substring(index + 1, 2));
-                    int minutes = int.Parse(str.Substring(index + 3, 2));                    
+                    int minutes = int.Parse(str.Substring(index + 3, 2));
                     long seconds = long.Parse(str.Substring(7, index - 7));
                     if (ch == '-')
                     {
@@ -185,7 +185,7 @@ namespace Gurux.Common.JSon
                 }
             }
             return DateTime.MinValue;
-        }        
+        }
 
         /// <summary>
         /// Set object value.
@@ -262,7 +262,7 @@ namespace Gurux.Common.JSon
                 else
                 {
                     val = null;
-                }                
+                }
             }
             else
             {
@@ -295,7 +295,7 @@ namespace Gurux.Common.JSon
         /// <returns>Deserialized object.</returns>
         public T Deserialize<T>(string data)
         {
-            return (T) Deserialize(data, typeof(T));
+            return (T)Deserialize(data, typeof(T));
         }
 
         /// <summary>
@@ -305,10 +305,10 @@ namespace Gurux.Common.JSon
         /// <param name="stream">Strem where object is deserialized.</param>
         /// <returns>Deserialized object.</returns>
         public T Deserialize<T>(System.IO.Stream stream)
-        {            
+        {
             TextReader reader = new StreamReader(stream);
-            StringBuilder sb = new StringBuilder();            
-            Dictionary<string, object> list = ParseObjects(reader, sb, false);                
+            StringBuilder sb = new StringBuilder();
+            Dictionary<string, object> list = ParseObjects(reader, sb, false);
             return (T)Deserialize(list, typeof(T));
         }
 
@@ -321,7 +321,7 @@ namespace Gurux.Common.JSon
         public object Deserialize(System.IO.Stream stream, Type type)
         {
             TextReader reader = new StreamReader(stream);
-            StringBuilder sb = new StringBuilder();           
+            StringBuilder sb = new StringBuilder();
             Dictionary<string, object> list = ParseObjects(reader, sb, false);
             return Deserialize(list, type);
         }
@@ -353,14 +353,18 @@ namespace Gurux.Common.JSon
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
-                GXFileSystemSecurity.UpdateDirectorySecurity(dir);
+#if !__MOBILE__
+            GXFileSystemSecurity.UpdateDirectorySecurity(dir);
+#endif
             }
-            GXJsonParser parser = new GXJsonParser();            
+            GXJsonParser parser = new GXJsonParser();
             using (TextWriter writer = File.CreateText(path))
             {
                 parser.Serialize(target, writer, false, false, true, false);
             }
-            GXFileSystemSecurity.UpdateFileSecurity(path);
+#if !__MOBILE__
+        GXFileSystemSecurity.UpdateFileSecurity(path);
+#endif
         }
 
         /// <summary>
@@ -386,7 +390,7 @@ namespace Gurux.Common.JSon
             TextWriter writer = new StreamWriter(stream);
             Serialize(target, writer, http, get, Indent, false);
         }
-       
+
         /// <summary>
         /// Load JSON object.
         /// </summary>
@@ -402,7 +406,7 @@ namespace Gurux.Common.JSon
                 {
                     StringBuilder sb = new StringBuilder();
                     Dictionary<string, object> list = ParseObjects(reader, sb, false);
-                    return (T) parser.Deserialize(list, typeof(T));
+                    return (T)parser.Deserialize(list, typeof(T));
                 }
             }
             return default(T);
@@ -418,8 +422,8 @@ namespace Gurux.Common.JSon
             using (TextReader reader = File.OpenText(path))
             {
                 if (reader.Peek() == '{')
-                {                    
-                    return true;                                                               
+                {
+                    return true;
                 }
             }
             return false;
@@ -433,7 +437,7 @@ namespace Gurux.Common.JSon
         /// <param name="result">Loaded object.</param>
         /// <returns>Returns is object loaded.</returns>
         public static bool TryLoad<T>(string path, out T result)
-        {            
+        {
             if (File.Exists(path))
             {
                 GXJsonParser parser = new GXJsonParser();
@@ -445,7 +449,7 @@ namespace Gurux.Common.JSon
                         {
                             StringBuilder sb = new StringBuilder();
                             Dictionary<string, object> list = ParseObjects(reader, sb, false);
-                            result = (T) parser.Deserialize(list, typeof(T));
+                            result = (T)parser.Deserialize(list, typeof(T));
                             return true;
                         }
                         catch (Exception)
@@ -453,7 +457,7 @@ namespace Gurux.Common.JSon
                             result = default(T);
                             return false;
                         }
-                    }                    
+                    }
                 }
             }
             result = default(T);
@@ -484,9 +488,9 @@ namespace Gurux.Common.JSon
         public object LoadFile(string path, Type type)
         {
             using (TextReader reader = File.OpenText(path))
-            {                
+            {
                 StringBuilder sb = new StringBuilder();
-                Dictionary<string, object> list = ParseObjects(reader, sb, false);                
+                Dictionary<string, object> list = ParseObjects(reader, sb, false);
                 return Deserialize(list, type);
             }
         }
@@ -500,7 +504,7 @@ namespace Gurux.Common.JSon
         {
             TextWriter writer = new StringWriter();
             Serialize(target, writer, false, false, Indent, false);
-            return writer.ToString();            
+            return writer.ToString();
         }
 
         /// <summary>
@@ -531,7 +535,7 @@ namespace Gurux.Common.JSon
                     {
                         s.Attributes = Attributes.Required;
                     }
-                }                
+                }
             }
         }
 
@@ -586,7 +590,7 @@ namespace Gurux.Common.JSon
                     }
                     Serialize(coll.Current, writer, http, get, false, isObject);
                 }
-                writer.Write("]");                
+                writer.Write("]");
             }
             else
             {
@@ -596,7 +600,7 @@ namespace Gurux.Common.JSon
                 }
                 bool first = true;
                 foreach (var it in list)
-                {                    
+                {
                     object value;
                     Type dataType = it.Value.Type;
                     if (it.Value.Get != null)
@@ -605,7 +609,7 @@ namespace Gurux.Common.JSon
                     }
                     else if (it.Value.Target is PropertyInfo)
                     {
-                        value = GXInternal.ShouldSerializeValue(((it.Value.Target) as PropertyInfo).GetValue(target, null));                        
+                        value = GXInternal.ShouldSerializeValue(((it.Value.Target) as PropertyInfo).GetValue(target, null));
                     }
                     else
                     {
@@ -639,7 +643,7 @@ namespace Gurux.Common.JSon
                             {
                                 writer.Write('\\');
                             }
-                            writer.Write("\"");                            
+                            writer.Write("\"");
                         }
                         writer.Write(it.Key);
                         if (!http)
@@ -662,7 +666,7 @@ namespace Gurux.Common.JSon
                             }
                             writer.Write("=");
                         }
-                        
+
                         if (value is string)
                         {
                             string str = (value as string);
@@ -672,7 +676,7 @@ namespace Gurux.Common.JSon
                                 {
                                     writer.Write('\\');
                                 }
-                                writer.Write("\"");                                
+                                writer.Write("\"");
                                 if (str.Contains("\\"))
                                 {
                                     str = str.Replace("\\", "\\\\");
@@ -691,7 +695,7 @@ namespace Gurux.Common.JSon
                                 }
                                 writer.Write("\"");
                             }
-                        }   
+                        }
                         else if (value is byte[])
                         {
                             if (isObject)
@@ -703,9 +707,9 @@ namespace Gurux.Common.JSon
                             if (isObject)
                             {
                                 writer.Write('\\');
-                            } 
+                            }
                             writer.Write("\"");
-                        }                        
+                        }
                         else if (value is DateTime)
                         {
                             writer.Write(GXInternal.ToString((DateTime)value, isObject ? true : get));
@@ -752,7 +756,7 @@ namespace Gurux.Common.JSon
                                 Serialize(coll.Current, writer, http, get, false, isObject);
                             }
                             writer.Write("]");
-                        }                                             
+                        }
                         else if (value is float)
                         {
                             writer.Write(((float)value).ToString(CultureInfo.InvariantCulture.NumberFormat));
@@ -826,7 +830,7 @@ namespace Gurux.Common.JSon
                             if (!get)
                             {
                                 writer.Write("\"");
-                            }                            
+                            }
                             if (!(value is string || value is Guid) && value.GetType().IsClass)
                             {
                                 writer.Write(value.GetType().AssemblyQualifiedName);
@@ -858,20 +862,20 @@ namespace Gurux.Common.JSon
                 {
                     writer.Write("}");
                 }
-            }                      
+            }
         }
 
         /// <summary>
         /// Deserialize JSON data to objects.
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="type"></param>        
+        /// <param name="type"></param>
         /// <returns></returns>
         public object Deserialize(Dictionary<string, object> data, Type type)
         {
             return Deserialize(data, type, null);
         }
-        
+
         /// <summary>
         /// Creates instance of given type.
         /// </summary>
@@ -888,9 +892,9 @@ namespace Gurux.Common.JSon
                 }
 
                 tmp = Expression.Lambda<Func<object>>
-                (
-                    Expression.New(type)
-                ).Compile();
+                      (
+                          Expression.New(type)
+                      ).Compile();
                 CachedObjects.Add(type, tmp);
                 return tmp();
             }
@@ -900,7 +904,7 @@ namespace Gurux.Common.JSon
         /// Deserialize JSON data to objects.
         /// </summary>
         /// <param name="parameters">Deserialized target if created yet.</param>
-        /// <param name="type">Object type.</param>        
+        /// <param name="type">Object type.</param>
         /// <param name="target"></param>
         /// <returns>Deserialized object.</returns>
         private object Deserialize(Dictionary<string, object> parameters, Type type, object target)
@@ -961,7 +965,7 @@ namespace Gurux.Common.JSon
             while (serializedItem.MoveNext())
             {
                 if (target is System.Collections.IList && string.Compare(serializedItem.Current.Key, "Items") == 0)
-                {                    
+                {
                     Type tp = GXInternal.GetPropertyType(type);
                     if (serializedItem.Current.Value != null)
                     {
@@ -1007,9 +1011,9 @@ namespace Gurux.Common.JSon
                         {
                             if (UpdateValue(target, item.Current, serializedItem.Current))
                             {
-                                found = true;                                
+                                found = true;
                                 break;
-                            }                            
+                            }
                         }
                         if (!found)
                         {
@@ -1023,7 +1027,7 @@ namespace Gurux.Common.JSon
             {
                 Type itemType = type.GetElementType();
                 target = Array.CreateInstance(itemType, 0);
-            }            
+            }
             return target;
         }
 
@@ -1057,14 +1061,14 @@ namespace Gurux.Common.JSon
                         }
                         else
                         {
-                            PropertyInfo pi = item.Value.Target as PropertyInfo;                            
+                            PropertyInfo pi = item.Value.Target as PropertyInfo;
                             if (pi != null)
                             {
                                 pi.SetValue(target, list2, null);
                             }
                             else
                             {
-                                FieldInfo fi = item.Value.Target as FieldInfo;                                
+                                FieldInfo fi = item.Value.Target as FieldInfo;
                                 fi.SetValue(target, list2);
                             }
                         }
@@ -1079,7 +1083,7 @@ namespace Gurux.Common.JSon
                         }
                         else
                         {
-                            PropertyInfo pi = item.Value.Target as PropertyInfo; 
+                            PropertyInfo pi = item.Value.Target as PropertyInfo;
                             if (pi != null)
                             {
                                 val = pi.GetValue(target, null);
@@ -1102,7 +1106,7 @@ namespace Gurux.Common.JSon
                         }
                         else
                         {
-                            PropertyInfo pi = item.Value.Target as PropertyInfo; 
+                            PropertyInfo pi = item.Value.Target as PropertyInfo;
                             if (pi != null)
                             {
                                 pi.SetValue(target, Deserialize(value, tp, val), null);
@@ -1138,14 +1142,14 @@ namespace Gurux.Common.JSon
                             {
                                 if (itemType == typeof(Guid) && it.GetType() == typeof(string))
                                 {
-                                    list2.SetValue(new Guid((string) it), pos);
+                                    list2.SetValue(new Guid((string)it), pos);
                                 }
                                 else
                                 {
                                     list2.SetValue(Convert.ChangeType(it, itemType), pos);
                                 }
                                 ++pos;
-                            }                            
+                            }
                         }
                     }
                     if (item.Value.Set != null)
@@ -1154,7 +1158,7 @@ namespace Gurux.Common.JSon
                     }
                     else
                     {
-                        PropertyInfo pi = item.Value.Target as PropertyInfo; 
+                        PropertyInfo pi = item.Value.Target as PropertyInfo;
                         if (pi != null)
                         {
                             pi.SetValue(target, list2, null);
@@ -1168,8 +1172,8 @@ namespace Gurux.Common.JSon
                 }
                 else
                 {
-                    SetValue(target, item.Value, (string)serializedItem.Value, tp);                    
-                }                
+                    SetValue(target, item.Value, (string)serializedItem.Value, tp);
+                }
             }
             return ret;
         }
@@ -1201,10 +1205,10 @@ namespace Gurux.Common.JSon
             }
             string key = null;
             object value = null;
-            bool insideString = false;            
+            bool insideString = false;
             char lastch, ch = '\0';
             int tmp;
-            int replaced = 0;            
+            int replaced = 0;
             while ((tmp = stream.Read()) != -1)
             {
                 lastch = ch;
@@ -1218,7 +1222,7 @@ namespace Gurux.Common.JSon
                     }
                     else if (ch == ':' || ch == '=')
                     {
-                        key = sb.ToString();                        
+                        key = sb.ToString();
                         sb.Length = 0;
                     }
                     else if (ch == ',')
@@ -1254,7 +1258,7 @@ namespace Gurux.Common.JSon
                     //Object starts.
                     else if (ch == '{')
                     {
-                        value = ParseObjects(stream, sb, false);                        
+                        value = ParseObjects(stream, sb, false);
                         if (array != null)
                         {
                             array.Add(value);
@@ -1279,11 +1283,11 @@ namespace Gurux.Common.JSon
                                     list.Add(it.Key, it.Value);
                                 }
                             }
-                        }                        
+                        }
                     }
                     //Object ends.
                     else if (ch == '}')
-                    {                                                
+                    {
                         if (sb.Length != 0)
                         {
                             value = sb.ToString();
@@ -1295,7 +1299,7 @@ namespace Gurux.Common.JSon
                             {
                                 value = ((string)value).Replace("\\\\", "\\");
                             }
-                            replaced = 0;                            
+                            replaced = 0;
                             sb.Length = 0;
                         }
                         if (key != null)
@@ -1309,9 +1313,9 @@ namespace Gurux.Common.JSon
                     //Collection starts
                     else if (ch == '[')
                     {
-                        array = new List<object>();                        
+                        array = new List<object>();
                         value = ParseObjects(stream, sb, true);
-                        foreach(var it in (Dictionary<string, object>)value)
+                        foreach (var it in (Dictionary<string, object>)value)
                         {
                             if (key == null)
                             {
@@ -1327,7 +1331,7 @@ namespace Gurux.Common.JSon
                         {
                             return (Dictionary<string, object>)value;
                         }
-                        //If array is property array.                                           
+                        //If array is property array.
                         sb.Length = 0;
                         value = null;
                         key = null;
@@ -1349,9 +1353,9 @@ namespace Gurux.Common.JSon
                             array.Add(value);
                             sb.Length = 0;
                         }
-                        list.Add("Items", array);                        
-                        break;                       
-                    }                    
+                        list.Add("Items", array);
+                        break;
+                    }
                     else if (key != null && array == null)
                     {
                         value = sb.ToString();
@@ -1374,7 +1378,7 @@ namespace Gurux.Common.JSon
                 {
                     if (ch == '\"' && lastch != '\\')
                     {
-                        insideString = false;                        
+                        insideString = false;
                     }
                     else if (ch != '\"' || insideString)
                     {
@@ -1387,10 +1391,10 @@ namespace Gurux.Common.JSon
                         {
                             replaced |= 2;
                         }
-                    }                   
+                    }
                 }
             }
-            return new Dictionary<string, object>(list);            
+            return new Dictionary<string, object>(list);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿//
 // --------------------------------------------------------------------------
 //  Gurux Ltd
-// 
+//
 //
 //
 // Filename:        $HeadURL$
@@ -19,14 +19,14 @@
 // This file is a part of Gurux Device Framework.
 //
 // Gurux Device Framework is Open Source software; you can redistribute it
-// and/or modify it under the terms of the GNU General Public License 
+// and/or modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; version 2 of the License.
 // Gurux Device Framework is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of 
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU General Public License for more details.
 //
-// This code is licensed under the GNU General Public License v2. 
+// This code is licensed under the GNU General Public License v2.
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Property is ignored. DB uses this.
         /// </summary>
-        Ignored = 0x40, 
+        Ignored = 0x40,
         /// <summary>
         /// Value is relation to parent table. This is used with 1:n relation.
         /// </summary>
@@ -160,7 +160,7 @@ namespace Gurux.Common.Internal
         /// </summary>
         public GXSerializedItem RelationMapTable;
 
-        public RelationType RelationType;      
+        public RelationType RelationType;
     }
 
     class GXSerializedItem
@@ -197,7 +197,7 @@ namespace Gurux.Common.Internal
             item.Set = Set;
             item.Get = Get;
             item.Attributes = Attributes;
-            item.Relation = Relation;            
+            item.Relation = Relation;
             return item;
         }
     }
@@ -207,6 +207,7 @@ namespace Gurux.Common.Internal
     /// </summary>
     class GXInternal
     {
+#if !__IOS__
         /// <summary>
         /// Create method handler for Gurux.Service.Rest methods.
         /// </summary>
@@ -228,13 +229,13 @@ namespace Gurux.Common.Internal
         private static DynamicMethod CreateGetDynamicMethod(Type type)
         {
             return new DynamicMethod("Get", typeof(object),
-                  new Type[] { typeof(object) }, type, true);
+                                     new Type[] { typeof(object) }, type, true);
         }
 
         private static DynamicMethod CreateSetDynamicMethod(Type type)
         {
             return new DynamicMethod("Set", typeof(void),
-                  new Type[] { typeof(object), typeof(object) }, type, true);
+                                     new Type[] { typeof(object), typeof(object) }, type, true);
         }
 
         private static void BoxIfNeeded(Type type, ILGenerator generator)
@@ -306,7 +307,7 @@ namespace Gurux.Common.Internal
             setGenerator.Emit(OpCodes.Ret);
             return (SetHandler)dynamicSet.CreateDelegate(typeof(SetHandler));
         }
-
+#endif
         /// <summary>
         /// Split sent data to packets.
         /// </summary>
@@ -403,7 +404,7 @@ namespace Gurux.Common.Internal
             PropertyInfo pi = target as PropertyInfo;
             if (pi != null)
             {
-                if (value is IEnumerable)                
+                if (value is IEnumerable)
                 {
                     if (!pi.PropertyType.IsAssignableFrom(value.GetType()))
                     {
@@ -418,6 +419,7 @@ namespace Gurux.Common.Internal
                             }
                             value = items;
                         }
+#if !__MOBILE__
                         else if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(System.Data.Linq.EntitySet<>))
                         {
                             Type listT = typeof(System.Data.Linq.EntitySet<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -428,10 +430,11 @@ namespace Gurux.Common.Internal
                             }
                             value = list;
                         }
+#endif //__MOBILE__
                         else
                         {
                             Type listT = typeof(List<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
-                            IList list = (IList) GXJsonParser.CreateInstance(listT);
+                            IList list = (IList)GXJsonParser.CreateInstance(listT);
                             foreach (object it in (IList)value)
                             {
                                 list.Add(it);
@@ -515,8 +518,10 @@ namespace Gurux.Common.Internal
                         {
                             if (!it.PropertyType.IsArray)
                             {
+#if !__IOS__
                                 s.Get = GXInternal.CreateGetHandler(it.PropertyType, it);
                                 s.Set = GXInternal.CreateSetHandler(it.PropertyType, it);
+#endif
                             }
                             list.Add(name, s);
                         }
@@ -553,8 +558,10 @@ namespace Gurux.Common.Internal
                             {
                                 if (!it.FieldType.IsArray)
                                 {
+#if !__IOS__
                                     s.Get = GXInternal.CreateGetHandler(it.FieldType, it);
                                     s.Set = GXInternal.CreateSetHandler(it.FieldType, it);
+#endif
                                 }
                                 list.Add(name, s);
                             }
@@ -570,8 +577,9 @@ namespace Gurux.Common.Internal
         /// </summary>
         /// <param name="value"></param>
         /// <param name="type"></param>
+        /// <param name="utc"></param>
         /// <returns></returns>
-        static public object ChangeType(object value, Type type)
+        static public object ChangeType(object value, Type type, bool utc)
         {
             if (value == null || value is DBNull)
             {
@@ -581,9 +589,9 @@ namespace Gurux.Common.Internal
             {
                 if (value is string)
                 {
-                    return GXCommon.HexToBytes((string)value, false);
+                    return GXCommon.HexToBytes((string)value);
                 }
-                return GXCommon.HexToBytes(ASCIIEncoding.ASCII.GetString((byte[])value), false);
+                return GXCommon.HexToBytes(ASCIIEncoding.ASCII.GetString((byte[])value));
             }
             //Date times are saved in UTC format.
             if (type == typeof(DateTime))
@@ -598,7 +606,14 @@ namespace Gurux.Common.Internal
                 {
                     return DateTime.MaxValue;
                 }
-                dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                if (utc)
+                {
+                    dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                }
+                else
+                {
+                    dt = DateTime.SpecifyKind(dt, DateTimeKind.Local);
+                }
                 return dt.ToLocalTime();
             }
             if (value.GetType() == type)
@@ -660,7 +675,14 @@ namespace Gurux.Common.Internal
             else if (type == typeof(DateTimeOffset))
             {
                 DateTime dt = (DateTime)Convert.ChangeType(value, typeof(DateTime));
-                dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                if (utc)
+                {
+                    dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                }
+                else
+                {
+                    dt = DateTime.SpecifyKind(dt, DateTimeKind.Local);
+                }
                 return new DateTimeOffset(dt.ToLocalTime());
             }
             //If nullable.
@@ -675,12 +697,19 @@ namespace Gurux.Common.Internal
                 if (tp == typeof(DateTime))
                 {
                     DateTime dt = (DateTime)Convert.ChangeType(value, tp);
-                    dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                    if (utc)
+                    {
+                        dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+                    }
+                    else
+                    {
+                        dt = DateTime.SpecifyKind(dt, DateTimeKind.Local);
+                    }
                     return dt.ToLocalTime();
                 }
                 if (value.GetType() != tp)
                 {
-                    return ChangeType(value, tp);
+                    return ChangeType(value, tp, utc);
                 }
                 return value;
             }
@@ -692,7 +721,7 @@ namespace Gurux.Common.Internal
                 int pos2 = -1;
                 foreach (string it in tmp)
                 {
-                    items.SetValue(GXInternal.ChangeType(it, pt), ++pos2);
+                    items.SetValue(GXInternal.ChangeType(it, pt, utc), ++pos2);
                 }
                 return items;
             }
@@ -817,7 +846,7 @@ namespace Gurux.Common.Internal
             }
             else if (value is Type)
             {
-                return value;                
+                return value;
             }
             else if (value is System.Collections.IEnumerable)
             {
@@ -844,9 +873,9 @@ namespace Gurux.Common.Internal
             {
                 type = Nullable.GetUnderlyingType(type);
             }
-            return type.IsPrimitive || type.IsEnum || type == typeof(Guid) || type == typeof(DateTime) || 
-                type == typeof(string) || type == typeof(Type) || type == typeof(object) ||
-                type == typeof(decimal) || type == typeof(TimeSpan) || type == typeof(DateTimeOffset);            
+            return type.IsPrimitive || type.IsEnum || type == typeof(Guid) || type == typeof(DateTime) ||
+                   type == typeof(string) || type == typeof(Type) || type == typeof(object) ||
+                   type == typeof(decimal) || type == typeof(TimeSpan) || type == typeof(DateTimeOffset);
         }
 
         internal static Type GetPropertyType(Type target)
@@ -912,7 +941,7 @@ namespace Gurux.Common.Internal
                     str += "-";
                 }
                 str += TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours.ToString("00") +
-                    TimeZone.CurrentTimeZone.GetUtcOffset(dt).Minutes.ToString("00");
+                       TimeZone.CurrentTimeZone.GetUtcOffset(dt).Minutes.ToString("00");
                 if (get)
                 {
                     str += ")/";

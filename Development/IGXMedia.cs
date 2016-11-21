@@ -1,7 +1,7 @@
 ﻿//
 // --------------------------------------------------------------------------
 //  Gurux Ltd
-// 
+//
 //
 //
 // Filename:        $HeadURL$
@@ -19,14 +19,14 @@
 // This file is a part of Gurux Device Framework.
 //
 // Gurux Device Framework is Open Source software; you can redistribute it
-// and/or modify it under the terms of the GNU General Public License 
+// and/or modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; version 2 of the License.
 // Gurux Device Framework is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of 
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU General Public License for more details.
 //
-// This code is licensed under the GNU General Public License v2. 
+// This code is licensed under the GNU General Public License v2.
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 using System;
@@ -59,25 +59,25 @@ namespace Gurux.Common
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">Event arguments.</param>
     public delegate void ReceivedEventHandler(object sender, ReceiveEventArgs e);
-   
+
     /// <summary>
     /// Media component sends notification, when its state changes.
     /// </summary>
-    /// <param name="sender">The source of the event.</param>    
+    /// <param name="sender">The source of the event.</param>
     /// <param name="e">Event arguments.</param>
     public delegate void MediaStateChangeEventHandler(object sender, MediaStateEventArgs e);
 
     /// <summary>
     /// Called when the client is establishing a connection with a GXNet Server.
     /// </summary>
-    /// <param name="sender">The source of the event.</param>    
+    /// <param name="sender">The source of the event.</param>
     /// <param name="e">Event arguments.</param>
     public delegate void ClientConnectedEventHandler(object sender, ConnectionEventArgs e);
 
     /// <summary>
     /// Called when the client has been disconnected from the GXNet server.
     /// </summary>
-    /// <param name="sender">The source of the event.</param>    
+    /// <param name="sender">The source of the event.</param>
     /// <param name="e">Event arguments.</param>
     public delegate void ClientDisconnectedEventHandler(object sender, ConnectionEventArgs e);
 
@@ -130,25 +130,25 @@ namespace Gurux.Common
             get;
         }
 
-		/// <summary>
-		/// Trace level of the IGXMedia for System.Diagnostic.Trace.Writes.
-		/// </summary>
-        /// <seealso cref="OnTrace"/>        
-		System.Diagnostics.TraceLevel Trace
-		{
-			get;
-			set;
-		}
+        /// <summary>
+        /// Trace level of the IGXMedia for System.Diagnostic.Trace.Writes.
+        /// </summary>
+        /// <seealso cref="OnTrace"/>
+        System.Diagnostics.TraceLevel Trace
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Opens the media.
-        /// </summary>            
+        /// </summary>
         void Open();
 
         /// <summary>
         /// Checks if the connection is established.
-        /// </summary>	
-        /// <returns>True, if the connection is established.</returns>		
+        /// </summary>
+        /// <returns>True, if the connection is established.</returns>
         bool IsOpen
         {
             get;
@@ -156,27 +156,25 @@ namespace Gurux.Common
 
         /// <summary>
         /// Closes the active connection.
-        /// </summary>            
+        /// </summary>
         /// <seealso cref="Open">Open</seealso>
         void Close();
 
-#if WINDOWS_PHONE
+#if !__MOBILE__
+    /// <summary>
+    /// Shows the media Properties dialog.
+    /// </summary>
+    /// <param name="parent">Parent window.</param>
+    /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
+    bool Properties(System.Windows.Forms.Form parent);
 
-#else
-        /// <summary>
-        /// Shows the media Properties dialog.
-        /// </summary>
-        /// <param name="parent">Parent window.</param>
-        /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
-        bool Properties(System.Windows.Forms.Form parent);
-
-        /// <summary>
-        /// Returns Media debended Properties form.
-        /// </summary>
-        System.Windows.Forms.Form PropertiesForm
-        {
-            get;
-        }
+    /// <summary>
+    /// Returns Media debended Properties form.
+    /// </summary>
+    System.Windows.Forms.Form PropertiesForm
+    {
+        get;
+    }
 #endif
 
 
@@ -227,8 +225,8 @@ namespace Gurux.Common
 
         /// <summary>
         /// Checks if the connection is in synchronous mode.
-        /// </summary>	
-        /// <returns>True, if the connection is in synchronous mode.</returns>		
+        /// </summary>
+        /// <returns>True, if the connection is in synchronous mode.</returns>
         bool IsSynchronous
         {
             get;
@@ -252,7 +250,7 @@ namespace Gurux.Common
         /// Sent byte count.
         /// </summary>
         /// <seealso cref="BytesReceived">BytesReceived</seealso>
-        /// <seealso cref="ResetByteCounters">ResetByteCounters</seealso>            
+        /// <seealso cref="ResetByteCounters">ResetByteCounters</seealso>
         UInt64 BytesSent
         {
             get;
@@ -262,7 +260,7 @@ namespace Gurux.Common
         /// Received byte count.
         /// </summary>
         /// <seealso cref="BytesSent">BytesSent</seealso>
-        /// <seealso cref="ResetByteCounters">ResetByteCounters</seealso>            
+        /// <seealso cref="ResetByteCounters">ResetByteCounters</seealso>
         UInt64 BytesReceived
         {
             get;
@@ -272,7 +270,7 @@ namespace Gurux.Common
         /// Resets BytesReceived and BytesSent counters.
         /// </summary>
         /// <seealso cref="BytesSent">BytesSent</seealso>
-        /// <seealso cref="BytesReceived">BytesReceived</seealso>            
+        /// <seealso cref="BytesReceived">BytesReceived</seealso>
         void ResetByteCounters();
 
         /// <summary>
@@ -283,7 +281,7 @@ namespace Gurux.Common
 
         /// <summary>
         /// Data is buffered until EOP is received.
-        /// </summary>            
+        /// </summary>
         object Eop
         {
             get;
@@ -319,7 +317,7 @@ namespace Gurux.Common
 
         /// <summary>
         /// Gets an object that can be used to synchronize the media.
-        /// </summary>        
+        /// </summary>
         [Browsable(false), ReadOnly(true)]
         object SyncRoot
         {
@@ -348,7 +346,7 @@ namespace Gurux.Common
     /// <param name="propertyName"></param>
     /// <returns></returns>
     public delegate string GetPropertyValueEventHandler(string propertyName);
-    
+
     /// <summary>
     /// Virtual media is used to create virtual media.
     /// </summary>
@@ -382,6 +380,6 @@ namespace Gurux.Common
         /// <param name="data">Received data.</param>
         /// <param name="sender">Data sender.</param>
         void DataReceived(byte[] data, string sender);
-        
+
     }
 }
