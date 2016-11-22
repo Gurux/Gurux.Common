@@ -12,10 +12,9 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>Gurux.Common class implements interfaces that are needed for Gurux Media components and Gurux Device Framework.</description>
         <releaseNotes>Initial version.</releaseNotes>
-        <copyright>Copyright (c) 1998-2015 Gurux Ltd. All rights reserved.</copyright>
+        <copyright>Copyright (c) 1998-2016 Gurux Ltd. All rights reserved.</copyright>
         <tags>Gurux device framework</tags>
         <dependencies>
-            <dependency id="ICSharpCode.SharpZipLib.dll" version="0.85.4.369" />
         </dependencies>
     </metadata>
     <files>
