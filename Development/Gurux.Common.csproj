@@ -12,8 +12,9 @@
     <AssemblyName>Gurux.Common</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Gurux.Common.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -131,9 +132,6 @@
     <Compile Include="ReceiveEventArgs.cs" />
     <Compile Include="ReceiveParameters.cs" />
     <Compile Include="TraceTypes.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Gurux.Common.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutBox1.resx">
