@@ -65,7 +65,6 @@
     <Compile Include="JSon\GXErrorWrapper.cs" />
     <Compile Include="JSon\GXJsonClient.cs" />
     <Compile Include="JSon\GXJsonParser.cs" />
-    <Compile Include="JSon\GXResponseError.cs" />
     <Compile Include="MediaState.cs" />
     <Compile Include="MediaStateEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,9 +81,6 @@
     <Compile Include="ReceiveEventArgs.cs" />
     <Compile Include="ReceiveParameters.cs" />
     <Compile Include="TraceTypes.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Gurux.Common.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

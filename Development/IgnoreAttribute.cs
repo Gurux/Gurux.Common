@@ -33,7 +33,10 @@
 using System;
 
 namespace Gurux.Common
-{    
+{
+    /// <summary>
+    /// Ignore type enumeration.
+    /// </summary>
     [Flags]
     public enum IgnoreType : int
     {
@@ -62,6 +65,9 @@ namespace Gurux.Common
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class IgnoreAttribute : Attribute
     {
+        /// <summary>
+        /// Ignore types.
+        /// </summary>
         public IgnoreType IgnoreType
         {
             get;
