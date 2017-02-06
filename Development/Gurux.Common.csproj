@@ -108,7 +108,6 @@
     <Compile Include="GXUpdateChecker.cs" />
     <Compile Include="IGXMedia.cs" />
     <Compile Include="IGXPropertyPage.cs" />
-    <Compile Include="JSon\GXResponseError.cs" />
     <Compile Include="Internal\Internal.cs" />
     <Compile Include="LibraryVersionsDlg.cs">
       <SubType>Form</SubType>

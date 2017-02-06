@@ -12,7 +12,7 @@ namespace Gurux.Common
     {
         public AboutBox1(string application, string title, string copyrightText, string aboutText, string version)
         {
-            InitializeComponent();            
+            InitializeComponent();
             this.ApplicationLbl.Text = application;
             this.Text = title;
             this.CopyrightTextLbl.Text = copyrightText;
@@ -99,5 +99,17 @@ namespace Gurux.Common
             }
         }
         #endregion
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(linkLabel1.Text);
+            }
+            catch (Exception ex)
+            {
+                GXCommon.ShowError(ex);
+            }
+        }
     }
 }
