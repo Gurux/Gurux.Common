@@ -92,6 +92,7 @@
     <Compile Include="AddInsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GXCmdParameter.cs" />
     <Compile Include="AsyncState.cs" />
     <Compile Include="ClipboardCopy.cs" />
     <Compile Include="GXAboutForm.cs" />

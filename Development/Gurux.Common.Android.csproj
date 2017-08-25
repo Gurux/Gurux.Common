@@ -48,6 +48,7 @@
     <Compile Include="AsyncState.cs" />
     <Compile Include="AutoIncrementAttribute.cs" />
     <Compile Include="ConnectionEventArgs.cs" />
+    <Compile Include="GXCmdParameter.cs" />
     <Compile Include="GXCommon.cs" />
     <Compile Include="IgnoreAttribute.cs" />
     <Compile Include="IGXMedia.cs" />

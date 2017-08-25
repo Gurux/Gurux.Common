@@ -911,5 +911,41 @@ namespace Gurux.Common
                 chars[count++] = original[i];
             return new string(chars, 0, count);
         }
+
+        /// <summary>
+        /// Returns command line parameters.
+        /// </summary>
+        /// <param name="args">Command line parameters.</param>
+        /// <param name="optstring">Expected option tags.</param>
+        /// <returns>List of command line parameters</returns>
+        static List<GXCmdParameter> GetParameters(string[] args, string optstring)
+        {
+            List<GXCmdParameter> list = new List<GXCmdParameter>();
+            for (int index = 0; index != args.Length; ++index)
+            {
+                if (args[index][0] != '-' && args[index][0] != '/')
+                {
+                    throw new ArgumentException("Invalid parameter: " + args[index]);
+                }
+                int pos = optstring.IndexOf(args[index][1]);
+                if (pos == -1)
+                {
+                    throw new ArgumentException("Invalid parameter: " + args[index]);
+                }
+                GXCmdParameter c = new GXCmdParameter();
+                c.Tag = args[index][1];
+                list.Add(c);
+                if (optstring[1 + pos] == ':')
+                {
+                    ++index;
+                    if (args.Length <= index)
+                    {
+                        c.Missing = true;
+                    }
+                    c.Value = args[index];
+                }
+            }
+            return list;
+        }
     }
 }
