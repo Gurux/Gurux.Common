@@ -921,7 +921,7 @@ namespace Gurux.Common
         public static List<GXCmdParameter> GetParameters(string[] args, string optstring)
         {
             List<GXCmdParameter> list = new List<GXCmdParameter>();
-            for (int index = 0; index != args.Length; ++index)
+            for (int index = 0; index < args.Length; ++index)
             {
                 if (args[index][0] != '-' && args[index][0] != '/')
                 {
