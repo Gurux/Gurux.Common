@@ -918,7 +918,7 @@ namespace Gurux.Common
         /// <param name="args">Command line parameters.</param>
         /// <param name="optstring">Expected option tags.</param>
         /// <returns>List of command line parameters</returns>
-        static List<GXCmdParameter> GetParameters(string[] args, string optstring)
+        public static List<GXCmdParameter> GetParameters(string[] args, string optstring)
         {
             List<GXCmdParameter> list = new List<GXCmdParameter>();
             for (int index = 0; index != args.Length; ++index)
