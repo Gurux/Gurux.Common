@@ -935,7 +935,7 @@ namespace Gurux.Common
                 GXCmdParameter c = new GXCmdParameter();
                 c.Tag = args[index][1];
                 list.Add(c);
-                if (optstring[1 + pos] == ':')
+                if (pos < optstring.Length - 1 && optstring[1 + pos] == ':')
                 {
                     ++index;
                     if (args.Length <= index)
