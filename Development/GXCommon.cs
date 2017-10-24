@@ -828,6 +828,10 @@ namespace Gurux.Common
         {
             try
             {
+                if (expectedToken == null || expectedToken.Length == 0)
+                {
+                    return false;
+                }
                 // Get the public key token of the given assembly
                 byte[] asmToken = target.GetName().GetPublicKeyToken();
 
