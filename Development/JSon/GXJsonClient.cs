@@ -187,7 +187,7 @@ namespace Gurux.Common.JSon
         /// <summary>
         /// Send JSON data.
         /// </summary>
-         /// <typeparam name="T">JSON message type.</typeparam>
+        /// <typeparam name="T">JSON message type.</typeparam>
         /// <param name="request">Request to send.</param>
         /// <returns>Response from the server.</returns>
         public virtual T Delete<T>(IGXRequest<T> request)
@@ -213,11 +213,11 @@ namespace Gurux.Common.JSon
         /// </summary>
         /// <typeparam name="T">JSON message type.</typeparam>
         /// <param name="asyncResult">Http stream.</param>
-        private void AsyncReponse<T>(IAsyncResult asyncResult)        
+        private void AsyncReponse<T>(IAsyncResult asyncResult)
         {
             GXAsyncData<T> data = (GXAsyncData<T>)asyncResult.AsyncState;
             WebResponse res = data.Request.EndGetResponse(asyncResult);
-            T result = GetResponse<T>(res);           
+            T result = GetResponse<T>(res);
             if (data.OnDone != null)
             {
                 data.OnDone(this, result);
@@ -232,20 +232,20 @@ namespace Gurux.Common.JSon
             public DoneEventHandler OnDone;
             public string Data;
         }
-       
+
         /// <summary>
         /// Send JSON message asyncronously over http request.
         /// </summary>
-         /// <typeparam name="T">JSON message type.</typeparam>
+        /// <typeparam name="T">JSON message type.</typeparam>
         /// <param name="request">Request to send.</param>
         /// <param name="onDone"></param>
         /// <param name="onError"></param>
-        public void PostAsync<T>(IGXRequest<T> request, DoneEventHandler onDone, ErrorEventHandler onError)        
+        public void PostAsync<T>(IGXRequest<T> request, DoneEventHandler onDone, ErrorEventHandler onError)
         {
             GXAsyncData<T> data = new GXAsyncData<T>();
             data.OnError = onError;
             data.OnDone = onDone;
-            Send<T>("POST", request, data);            
+            Send<T>("POST", request, data);
         }
 
         /// <summary>
@@ -258,16 +258,16 @@ namespace Gurux.Common.JSon
 
         private void SendAsync<T>(IAsyncResult result)
         {
-            GXAsyncData<T> data = (GXAsyncData<T>)result.AsyncState;            
+            GXAsyncData<T> data = (GXAsyncData<T>)result.AsyncState;
             using (Stream stream = data.Request.EndGetRequestStream(result))
             {
                 using (var streamWriter = new StreamWriter(stream))
                 {
                     streamWriter.Write(data.Data);
                     streamWriter.Flush();
-                }                
+                }
             }
-            data.Request.BeginGetResponse(AsyncReponse<T>, data);            
+            data.Request.BeginGetResponse(AsyncReponse<T>, data);
         }
 
         /// <summary>
@@ -279,7 +279,22 @@ namespace Gurux.Common.JSon
         /// <param name="data">Async request.</param>
         /// <returns>Http request that is sent to the server.</returns>
         private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data)
-        {            
+        {
+            return Send<T>(method, request, data, "application/json", "application/json");
+        }
+
+        /// <summary>
+        /// Parse to JSON and send to the server.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="method">Sent JSON object as a string.</param>
+        /// <param name="request">Request to send.</param>
+        /// <param name="data">Async request.</param>
+        /// <param name="requestContentType">Request content type.</param>
+        /// <param name="acceptContentType">Accept content type.</param>
+        /// <returns>Http request that is sent to the server.</returns>
+        private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data, string requestContentType, string acceptContentType)
+        {
             CancelOperation = false;
             string cmd = null;
             bool content = method == "POST" || method == "PUT";
@@ -302,8 +317,8 @@ namespace Gurux.Common.JSon
             {
                 req.Timeout = (int)this.Timeout.TotalMilliseconds;
             }
-            req.ContentType = "application/json; charset=utf-8";
-            req.Accept = "text/json";
+            req.ContentType = requestContentType;
+            req.Accept = acceptContentType;
             req.Method = method;
             //Add basic authentication if it is used.
             if (!string.IsNullOrEmpty(UserName))
@@ -319,9 +334,9 @@ namespace Gurux.Common.JSon
                     data.Data = cmd;
                     data.Request = req;
                     //req.BeginGetRequestStream(SendAsync<T>, data);                    
-                    req.BeginGetRequestStream(delegate(IAsyncResult result)
+                    req.BeginGetRequestStream(delegate (IAsyncResult result)
                     {
-                        GXAsyncData<T> tmp = (GXAsyncData<T>)result.AsyncState;                        
+                        GXAsyncData<T> tmp = (GXAsyncData<T>)result.AsyncState;
                         using (Stream stream = tmp.Request.EndGetRequestStream(result))
                         {
                             using (var streamWriter = new StreamWriter(stream))
@@ -331,10 +346,10 @@ namespace Gurux.Common.JSon
                             }
                         }
                         sent.Set();
-                        tmp.Request.BeginGetResponse(AsyncReponse<T>, tmp); 
+                        tmp.Request.BeginGetResponse(AsyncReponse<T>, tmp);
 
                     }, data);
-                    sent.WaitOne();                    
+                    sent.WaitOne();
                 }
                 else
                 {
@@ -347,11 +362,11 @@ namespace Gurux.Common.JSon
             }
             return req;
         }
-        
+
         /// <summary>
         /// De-serialize response to REST object.
         /// </summary>
-         /// <typeparam name="T">JSON message type.</typeparam>
+        /// <typeparam name="T">JSON message type.</typeparam>
         /// <param name="response"></param>
         /// <returns></returns>
         private T GetResponse<T>(WebResponse response)
@@ -409,7 +424,7 @@ namespace Gurux.Common.JSon
                 }
             }
         }
-        
+
         /// <summary>
         /// Read data fro the server.
         /// </summary>
@@ -421,18 +436,18 @@ namespace Gurux.Common.JSon
             }
             try
             {
-                using (HttpWebResponse response = req.GetResponse() as HttpWebResponse)                
-                {                   
+                using (HttpWebResponse response = req.GetResponse() as HttpWebResponse)
+                {
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
                         throw new Exception(String.Format
                             ("Server error (HTTP {0}: {1}).",
                             response.StatusCode,
                             response.StatusDescription));
-                    }       
+                    }
                     return GetResponse<T>(response);
                 }
-            }        
+            }
             catch (WebException ex)
             {
                 GXErrorWrapper err = GetResponse<GXErrorWrapper>(ex.Response);
