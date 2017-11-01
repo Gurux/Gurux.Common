@@ -354,7 +354,7 @@ namespace Gurux.Common.JSon
             {
                 Directory.CreateDirectory(dir);
 #if !__MOBILE__
-            GXFileSystemSecurity.UpdateDirectorySecurity(dir);
+                GXFileSystemSecurity.UpdateDirectorySecurity(dir);
 #endif
             }
             GXJsonParser parser = new GXJsonParser();
@@ -363,7 +363,7 @@ namespace Gurux.Common.JSon
                 parser.Serialize(target, writer, false, false, true, false);
             }
 #if !__MOBILE__
-        GXFileSystemSecurity.UpdateFileSecurity(path);
+            GXFileSystemSecurity.UpdateFileSecurity(path);
 #endif
         }
 
@@ -662,9 +662,12 @@ namespace Gurux.Common.JSon
                                 {
                                     writer.Write('\\');
                                 }
-                                writer.Write("\"");
+                                writer.Write("\":");
                             }
-                            writer.Write("=");
+                            else
+                            {
+                                writer.Write("=");
+                            }
                         }
 
                         if (value is string)

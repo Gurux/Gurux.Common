@@ -280,21 +280,6 @@ namespace Gurux.Common.JSon
         /// <returns>Http request that is sent to the server.</returns>
         private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data)
         {
-            return Send<T>(method, request, data, "application/json", "application/json");
-        }
-
-        /// <summary>
-        /// Parse to JSON and send to the server.
-        /// </summary>
-        /// <typeparam name="T">JSON message type.</typeparam>
-        /// <param name="method">Sent JSON object as a string.</param>
-        /// <param name="request">Request to send.</param>
-        /// <param name="data">Async request.</param>
-        /// <param name="requestContentType">Request content type.</param>
-        /// <param name="acceptContentType">Accept content type.</param>
-        /// <returns>Http request that is sent to the server.</returns>
-        private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data, string requestContentType, string acceptContentType)
-        {
             CancelOperation = false;
             string cmd = null;
             bool content = method == "POST" || method == "PUT";
@@ -317,8 +302,8 @@ namespace Gurux.Common.JSon
             {
                 req.Timeout = (int)this.Timeout.TotalMilliseconds;
             }
-            req.ContentType = requestContentType;
-            req.Accept = acceptContentType;
+            req.ContentType = "application/json";
+            req.Accept = "application/json";
             req.Method = method;
             //Add basic authentication if it is used.
             if (!string.IsNullOrEmpty(UserName))
