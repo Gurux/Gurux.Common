@@ -36,6 +36,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 using Gurux.Common.Internal;
+using System.Threading;
 
 namespace Gurux.Common.JSon
 {
@@ -90,6 +91,11 @@ namespace Gurux.Common.JSon
             get;
             set;
         }
+
+        /// <summary>
+        /// List of async operations.
+        /// </summary>
+        private List<WaitHandle> asyncOperations = new List<WaitHandle>();
 
         /// <summary>
         /// Set used credentials to connect to Gurux JSON server.
@@ -249,11 +255,33 @@ namespace Gurux.Common.JSon
         }
 
         /// <summary>
+        /// Send JSON message asyncronously over http request.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="request">Request to send.</param>
+        /// <param name="onDone"></param>
+        /// <param name="onError"></param>
+        public void GetAsync<T>(IGXRequest<T> request, DoneEventHandler onDone, ErrorEventHandler onError)
+        {
+            GXAsyncData<T> data = new GXAsyncData<T>();
+            data.OnError = onError;
+            data.OnDone = onDone;
+            HttpWebRequest req = Send<T>("GET", request, data);           
+        }
+
+        /// <summary>
         /// Cancel current operation.
         /// </summary>
         public void Cancel()
         {
             CancelOperation = true;
+            lock (asyncOperations)
+            {
+                foreach (WaitHandle it in asyncOperations)
+                {
+                    it.Close();
+                }
+            }
         }
 
         private void SendAsync<T>(IAsyncResult result)
@@ -298,9 +326,9 @@ namespace Gurux.Common.JSon
             {
                 req = WebRequest.Create(Address + "json/reply/" + request.GetType().Name + "?" + cmd) as HttpWebRequest;
             }
-            if (this.Timeout.TotalMilliseconds != 0)
+            if (Timeout.TotalMilliseconds != 0)
             {
-                req.Timeout = (int)this.Timeout.TotalMilliseconds;
+                req.ReadWriteTimeout = req.Timeout = (int)this.Timeout.TotalMilliseconds;               
             }
             req.ContentType = "application/json";
             req.Accept = "application/json";
@@ -313,28 +341,42 @@ namespace Gurux.Common.JSon
             if (content)
             {
                 req.ContentLength = cmd.Length;
+                //If data is send as async.
                 if (data != null)
                 {
-                    System.Threading.AutoResetEvent sent = new System.Threading.AutoResetEvent(false);
                     data.Data = cmd;
                     data.Request = req;
-                    //req.BeginGetRequestStream(SendAsync<T>, data);                    
                     req.BeginGetRequestStream(delegate (IAsyncResult result)
                     {
-                        GXAsyncData<T> tmp = (GXAsyncData<T>)result.AsyncState;
-                        using (Stream stream = tmp.Request.EndGetRequestStream(result))
+                        lock(asyncOperations)
                         {
-                            using (var streamWriter = new StreamWriter(stream))
+                            asyncOperations.Add(result.AsyncWaitHandle);
+                        }
+                        GXAsyncData<T> tmp = (GXAsyncData<T>)result.AsyncState;
+                        try
+                        {
+                            using (Stream stream = tmp.Request.EndGetRequestStream(result))
                             {
-                                streamWriter.Write(tmp.Data);
-                                streamWriter.Flush();
+                                using (var streamWriter = new StreamWriter(stream))
+                                {
+                                    streamWriter.Write(tmp.Data);
+                                    streamWriter.Flush();
+                                }
+                            }
+                            tmp.Request.BeginGetResponse(AsyncReponse<T>, tmp);
+                        }
+                        catch (Exception ex)
+                        {
+                            tmp.OnError(this, ex);
+                        }
+                        finally
+                        {
+                            lock (asyncOperations)
+                            {
+                                asyncOperations.Remove(result.AsyncWaitHandle);
                             }
                         }
-                        sent.Set();
-                        tmp.Request.BeginGetResponse(AsyncReponse<T>, tmp);
-
                     }, data);
-                    sent.WaitOne();
                 }
                 else
                 {
@@ -345,6 +387,36 @@ namespace Gurux.Common.JSon
                     }
                 }
             }
+            else if (data != null)
+            {
+                req.BeginGetResponse(delegate (IAsyncResult result)
+                {
+                    lock (asyncOperations)
+                    {
+                        asyncOperations.Add(result.AsyncWaitHandle);
+                    }
+                    GXAsyncData<T> tmp = (GXAsyncData<T>)result.AsyncState;
+                    try
+                    {
+                        T result2 = GetResponse<T>(req);
+                        if (data.OnDone != null)
+                        {
+                            data.OnDone(this, result2);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        tmp.OnError(this, ex);
+                    }
+                    finally
+                    {
+                        lock (asyncOperations)
+                        {
+                            asyncOperations.Remove(result.AsyncWaitHandle);
+                        }
+                    }
+                }, data);               
+            }           
             return req;
         }
 
