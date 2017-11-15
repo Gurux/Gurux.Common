@@ -18,9 +18,12 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\*.dll" target="lib\portable-win+net35" />
-    <file src="bin\Release\*.XML" target="lib\portable-win+net35" />
-    <file src="bin\Release\*.pdb" target="lib\portable-win+net35" />
+    <file src="bin\Release35\*.dll" target="lib\portable-win+net35" />
+    <file src="bin\Release35\*.XML" target="lib\portable-win+net35" />
+    <file src="bin\Release35\*.pdb" target="lib\portable-win+net35" />
+    <file src="bin\Release\*.dll" target="lib\portable-win+net40" />
+    <file src="bin\Release\*.XML" target="lib\portable-win+net40" />
+    <file src="bin\Release\*.pdb" target="lib\portable-win+net40" />
     <file src="bin\Android\Release\*.dll" target="lib\monoandroid" />
     <file src="bin\Android\Release\*.XML" target="lib\monoandroid" />
     <file src="bin\Android\Release\*.pdb" target="lib\monoandroid" />

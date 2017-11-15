@@ -19,10 +19,10 @@ namespace Gurux.Common.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Gurux.Common.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Gurux.Common.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Gurux.Common.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Available.
         /// </summary>
-        public static string Available {
+        internal static string Available {
             get {
                 return ResourceManager.GetString("Available", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Available AddIns.
         /// </summary>
-        public static string AvailableAddIns {
+        internal static string AvailableAddIns {
             get {
                 return ResourceManager.GetString("AvailableAddIns", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Available:.
         /// </summary>
-        public static string AvailableTxt {
+        internal static string AvailableTxt {
             get {
                 return ResourceManager.GetString("AvailableTxt", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Available Updates.
         /// </summary>
-        public static string AvailableUpdatesTxt {
+        internal static string AvailableUpdatesTxt {
             get {
                 return ResourceManager.GetString("AvailableUpdatesTxt", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Closes the dialog box without saving any changes you have made..
         /// </summary>
-        public static string CancelHelp {
+        internal static string CancelHelp {
             get {
                 return ResourceManager.GetString("CancelHelp", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        public static string CancelTxt {
+        internal static string CancelTxt {
             get {
                 return ResourceManager.GetString("CancelTxt", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Closes the dialog box without saving any changes you have made..
         /// </summary>
-        public static string ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade {
+        internal static string ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade {
             get {
                 return ResourceManager.GetString("ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
-        public static string CopyTxt {
+        internal static string CopyTxt {
             get {
                 return ResourceManager.GetString("CopyTxt", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Disable.
         /// </summary>
-        public static string Disable {
+        internal static string Disable {
             get {
                 return ResourceManager.GetString("Disable", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
-        public static string Disabled {
+        internal static string Disabled {
             get {
                 return ResourceManager.GetString("Disabled", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Download.
         /// </summary>
-        public static string Download {
+        internal static string Download {
             get {
                 return ResourceManager.GetString("Download", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enable.
         /// </summary>
-        public static string Enable {
+        internal static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Finding protocols..
         /// </summary>
-        public static string FindingProtocols {
+        internal static string FindingProtocols {
             get {
                 return ResourceManager.GetString("FindingProtocols", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No Help topic is associated with this item..
         /// </summary>
-        public static string HelpNotAvailable {
+        internal static string HelpNotAvailable {
             get {
                 return ResourceManager.GetString("HelpNotAvailable", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Installed:.
         /// </summary>
-        public static string Installed {
+        internal static string Installed {
             get {
                 return ResourceManager.GetString("Installed", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to In use.
         /// </summary>
-        public static string InUse {
+        internal static string InUse {
             get {
                 return ResourceManager.GetString("InUse", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Copies files to the clipboard..
         /// </summary>
-        public static string LibraryCopyHelp {
+        internal static string LibraryCopyHelp {
             get {
                 return ResourceManager.GetString("LibraryCopyHelp", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Shows product and library versions..
         /// </summary>
-        public static string LibraryListHelp {
+        internal static string LibraryListHelp {
             get {
                 return ResourceManager.GetString("LibraryListHelp", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Library Versions.
         /// </summary>
-        public static string LibraryVersionsTxt {
+        internal static string LibraryVersionsTxt {
             get {
                 return ResourceManager.GetString("LibraryVersionsTxt", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
-        public static string LocationTxt {
+        internal static string LocationTxt {
             get {
                 return ResourceManager.GetString("LocationTxt", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        public static string NameTxt {
+        internal static string NameTxt {
             get {
                 return ResourceManager.GetString("NameTxt", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .NET Framework 3.5.
         /// </summary>
-        public static string NETFramework35 {
+        internal static string NETFramework35 {
             get {
                 return ResourceManager.GetString("NETFramework35", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .Net framework 3.5 SP1 must be installed before the application can be used..
         /// </summary>
-        public static string NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed {
+        internal static string NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed {
             get {
                 return ResourceManager.GetString("NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .Net framework 3.5 SP1 or 4.0 must be installed before the application can be used..
         /// </summary>
-        public static string NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed {
+        internal static string NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed {
             get {
                 return ResourceManager.GetString("NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .NET Framework 4.0.
         /// </summary>
-        public static string NETFramework40 {
+        internal static string NETFramework40 {
             get {
                 return ResourceManager.GetString("NETFramework40", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to New updates available.
         /// </summary>
-        public static string NewProtocolsAvailableTxt {
+        internal static string NewProtocolsAvailableTxt {
             get {
                 return ResourceManager.GetString("NewProtocolsAvailableTxt", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to There are new updates available. Do you want to download them?.
         /// </summary>
-        public static string NewProtocolsDownloadTxt {
+        internal static string NewProtocolsDownloadTxt {
             get {
                 return ResourceManager.GetString("NewProtocolsDownloadTxt", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Not hex string.
         /// </summary>
-        public static string NotHexString {
+        internal static string NotHexString {
             get {
                 return ResourceManager.GetString("NotHexString", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Protocols.
         /// </summary>
-        public static string ProtocolsTxt {
+        internal static string ProtocolsTxt {
             get {
                 return ResourceManager.GetString("ProtocolsTxt", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to  SP .
         /// </summary>
-        public static string SP {
+        internal static string SP {
             get {
                 return ResourceManager.GetString("SP", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
-        public static string State {
+        internal static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown type .
         /// </summary>
-        public static string UnknownType {
+        internal static string UnknownType {
             get {
                 return ResourceManager.GetString("UnknownType", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Update available.
         /// </summary>
-        public static string UpdateAvailable {
+        internal static string UpdateAvailable {
             get {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Gurux.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Version.
         /// </summary>
-        public static string VersionTxt {
+        internal static string VersionTxt {
             get {
                 return ResourceManager.GetString("VersionTxt", resourceCulture);
             }
