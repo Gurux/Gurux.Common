@@ -102,6 +102,7 @@
     <Compile Include="GXCommon.cs" />
     <Compile Include="GXFileSystemSecurity.cs" />
     <Compile Include="IGXReturn.cs" />
+    <Compile Include="IGXUpdater.cs" />
     <Compile Include="JSon\GXCreateObjectEventArgs.cs" />
     <Compile Include="JSon\GXErrorWrapper.cs" />
     <Compile Include="JSon\GXJsonClient.cs" />

@@ -54,6 +54,7 @@
     <Compile Include="IGXMedia.cs" />
     <Compile Include="IGXPropertyPage.cs" />
     <Compile Include="IGXReturn.cs" />
+    <Compile Include="IGXUpdater.cs" />
     <Compile Include="IndexAttribute.cs" />
     <Compile Include="Internal\Internal.cs" />
     <Compile Include="JSon\GXCreateObjectEventArgs.cs" />
