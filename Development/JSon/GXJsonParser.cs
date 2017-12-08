@@ -1307,7 +1307,14 @@ namespace Gurux.Common.JSon
                         }
                         if (key != null)
                         {
-                            list.Add(key, value);
+                            try
+                            {
+                                list.Add(key, value);
+                            }
+                            catch (ArgumentException ex)
+                            {
+                                throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                            }
                             key = null;
                             value = null;
                         }
