@@ -45,6 +45,9 @@ namespace Gurux.Common
         GXUpdateItem[] CheckUpdates();
     }
 
+    /// <summary>
+    /// Information from the updated item.
+    /// </summary>
     public class GXUpdateItem
     {
         /// <summary>

@@ -128,28 +128,52 @@ namespace Gurux.Common
         /// </summary>
         public static Control Owner = null;
 #endif
+
+        /// <summary>
+        /// Convert byte array to hex string.
+        /// </summary>
+        /// <param name="bytes">Byte array to convert.</param>
+        [DebuggerStepThrough]
+        public static string ToHex(byte[] bytes)
+        {
+            return ToHex(bytes, true, 0, bytes == null ? 0 : bytes.Length);
+        }
+
         /// <summary>
         /// Convert byte array to hex string.
         /// </summary>
         /// <param name="bytes">Byte array to convert.</param>
         /// <param name="addSpace">Is space added between bytes.</param>
-        /// <returns>Byte array as hex string.</returns>
+        [DebuggerStepThrough]
         public static string ToHex(byte[] bytes, bool addSpace)
         {
-            if (bytes == null || bytes.Length == 0)
+            return ToHex(bytes, addSpace, 0, bytes == null ? 0 : bytes.Length);
+        }
+
+        /// <summary>
+        /// Convert byte array to hex string.
+        /// </summary>
+        /// <param name="bytes">Byte array to convert.</param>
+        /// <param name="addSpace">Is space added between bytes.</param>
+        /// <param name="index">Byte index.</param>
+        /// <param name="count">Byte count.</param>
+        /// <returns>Byte array as hex string.</returns>
+        [DebuggerStepThrough]
+        public static string ToHex(byte[] bytes, bool addSpace, int index, int count)
+        {
+            if (bytes == null || bytes.Length == 0 || count == 0)
             {
                 return string.Empty;
             }
-            int len = bytes.Length * (addSpace ? 3 : 2);
-            char[] str = new char[len];
+            char[] str = new char[count * (addSpace ? 3 : 2)];
             int tmp;
-            len = 0;
-            for (int pos = 0; pos != bytes.Length; ++pos)
+            int len = 0;
+            for (int pos = 0; pos != count; ++pos)
             {
-                tmp = (bytes[pos] >> 4);
+                tmp = (bytes[index + pos] >> 4);
                 str[len] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
                 ++len;
-                tmp = (bytes[pos] & 0x0F);
+                tmp = (bytes[index + pos] & 0x0F);
                 str[len] = (char)(tmp > 9 ? tmp + 0x37 : tmp + 0x30);
                 ++len;
                 if (addSpace)
@@ -163,7 +187,7 @@ namespace Gurux.Common
                 --len;
             }
             return new string(str, 0, len);
-        }
+        }       
 
         /// <summary>
         /// Convert string to byte array.
