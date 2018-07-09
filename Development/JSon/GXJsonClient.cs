@@ -35,8 +35,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
-using Gurux.Common.Internal;
 using System.Threading;
+using System.Net.Cache;
 
 namespace Gurux.Common.JSon
 {
@@ -345,6 +345,8 @@ namespace Gurux.Common.JSon
             {
                 req = WebRequest.Create(Address + request.GetType().Name + "?" + cmd) as HttpWebRequest;
             }
+            req.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.BypassCache);
+            req.Headers.Add("Cache-Control", "no-cache");
             if (Timeout.TotalMilliseconds != 0)
             {
                 req.ReadWriteTimeout = req.Timeout = (int)this.Timeout.TotalMilliseconds;
