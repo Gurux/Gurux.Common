@@ -16,7 +16,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/gurux/gurux.common</RepositoryUrl>
     <PackageTags>AMR, AMI IOT</PackageTags>
-    <PackageId>Gurux.Commmon</PackageId>
+    <PackageId>Gurux.Common</PackageId>
   </PropertyGroup>
  <ItemGroup>
 	<Reference Condition="'$(TargetFramework)' == 'net45'" Include="System.Windows.Forms" />
