@@ -32,21 +32,15 @@
 
 using System;
 using System.Runtime.InteropServices;
-using System.Drawing;
-using System.ComponentModel;
-using System.Collections;
 using System.Diagnostics;
-using Microsoft.Win32;
-using System.Xml;
 using System.IO;
-using System.Security.Principal;
-using System.Security.AccessControl;
 using System.Text;
 using System.Linq;
 
 using System.Reflection;
 using System.Collections.Generic;
-#if !__MOBILE__
+using Microsoft.Win32;
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
 using System.Windows.Forms;
 #endif
 namespace Gurux.Common
@@ -83,7 +77,8 @@ namespace Gurux.Common
                 return false;
             }
         }
-#if !__MOBILE__
+
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
         /// <summary>
         /// Check that correct framework is installed.
         /// </summary>
@@ -651,7 +646,7 @@ namespace Gurux.Common
             }
         }
 
-#if !__MOBILE__
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
         /// <summary>
         /// Shows an error message.
         /// </summary>
@@ -835,7 +830,7 @@ namespace Gurux.Common
                 return DialogResult.Abort;
             }
         }
-#endif
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
 
         /// <summary>
         /// Check an assembly to see if it has the given public key token

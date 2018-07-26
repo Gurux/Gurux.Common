@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -20,7 +22,7 @@ namespace Gurux.Common
             this.VersionLbl.Text = version;
         }
 
-        #region Assembly Attribute Accessors
+#region Assembly Attribute Accessors
 
         public static string AssemblyTitle
         {
@@ -98,7 +100,7 @@ namespace Gurux.Common
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
+#endregion
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -113,3 +115,4 @@ namespace Gurux.Common
         }
     }
 }
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0

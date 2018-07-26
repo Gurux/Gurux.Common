@@ -1,3 +1,5 @@
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+
 using Gurux.Common.Properties;
 namespace Gurux.Common
 {
@@ -21,7 +23,7 @@ namespace Gurux.Common
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+#region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -112,7 +114,7 @@ namespace Gurux.Common
 
         }
 
-        #endregion
+#endregion
 
         private System.Windows.Forms.Button CopyBtn;
         private System.Windows.Forms.HelpProvider helpProvider1;
@@ -123,3 +125,5 @@ namespace Gurux.Common
         private System.Windows.Forms.ColumnHeader LocationHeader;
     }
 }
+
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0

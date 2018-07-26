@@ -1,3 +1,4 @@
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
 using Gurux.Common.Properties;
 namespace Gurux.Common
 {
@@ -20,7 +21,7 @@ namespace Gurux.Common
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+#region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -156,7 +157,7 @@ namespace Gurux.Common
 
         }
 
-        #endregion
+#endregion
 
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Panel panel1;
@@ -169,3 +170,4 @@ namespace Gurux.Common
 
     }
 }
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0

@@ -160,7 +160,7 @@ namespace Gurux.Common
         /// <seealso cref="Open">Open</seealso>
         void Close();
 
-#if !__MOBILE__
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
     /// <summary>
     /// Shows the media Properties dialog.
     /// </summary>
@@ -175,7 +175,7 @@ namespace Gurux.Common
     {
         get;
     }
-#endif
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
 
 
         /// <summary>

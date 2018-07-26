@@ -118,10 +118,21 @@ namespace Gurux.Common.JSon
         /// <returns>Name/value pair of found objects.</returns>
         public static Dictionary<string, object> ParseObjects(string data)
         {
+            return ParseObjects(data, false);
+        }
+
+        /// <summary>
+        /// Parse JSON Objects.
+        /// </summary>
+        /// <param name="data">data string.</param>
+        /// <param name="skipDuplicateKeys">Skip duplicate keys.</param>
+        /// <returns>Name/value pair of found objects.</returns>
+        public static Dictionary<string, object> ParseObjects(string data, bool skipDuplicateKeys)
+        {
             using (TextReader reader = new StringReader(data))
             {
                 StringBuilder sb = new StringBuilder();
-                return ParseObjects(reader, sb, false);
+                return ParseObjects(reader, sb, false, skipDuplicateKeys);
             }
         }
 
@@ -135,7 +146,7 @@ namespace Gurux.Common.JSon
             using (TextReader reader = File.OpenText(path))
             {
                 StringBuilder sb = new StringBuilder();
-                return ParseObjects(reader, sb, false);
+                return ParseObjects(reader, sb, false, false);
             }
         }
 
@@ -308,7 +319,7 @@ namespace Gurux.Common.JSon
         {
             TextReader reader = new StreamReader(stream);
             StringBuilder sb = new StringBuilder();
-            Dictionary<string, object> list = ParseObjects(reader, sb, false);
+            Dictionary<string, object> list = ParseObjects(reader, sb, false, false);
             return (T)Deserialize(list, typeof(T));
         }
 
@@ -320,9 +331,20 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         public object Deserialize(System.IO.Stream stream, Type type)
         {
+            return Deserialize(stream, type, true);
+        }
+
+        /// <summary>
+        /// Deserialize JSON data to objects.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="type"></param>
+        /// <returns>Deserialized objects.</returns>
+        public object Deserialize(System.IO.Stream stream, Type type, bool skipDuplicateKeys)
+        {
             TextReader reader = new StreamReader(stream);
             StringBuilder sb = new StringBuilder();
-            Dictionary<string, object> list = ParseObjects(reader, sb, false);
+            Dictionary<string, object> list = ParseObjects(reader, sb, false, skipDuplicateKeys);
             return Deserialize(list, type);
         }
 
@@ -337,7 +359,7 @@ namespace Gurux.Common.JSon
             using (TextReader reader = new StringReader(data))
             {
                 StringBuilder sb = new StringBuilder();
-                Dictionary<string, object> list = ParseObjects(reader, sb, false);
+                Dictionary<string, object> list = ParseObjects(reader, sb, false, false);
                 return Deserialize(list, type);
             }
         }
@@ -353,7 +375,7 @@ namespace Gurux.Common.JSon
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
-#if !__MOBILE__
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
                 GXFileSystemSecurity.UpdateDirectorySecurity(dir);
 #endif
             }
@@ -362,7 +384,7 @@ namespace Gurux.Common.JSon
             {
                 parser.Serialize(target, writer, false, false, true, false);
             }
-#if !__MOBILE__
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
             GXFileSystemSecurity.UpdateFileSecurity(path);
 #endif
         }
@@ -405,7 +427,7 @@ namespace Gurux.Common.JSon
                 using (TextReader reader = File.OpenText(path))
                 {
                     StringBuilder sb = new StringBuilder();
-                    Dictionary<string, object> list = ParseObjects(reader, sb, false);
+                    Dictionary<string, object> list = ParseObjects(reader, sb, false, false);
                     return (T)parser.Deserialize(list, typeof(T));
                 }
             }
@@ -448,7 +470,7 @@ namespace Gurux.Common.JSon
                         try
                         {
                             StringBuilder sb = new StringBuilder();
-                            Dictionary<string, object> list = ParseObjects(reader, sb, false);
+                            Dictionary<string, object> list = ParseObjects(reader, sb, false, false);
                             result = (T)parser.Deserialize(list, typeof(T));
                             return true;
                         }
@@ -475,7 +497,7 @@ namespace Gurux.Common.JSon
             using (TextReader reader = File.OpenText(path))
             {
                 StringBuilder sb = new StringBuilder();
-                Dictionary<string, object> list = ParseObjects(reader, sb, false);
+                Dictionary<string, object> list = ParseObjects(reader, sb, false, false);
                 return parser.Deserialize(list, type);
             }
         }
@@ -490,7 +512,7 @@ namespace Gurux.Common.JSon
             using (TextReader reader = File.OpenText(path))
             {
                 StringBuilder sb = new StringBuilder();
-                Dictionary<string, object> list = ParseObjects(reader, sb, false);
+                Dictionary<string, object> list = ParseObjects(reader, sb, false, false);
                 return Deserialize(list, type);
             }
         }
@@ -1198,7 +1220,7 @@ namespace Gurux.Common.JSon
         /// <param name="sb">Target string builder where found name/value pair is saved. It's faster give it as a parameter than create new one for every time this function is called.</param>
         /// <param name="collection">Is this a collection.</param>
         /// <returns>Name/value pair of found objects.</returns>
-        static Dictionary<string, object> ParseObjects(TextReader stream, StringBuilder sb, bool collection)
+        static Dictionary<string, object> ParseObjects(TextReader stream, StringBuilder sb, bool collection, bool skipDuplicateKeys)
         {
             SortedDictionary<string, object> list = new SortedDictionary<string, object>();
             List<object> array = null;
@@ -1248,7 +1270,17 @@ namespace Gurux.Common.JSon
                         {
                             if (key != null)
                             {
-                                list.Add(key, value);
+                                try
+                                {
+                                    list.Add(key, value);
+                                }
+                                catch (ArgumentException ex)
+                                {
+                                    if (!skipDuplicateKeys)
+                                    {
+                                        throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                                    }
+                                }
                                 key = null;
                                 value = null;
                             }
@@ -1261,7 +1293,7 @@ namespace Gurux.Common.JSon
                     //Object starts.
                     else if (ch == '{')
                     {
-                        value = ParseObjects(stream, sb, false);
+                        value = ParseObjects(stream, sb, false, skipDuplicateKeys);
                         if (array != null)
                         {
                             array.Add(value);
@@ -1276,14 +1308,34 @@ namespace Gurux.Common.JSon
                         {
                             if (key != null)
                             {
-                                list.Add(key, value);
+                                try
+                                {
+                                    list.Add(key, value);
+                                }
+                                catch (ArgumentException ex)
+                                {
+                                    if (!skipDuplicateKeys)
+                                    {
+                                        throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                                    }
+                                }
                                 key = null;
                             }
                             else
                             {
                                 foreach (var it in (Dictionary<string, object>)value)
                                 {
-                                    list.Add(it.Key, it.Value);
+                                    try
+                                    {
+                                        list.Add(it.Key, it.Value);
+                                    }
+                                    catch (ArgumentException ex)
+                                    {
+                                        if (!skipDuplicateKeys)
+                                        {
+                                            throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1313,7 +1365,10 @@ namespace Gurux.Common.JSon
                             }
                             catch (ArgumentException ex)
                             {
-                                throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                                if (!skipDuplicateKeys)
+                                {
+                                    throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                                }
                             }
                             key = null;
                             value = null;
@@ -1324,16 +1379,26 @@ namespace Gurux.Common.JSon
                     else if (ch == '[')
                     {
                         array = new List<object>();
-                        value = ParseObjects(stream, sb, true);
+                        value = ParseObjects(stream, sb, true, skipDuplicateKeys);
                         foreach (var it in (Dictionary<string, object>)value)
                         {
-                            if (key == null)
+                            try
                             {
-                                list.Add(it.Key, it.Value);
+                                if (key == null)
+                                {
+                                    list.Add(it.Key, it.Value);
+                                }
+                                else
+                                {
+                                    list.Add(key, it.Value);
+                                }
                             }
-                            else
+                            catch (ArgumentException ex)
                             {
-                                list.Add(key, it.Value);
+                                if (!skipDuplicateKeys)
+                                {
+                                    throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                                }
                             }
                         }
                         //If property of objects.
@@ -1378,7 +1443,17 @@ namespace Gurux.Common.JSon
                             value = ((string)value).Replace("\\\\", "\\");
                         }
                         replaced = 0;
-                        list.Add(key, value);
+                        try
+                        {
+                            list.Add(key, value);
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            if (!skipDuplicateKeys)
+                            {
+                                throw new ArgumentException("Key '" + key + "' already exixts.", ex);
+                            }
+                        }
                         sb.Length = 0;
                         key = null;
                         value = null;
@@ -1400,6 +1475,32 @@ namespace Gurux.Common.JSon
                         else if (replaced != 2 && ch == '\\' && stream.Peek() == '\"')
                         {
                             replaced |= 2;
+                        }
+                    }
+                    //Handle Tomcat errors.
+                    if (!insideString && ch == '<' && sb.Length == 1)
+                    {
+                        sb.Append(stream.ReadToEnd());
+                        string err = sb.ToString();
+                        string msg = err;
+                        string h = "><b>Message</b> ";
+                        int start = err.IndexOf(h);
+                        if (start !=-1)
+                        {
+                            start += h.Length;
+                            int end = err.IndexOf("</p>", start);
+                            if (end != -1)
+                            {
+                                msg = err.Substring(start, end - start).Replace("&quot;", "\"");
+                            }
+                        }
+                        if (msg == err)
+                        {
+                            throw new Exception(msg);
+                        }
+                        else
+                        {
+                            throw new Exception(msg, new Exception(err));
                         }
                     }
                 }

@@ -94,6 +94,19 @@ namespace Gurux.Common.JSon
         }
 
         /// <summary>
+        /// Header sent date time.
+        /// </summary>
+        /// <remarks>
+        /// It's not send if it's not set.
+        /// </remarks>
+        public DateTime Date
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
         /// List of async operations.
         /// </summary>
         private List<WaitHandle> asyncOperations = new List<WaitHandle>();
@@ -345,6 +358,11 @@ namespace Gurux.Common.JSon
             {
                 req = WebRequest.Create(Address + request.GetType().Name + "?" + cmd) as HttpWebRequest;
             }
+            /* Mikko
+            if (Date != DateTime.MinValue && Date != DateTime.MaxValue)
+            {
+                req.Date = Date.ToUniversalTime();
+            }*/
             req.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.BypassCache);
             req.Headers.Add("Cache-Control", "no-cache");
             if (Timeout.TotalMilliseconds != 0)
@@ -504,7 +522,7 @@ namespace Gurux.Common.JSon
                 {
                     trace(this, new TraceEventArgs(TraceTypes.Received, ASCIIEncoding.ASCII.GetString(ms.GetBuffer()), response.ResponseUri.ToString()));
                 }
-                return Parser.Deserialize(ms, type);
+                return Parser.Deserialize(ms, type, true);
             }
             finally
             {

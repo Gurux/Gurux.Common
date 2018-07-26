@@ -112,49 +112,31 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SP" xml:space="preserve">
-    <value> SP </value>
-  </data>
-  <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
-  </data>
-  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
-  </data>
-  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
-  </data>
-  <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
-  </data>
   <data name="Available" xml:space="preserve">
     <value>Available</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
     <value>Available AddIns</value>
   </data>
+  <data name="AvailableTxt" xml:space="preserve">
+    <value>Available:</value>
+  </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
     <value>Available Updates</value>
   </data>
-  <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+  <data name="CancelHelp" xml:space="preserve">
+    <value>Closes the dialog box without saving any changes you have made.</value>
   </data>
   <data name="CancelTxt" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
     <value>Closes the dialog box without saving any changes you have made.</value>
-  </data>
-  <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
-  </data>
-  <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
     <value>Copy</value>
@@ -174,11 +156,20 @@
   <data name="FindingProtocols" xml:space="preserve">
     <value>Finding protocols.</value>
   </data>
-  <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+  <data name="HelpNotAvailable" xml:space="preserve">
+    <value>No Help topic is associated with this item.</value>
   </data>
   <data name="Installed" xml:space="preserve">
     <value>Installed:</value>
+  </data>
+  <data name="InUse" xml:space="preserve">
+    <value>In use</value>
+  </data>
+  <data name="LibraryCopyHelp" xml:space="preserve">
+    <value>Copies files to the clipboard.</value>
+  </data>
+  <data name="LibraryListHelp" xml:space="preserve">
+    <value>Shows product and library versions.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
     <value>Library Versions</value>
@@ -189,11 +180,23 @@
   <data name="NameTxt" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NETFramework35" xml:space="preserve">
+    <value>.NET Framework 3.5</value>
+  </data>
+  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
+    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+  </data>
+  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
+    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+  </data>
+  <data name="NETFramework40" xml:space="preserve">
+    <value>.NET Framework 4.0</value>
+  </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
     <value>New updates available</value>
   </data>
-  <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+  <data name="NewProtocolsDownloadTxt" xml:space="preserve">
+    <value>There are new updates available. Do you want to download them?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
     <value>Not hex string</value>
@@ -201,14 +204,11 @@
   <data name="ProtocolsTxt" xml:space="preserve">
     <value>Protocols</value>
   </data>
-  <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+  <data name="SP" xml:space="preserve">
+    <value> SP </value>
   </data>
   <data name="State" xml:space="preserve">
     <value>State</value>
-  </data>
-  <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
     <value>Unknown type </value>

@@ -29,7 +29,7 @@
 // This code is licensed under the GNU General Public License v2. 
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
-
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0
 using System;
 using System.Drawing;
 using System.Collections;
@@ -273,7 +273,7 @@ namespace Gurux.Common
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+#region Windows Form Designer generated code
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -397,7 +397,7 @@ namespace Gurux.Common
             this.ResumeLayout(false);
 
         }
-        #endregion
+#endregion
 
         private void EnableMnu_Click(object sender, EventArgs e)
         {
@@ -626,3 +626,4 @@ namespace Gurux.Common
 
     }
 }
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
