@@ -928,7 +928,7 @@ namespace Gurux.Common.Internal
                     offset = TimeZone.CurrentTimeZone.GetUtcOffset(dt).TotalMinutes;
                 }
             }
-            long value = (long)(dt.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, dt.Kind)).TotalMilliseconds;
+            long value = (long)(dt - new DateTime(1970, 1, 1, 0, 0, 0, dt.Kind)).TotalSeconds;
             if (offset != 0)
             {
                 string str;

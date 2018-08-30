@@ -268,7 +268,7 @@ namespace Gurux.Common.JSon
             public HttpWebRequest Request;
             public ErrorEventHandler OnError;
             public DoneEventHandler OnDone;
-            public string Data;
+            public byte[] Data;
         }
 
         /// <summary>
@@ -358,11 +358,12 @@ namespace Gurux.Common.JSon
             {
                 req = WebRequest.Create(Address + request.GetType().Name + "?" + cmd) as HttpWebRequest;
             }
-            /* Mikko
+#if !NET35
             if (Date != DateTime.MinValue && Date != DateTime.MaxValue)
             {
                 req.Date = Date.ToUniversalTime();
-            }*/
+            }
+#endif //!NET35
             req.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.BypassCache);
             req.Headers.Add("Cache-Control", "no-cache");
             if (Timeout.TotalMilliseconds != 0)
@@ -381,13 +382,26 @@ namespace Gurux.Common.JSon
             {
                 req.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(UserName + ":" + Password)));
             }
+            //Data must serialize because data might be non-ASCII.
+            byte[] d;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var sw = new StreamWriter(ms))
+                {
+                    sw.Write(cmd);
+                    sw.Flush();
+                    d = new byte[ms.Position];
+                    ms.Position = 0;
+                    ms.Read(d, 0, d.Length);
+                }
+            }
             if (content)
             {
-                req.ContentLength = cmd.Length;
+                req.ContentLength = d.Length;
                 //If data is send as async.
                 if (data != null)
                 {
-                    data.Data = cmd;
+                    data.Data = d;
                     data.Request = req;
                     req.BeginGetRequestStream(delegate (IAsyncResult result)
                     {
@@ -423,15 +437,16 @@ namespace Gurux.Common.JSon
                 }
                 else
                 {
-                    using (var streamWriter = new StreamWriter(req.GetRequestStream()))
+                    using (BufferedStream bs = new BufferedStream(req.GetRequestStream()))
                     {
-                        streamWriter.Write(cmd);
-                        streamWriter.Flush();
+                        bs.Write(d, 0, d.Length);
+                        bs.Flush();
                     }
                 }
             }
             else if (data != null)
             {
+                data.Data = d;
                 req.BeginGetResponse(delegate (IAsyncResult result)
                 {
                     lock (asyncOperations)

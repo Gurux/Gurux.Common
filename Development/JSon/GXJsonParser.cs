@@ -157,42 +157,50 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         static DateTime GetDateTime(string str)
         {
-            if (str != null && str.StartsWith("\\/Date("))
+            if (str != null && (str.StartsWith("\\/Date(") || str.StartsWith("/Date(")))
             {
-                DateTime dt;
-                int index = str.Length - 8;
-                char ch = str[index];
-                if (ch == '-' || ch == '+')
+                int start = str.IndexOf('(');
+                int end = str.LastIndexOf(')');
+                str = str.Substring(start + 1, end - start - 1);
+                int index = str.IndexOfAny(new char[] { '+', '-' });
+                if (index != -1)
                 {
                     var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                    long seconds = long.Parse(str.Substring(0, index));
+                    epoch = epoch.AddSeconds(seconds);
                     int hours = int.Parse(str.Substring(index + 1, 2));
                     int minutes = int.Parse(str.Substring(index + 3, 2));
-                    long seconds = long.Parse(str.Substring(7, index - 7));
-                    if (ch == '-')
+                    seconds = 0;
+                    if (str.Length > index + 5)
                     {
-                        epoch.AddHours(hours);
-                        epoch.AddMinutes(minutes);
+                        seconds = long.Parse(str.Substring(7, index + 5));
+                    }
+                    if (str[index] == '-')
+                    {
+                        epoch = epoch.AddHours(hours);
+                        epoch = epoch.AddMinutes(minutes);
+                        epoch = epoch.AddSeconds(seconds);
                     }
                     else
                     {
-                        epoch.AddHours(-hours);
-                        epoch.AddMinutes(-minutes);
+                        epoch = epoch.AddHours(-hours);
+                        epoch = epoch.AddMinutes(-minutes);
+                        epoch = epoch.AddSeconds(-seconds);
                     }
-                    dt = epoch.AddSeconds(seconds / 1000);
                     //If Min value do not convert to local time.
-                    if (dt == DateTime.MinValue)
+                    if (epoch == DateTime.MinValue || epoch == DateTime.MaxValue)
                     {
-                        return dt;
+                        return epoch;
                     }
-                    return dt.ToLocalTime();
+                    return epoch.ToLocalTime();
 
                 }
                 else//If offset is not given we are in local time zone.
                 {
-                    var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
-                    long seconds = long.Parse(str.Substring(7, str.Length - 10));
-                    dt = epoch.AddSeconds(seconds / 1000);
-                    return dt;
+                    var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                    long seconds = long.Parse(str);
+                    epoch = epoch.AddSeconds(seconds);
+                    return epoch.ToLocalTime();
                 }
             }
             return DateTime.MinValue;
@@ -1485,7 +1493,7 @@ namespace Gurux.Common.JSon
                         string msg = err;
                         string h = "><b>Message</b> ";
                         int start = err.IndexOf(h);
-                        if (start !=-1)
+                        if (start != -1)
                         {
                             start += h.Length;
                             int end = err.IndexOf("</p>", start);
