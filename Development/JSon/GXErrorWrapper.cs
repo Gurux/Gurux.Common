@@ -45,6 +45,10 @@ namespace Gurux.Common.JSon
         /// <returns></returns>
         public Exception GetException()
         {
+            if (Data == null)
+            {
+                return null;
+            }
             Exception result;
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream stream = new MemoryStream(Data))

@@ -30,7 +30,7 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +48,7 @@ namespace Gurux.Common
     /// <param name="work">Work to execute.</param>
     /// <param name="parameters">Additional parameters.</param>
     public delegate void AsyncTransaction(object sender, GXAsyncWork work, object[] parameters);
-    
+
     /// <summary>
     /// Status of work is changed.
     /// </summary>
@@ -82,8 +82,8 @@ namespace Gurux.Common
         /// <param name="error"></param>
         /// <param name="text"></param>
         /// <param name="parameters"></param>
-        public GXAsyncWork(object sender, AsyncStateChangeEventHandler e, 
-            AsyncTransaction command, ErrorEventHandler error, 
+        public GXAsyncWork(object sender, AsyncStateChangeEventHandler e,
+            AsyncTransaction command, ErrorEventHandler error,
             string text, object[] parameters)
         {
             OnError = error;
@@ -92,7 +92,7 @@ namespace Gurux.Common
             Sender = sender;
             Command = command;
             Parameters = parameters;
-        }       
+        }
 
         /// <summary>
         /// Result of async work.
@@ -106,7 +106,7 @@ namespace Gurux.Common
         void ShowError(object sender, Exception ex)
         {
             System.Windows.Forms.MessageBox.Show(Sender as System.Windows.Forms.Control, ex.Message);
-        }               
+        }
 
         void Run()
         {
@@ -121,10 +121,10 @@ namespace Gurux.Common
                         tmp.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, this, Parameters, AsyncState.Finish, null);
                     }
                     else
-                    {                    
+                    {
                         OnAsyncStateChangeEventHandler(Sender, this, Parameters, AsyncState.Finish, null);
-                    }                    
-                }                
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -249,4 +249,4 @@ namespace Gurux.Common
         }
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1

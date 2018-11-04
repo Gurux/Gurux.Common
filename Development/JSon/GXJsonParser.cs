@@ -203,7 +203,18 @@ namespace Gurux.Common.JSon
                     return epoch.ToLocalTime();
                 }
             }
-            return DateTime.MinValue;
+            if (string.IsNullOrEmpty(str))
+            {
+                return DateTime.MinValue;
+            }
+            try
+            {
+                return DateTime.Parse(str, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                return DateTime.ParseExact(str, "yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
+            }
         }
 
         /// <summary>
@@ -383,7 +394,7 @@ namespace Gurux.Common.JSon
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
                 GXFileSystemSecurity.UpdateDirectorySecurity(dir);
 #endif
             }
@@ -392,7 +403,7 @@ namespace Gurux.Common.JSon
             {
                 parser.Serialize(target, writer, false, false, true, false);
             }
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
             GXFileSystemSecurity.UpdateFileSecurity(path);
 #endif
         }
@@ -884,6 +895,10 @@ namespace Gurux.Common.JSon
                         else if (value.GetType().IsClass)
                         {
                             Serialize(value, writer, http, get, false, isObject);
+                        }
+                        else if (value is bool)
+                        {
+                            writer.Write((bool)value ? "1" : "0");
                         }
                         else
                         {

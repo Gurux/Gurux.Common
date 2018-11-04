@@ -40,7 +40,7 @@ using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Win32;
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
 using System.Windows.Forms;
 #endif
 namespace Gurux.Common
@@ -78,7 +78,7 @@ namespace Gurux.Common
             }
         }
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
         /// <summary>
         /// Check that correct framework is installed.
         /// </summary>
@@ -646,7 +646,7 @@ namespace Gurux.Common
             }
         }
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
         /// <summary>
         /// Shows an error message.
         /// </summary>
@@ -830,7 +830,7 @@ namespace Gurux.Common
                 return DialogResult.Abort;
             }
         }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
 
         /// <summary>
         /// Check an assembly to see if it has the given public key token

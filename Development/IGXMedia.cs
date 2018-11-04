@@ -160,13 +160,13 @@ namespace Gurux.Common
         /// <seealso cref="Open">Open</seealso>
         void Close();
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
-    /// <summary>
-    /// Shows the media Properties dialog.
-    /// </summary>
-    /// <param name="parent">Parent window.</param>
-    /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
-    bool Properties(System.Windows.Forms.Form parent);
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+        /// <summary>
+        /// Shows the media Properties dialog.
+        /// </summary>
+        /// <param name="parent">Parent window.</param>
+        /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
+        bool Properties(System.Windows.Forms.Form parent);
 
     /// <summary>
     /// Returns Media debended Properties form.
@@ -175,7 +175,7 @@ namespace Gurux.Common
     {
         get;
     }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
 
 
         /// <summary>

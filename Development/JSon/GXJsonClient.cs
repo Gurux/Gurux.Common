@@ -206,7 +206,20 @@ namespace Gurux.Common.JSon
         /// <returns>Response from the server.</returns>
         public virtual T Get<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send<T>("GET", request, null);
+            HttpWebRequest req = Send<T>(null, "GET", request, null);
+            return GetResponse<T>(req);
+        }
+
+        /// <summary>
+        /// Send JSON data.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="route">Additional route.</param>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
+        public virtual T Get<T>(string route, IGXRequest<T> request)
+        {
+            HttpWebRequest req = Send<T>(null, "GET", request, null);
             return GetResponse<T>(req);
         }
 
@@ -218,7 +231,20 @@ namespace Gurux.Common.JSon
         /// <returns>Response from the server.</returns>
         public virtual T Put<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send<T>("PUT", request, null);
+            HttpWebRequest req = Send<T>(null, "PUT", request, null);
+            return GetResponse<T>(req);
+        }
+
+        /// <summary>
+        /// Send JSON data.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="route">Additional route.</param>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
+        public virtual T Put<T>(string route, IGXRequest<T> request)
+        {
+            HttpWebRequest req = Send<T>(null, "PUT", request, null);
             return GetResponse<T>(req);
         }
 
@@ -230,7 +256,20 @@ namespace Gurux.Common.JSon
         /// <returns>Response from the server.</returns>
         public virtual T Delete<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send<T>("DELETE", request, null);
+            HttpWebRequest req = Send<T>(null, "DELETE", request, null);
+            return GetResponse<T>(req);
+        }
+
+        /// <summary>
+        /// Send JSON data.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="route">Additional route.</param>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
+        public virtual T Delete<T>(string route, IGXRequest<T> request)
+        {
+            HttpWebRequest req = Send<T>(null, "DELETE", request, null);
             return GetResponse<T>(req);
         }
 
@@ -242,7 +281,20 @@ namespace Gurux.Common.JSon
         /// <returns>Response from the server.</returns>
         public virtual T Post<T>(IGXRequest<T> request)
         {
-            HttpWebRequest req = Send<T>("POST", request, null);
+            HttpWebRequest req = Send<T>(null, "POST", request, null);
+            return GetResponse<T>(req);
+        }
+
+        /// <summary>
+        /// Post JSON data.
+        /// </summary>
+        /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="route">Additional route.</param>
+        /// <param name="request">Request to send.</param>
+        /// <returns>Response from the server.</returns>
+        public virtual T Post<T>(string route, IGXRequest<T> request)
+        {
+            HttpWebRequest req = Send<T>(route, "POST", request, null);
             return GetResponse<T>(req);
         }
 
@@ -283,7 +335,7 @@ namespace Gurux.Common.JSon
             GXAsyncData<T> data = new GXAsyncData<T>();
             data.OnError = onError;
             data.OnDone = onDone;
-            Send<T>("POST", request, data);
+            Send<T>(null, "POST", request, data);
         }
 
         /// <summary>
@@ -298,7 +350,7 @@ namespace Gurux.Common.JSon
             GXAsyncData<T> data = new GXAsyncData<T>();
             data.OnError = onError;
             data.OnDone = onDone;
-            HttpWebRequest req = Send<T>("GET", request, data);
+            HttpWebRequest req = Send<T>(null, "GET", request, data);
         }
 
         /// <summary>
@@ -334,11 +386,12 @@ namespace Gurux.Common.JSon
         /// Parse to JSON and send to the server.
         /// </summary>
         /// <typeparam name="T">JSON message type.</typeparam>
+        /// <param name="route">Additional route.</param>
         /// <param name="method">Sent JSON object as a string.</param>
         /// <param name="request">Request to send.</param>
         /// <param name="data">Async request.</param>
         /// <returns>Http request that is sent to the server.</returns>
-        private HttpWebRequest Send<T>(string method, object request, GXAsyncData<T> data)
+        private HttpWebRequest Send<T>(string  route, string method, object request, GXAsyncData<T> data)
         {
             CancelOperation = false;
             string cmd = null;
@@ -349,14 +402,22 @@ namespace Gurux.Common.JSon
                 Parser.Serialize(request, writer, true, !content, false, false);
                 cmd = writer.ToString();
             }
+            if (string.IsNullOrEmpty(route))
+            {
+                route = "/" + request.GetType().Name;
+            }
+            if (route[0] != '/')
+            {
+                route = "/" + route;
+            }
             HttpWebRequest req;
             if (content)//If POST or PUT.
             {
-                req = WebRequest.Create(Address + request.GetType().Name) as HttpWebRequest;
+                req = WebRequest.Create(Address + route) as HttpWebRequest;
             }
             else //If GET or DELETE.
             {
-                req = WebRequest.Create(Address + request.GetType().Name + "?" + cmd) as HttpWebRequest;
+                req = WebRequest.Create(Address + route + "?" + cmd) as HttpWebRequest;
             }
 #if !NET35
             if (Date != DateTime.MinValue && Date != DateTime.MaxValue)
@@ -574,7 +635,12 @@ namespace Gurux.Common.JSon
             catch (WebException ex)
             {
                 GXErrorWrapper err = GetResponse<GXErrorWrapper>(ex.Response);
-                throw err.GetException();
+                Exception e = err.GetException();
+                if (e == null)
+                {
+                    throw ex;
+                }
+                throw e;
             }
         }
     }

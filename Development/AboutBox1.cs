@@ -1,4 +1,4 @@
-﻿#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+﻿#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
 
 using System;
 using System.Collections.Generic;
@@ -115,4 +115,4 @@ namespace Gurux.Common
         }
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1

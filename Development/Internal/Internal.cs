@@ -215,7 +215,7 @@ namespace Gurux.Common.Internal
     /// </summary>
     class GXInternal
     {
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
         /// <summary>
         /// Create method handler for Gurux.Service.Rest methods.
         /// </summary>
@@ -427,7 +427,7 @@ namespace Gurux.Common.Internal
                             }
                             value = items;
                         }
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !__MOBILE__ && !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
                         else if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(System.Data.Linq.EntitySet<>))
                         {
                             Type listT = typeof(System.Data.Linq.EntitySet<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -438,7 +438,7 @@ namespace Gurux.Common.Internal
                             }
                             value = list;
                         }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //__MOBILE__
                         else
                         {
                             Type listT = typeof(List<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -526,7 +526,7 @@ namespace Gurux.Common.Internal
                         {
                             if (!it.PropertyType.IsArray)
                             {
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
                                 s.Get = GXInternal.CreateGetHandler(it.PropertyType, it);
                                 s.Set = GXInternal.CreateSetHandler(it.PropertyType, it);
 #endif
@@ -566,7 +566,7 @@ namespace Gurux.Common.Internal
                             {
                                 if (!it.FieldType.IsArray)
                                 {
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
                                     s.Get = GXInternal.CreateGetHandler(it.FieldType, it);
                                     s.Set = GXInternal.CreateSetHandler(it.FieldType, it);
 #endif
@@ -925,10 +925,10 @@ namespace Gurux.Common.Internal
             {
                 if (dt != DateTime.MinValue && dt != DateTime.MaxValue)
                 {
-                    offset = TimeZone.CurrentTimeZone.GetUtcOffset(dt).TotalMinutes;
+                    offset = TimeZoneInfo.Local.GetUtcOffset(dt).TotalMinutes;
                 }
             }
-            long value = (long)(dt - new DateTime(1970, 1, 1, 0, 0, 0, dt.Kind)).TotalSeconds;
+            long value = (long)(dt.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, dt.Kind)).TotalMilliseconds;
             if (offset != 0)
             {
                 string str;
@@ -944,8 +944,12 @@ namespace Gurux.Common.Internal
                 {
                     str += "+";
                 }
-                str += TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours.ToString("00") +
-                       TimeZone.CurrentTimeZone.GetUtcOffset(dt).Minutes.ToString("00");
+                else
+                {
+                    str += "-";
+                }
+                str += TimeZoneInfo.Local.GetUtcOffset(dt).Hours.ToString("00") +
+                       TimeZoneInfo.Local.GetUtcOffset(dt).Minutes.ToString("00");
                 if (get)
                 {
                     str += ")/";
