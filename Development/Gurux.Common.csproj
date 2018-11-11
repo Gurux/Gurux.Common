@@ -11,7 +11,7 @@
   <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <TargetFrameworks>net40;net45;net35;netcoreapp2.0;netstandard2.0;netcoreapp2.0;netcoreapp2.1;</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net35;netstandard2.0;netcoreapp2.0;netcoreapp2.1;</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/gurux/gurux.common</RepositoryUrl>
     <PackageTags>AMR, AMI IOT</PackageTags>

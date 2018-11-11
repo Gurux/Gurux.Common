@@ -404,9 +404,9 @@ namespace Gurux.Common.JSon
             }
             if (string.IsNullOrEmpty(route))
             {
-                route = "/" + request.GetType().Name;
+                route = request.GetType().Name;
             }
-            if (route[0] != '/')
+            if (route[0] != '/' && Address[Address.Length - 1] != '/')
             {
                 route = "/" + route;
             }
