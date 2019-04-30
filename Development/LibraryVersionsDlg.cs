@@ -1,19 +1,10 @@
 #if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Collections;
-using Gurux.Common;
-using System.IO;
-using System.Threading;
 using Microsoft.Win32;
 using Gurux.Common.Properties;
+using System.Reflection;
 
 namespace Gurux.Common
 {
@@ -54,13 +45,13 @@ namespace Gurux.Common
 
         private void LibraryVersionsDlg_Load(object sender, System.EventArgs e)
         {
-            ListViewItem it;            
+            ListViewItem it;
             try
             {
                 //Is .Net 3.5 installed.
                 const string net35 = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5";
                 using (RegistryKey subKey = Registry.LocalMachine.OpenSubKey(net35))
-                {                    
+                {
                     if (subKey != null && Convert.ToUInt32(subKey.GetValue("Install")) == 1)
                     {
                         string version = Convert.ToString(subKey.GetValue("Version"));
@@ -72,7 +63,7 @@ namespace Gurux.Common
                         }
                         it = listView1.Items.Add(str);
                         it.SubItems.Add(version);
-                        it.SubItems.Add(Convert.ToString(subKey.GetValue("InstallPath")));                        
+                        it.SubItems.Add(Convert.ToString(subKey.GetValue("InstallPath")));
                     }
                 }
                 //Is .Net 4.0 client installed.
@@ -93,81 +84,20 @@ namespace Gurux.Common
                         it.SubItems.Add(Convert.ToString(subKey.GetValue("InstallPath")));
                     }
                 }
-                //HKLM\Software\Microsoft\NET Framework Setup\NDP\v4\Client\Install
             }
             catch (Exception)
             {
                 //Ignore errors.
             }
-            Process CurrentProcess = Process.GetCurrentProcess();
-            ArrayList gxModules = new ArrayList();
-            ArrayList msModules = new ArrayList();
-            ArrayList otherModules = new ArrayList();
-            foreach (ProcessModule Mod in CurrentProcess.Modules)
+            List<string> assemblies = new List<string>();
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                //Do not show Mono debug info.
-                if (Path.GetExtension(Mod.FileName) == ".mdb")
+                if (!GXCommon.IsDefaultAssembly(assembly))
                 {
-                    continue;
+                    it = listView1.Items.Add(assembly.GetName().Name);
+                    it.SubItems.Add(assembly.GetName().Version.ToString());
+                    it.SubItems.Add(assembly.Location);
                 }
-                string Name = Path.GetFileName(Mod.FileName).ToLower();
-                //In Mono Comapny name might be null.
-                string company = Mod.FileVersionInfo.CompanyName;
-                if (company == null)
-                {
-                    company = "";
-                }
-                else
-                {
-                    company = company.ToLower();
-                }
-                if (company.StartsWith("gurux") ||
-                    Name.StartsWith("gx") ||
-                    Name.StartsWith("gurux") ||
-                    Name.StartsWith("interop") ||
-                    Name.StartsWith("interop.gurux"))
-                {
-                    gxModules.Add(Mod);
-                }
-                else if (company.StartsWith("microsoft"))
-                {
-                    msModules.Add(Mod);
-                }
-                else
-                {
-                    otherModules.Add(Mod);
-                }
-            }
-            it = listView1.Items.Add("---GURUX---");
-            it.SubItems.Add("-----");
-            foreach (ProcessModule Mod in gxModules)
-            {
-                string Name = Path.GetFileName(Mod.FileName);
-                it = listView1.Items.Add(Name);
-                it.SubItems.Add(Mod.FileVersionInfo.FileVersion);
-                FileInfo fi = new FileInfo(Mod.FileName);
-                it.SubItems.Add(fi.FullName.ToString());
-            }
-            if (msModules.Count != 0)
-            {
-                it = listView1.Items.Add("---MICROSOFT---");
-                it.SubItems.Add("-----");
-                foreach (ProcessModule Mod in msModules)
-                {
-                    string Name = Path.GetFileName(Mod.FileName);
-                    it = listView1.Items.Add(Name);
-                    it.SubItems.Add(Mod.FileVersionInfo.FileVersion);
-                    it.SubItems.Add(Mod.FileName);
-                }
-            }
-            it = listView1.Items.Add("---OTHERS---");
-            it.SubItems.Add("-----");
-            foreach (ProcessModule Mod in otherModules)
-            {
-                string Name = Path.GetFileName(Mod.FileName);
-                it = listView1.Items.Add(Name);
-                it.SubItems.Add(Mod.FileVersionInfo.FileVersion);
-                it.SubItems.Add(Mod.FileName);
             }
         }
 
@@ -184,7 +114,7 @@ namespace Gurux.Common
             string data = string.Empty;
             foreach (ListViewItem it in listView1.Items)
             {
-                data += it.Text + " " + it.SubItems[1].Text + Environment.NewLine;
+                data += it.Text + "\t" + it.SubItems[1].Text + "\t" + it.SubItems[2].Text + Environment.NewLine;
             }
             ClipboardCopy.CopyDataToClipboard(data);
         }
@@ -211,6 +141,6 @@ namespace Gurux.Common
             // Set flag to show that the Help event as been handled
             hevent.Handled = true;
         }
-    }  
+    }
 }
 #endif //!NETCOREAPP2_0 && !NETSTANDARD2_0

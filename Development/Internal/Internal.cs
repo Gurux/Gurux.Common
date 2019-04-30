@@ -34,11 +34,8 @@ using System;
 using System.Reflection.Emit;
 using System.Reflection;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using System.Collections;
 using Gurux.Common.JSon;
 
@@ -135,7 +132,6 @@ namespace Gurux.Common.Internal
     {
         public GXRelationTable()
         {
-            return;
         }
 
         /// <summary>
@@ -215,7 +211,7 @@ namespace Gurux.Common.Internal
     /// </summary>
     class GXInternal
     {
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETSTANDARD2_0
         /// <summary>
         /// Create method handler for Gurux.Service.Rest methods.
         /// </summary>
@@ -427,7 +423,7 @@ namespace Gurux.Common.Internal
                             }
                             value = items;
                         }
-#if !__MOBILE__ && !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !__MOBILE__ && !NETSTANDARD2_0 && !NETCOREAPP2_0 && !NETCOREAPP2_1
                         else if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(System.Data.Linq.EntitySet<>))
                         {
                             Type listT = typeof(System.Data.Linq.EntitySet<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -438,7 +434,7 @@ namespace Gurux.Common.Internal
                             }
                             value = list;
                         }
-#endif //__MOBILE__
+#endif //!__MOBILE__ && !NETSTANDARD2_0 && !NETCOREAPP2_0 && !NETCOREAPP2_1
                         else
                         {
                             Type listT = typeof(List<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -526,7 +522,7 @@ namespace Gurux.Common.Internal
                         {
                             if (!it.PropertyType.IsArray)
                             {
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETSTANDARD2_0
                                 s.Get = GXInternal.CreateGetHandler(it.PropertyType, it);
                                 s.Set = GXInternal.CreateSetHandler(it.PropertyType, it);
 #endif
@@ -566,7 +562,7 @@ namespace Gurux.Common.Internal
                             {
                                 if (!it.FieldType.IsArray)
                                 {
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETSTANDARD2_0
                                     s.Get = GXInternal.CreateGetHandler(it.FieldType, it);
                                     s.Set = GXInternal.CreateSetHandler(it.FieldType, it);
 #endif
