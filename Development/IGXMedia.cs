@@ -330,7 +330,7 @@ namespace Gurux.Common
     public interface IGXMedia2 : IGXMedia
     {
         /// <summary>
-        /// Wait time for async messages.
+        /// Wait time for asynchronous messages.
         /// </summary>
         UInt32 AsyncWaitTime
         {
@@ -339,11 +339,20 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Wait handle for async messages.
+        /// Wait handle for asynchronous messages. It's null if asynchronous messages is not used.
         /// </summary>
         EventWaitHandle AsyncWaitHandle
         {
             get;
+        }
+
+        /// <summary>
+        /// How long data from the media is waited before received data is handled.
+        /// </summary>
+        UInt32 ReceiveDelay
+        {
+            get;
+            set;
         }
     }
 
