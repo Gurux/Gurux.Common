@@ -92,11 +92,21 @@ namespace Gurux.Common
             List<string> assemblies = new List<string>();
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (!GXCommon.IsDefaultAssembly(assembly))
+                try
                 {
-                    it = listView1.Items.Add(assembly.GetName().Name);
-                    it.SubItems.Add(assembly.GetName().Version.ToString());
-                    it.SubItems.Add(assembly.Location);
+                    if (!GXCommon.IsDefaultAssembly(assembly))
+                    {
+                        string name = assembly.GetName().Name;
+                        string ver = assembly.GetName().Version.ToString();
+                        string loc = assembly.Location;
+                        it = listView1.Items.Add(name);
+                        it.SubItems.Add(ver);
+                        it.SubItems.Add(loc);
+                    }
+                }
+                catch (Exception)
+                {
+                    //Ignore errors.
                 }
             }
         }
