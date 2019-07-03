@@ -1278,6 +1278,11 @@ namespace Gurux.Common.JSon
                         if (sb.Length != 0)
                         {
                             value = sb.ToString();
+                            //.Net core REST server is sending null string as "null".
+                            if ((string) value == "null")
+                            {
+                                value = null;
+                            }
                             if ((replaced & 2) == 2)
                             {
                                 value = ((string)value).Replace("\\\"", "\"");
