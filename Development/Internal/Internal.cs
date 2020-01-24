@@ -423,7 +423,7 @@ namespace Gurux.Common.Internal
                             }
                             value = items;
                         }
-#if !__MOBILE__ && !NETSTANDARD2_0 && !NETCOREAPP2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
                         else if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(System.Data.Linq.EntitySet<>))
                         {
                             Type listT = typeof(System.Data.Linq.EntitySet<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -434,7 +434,7 @@ namespace Gurux.Common.Internal
                             }
                             value = list;
                         }
-#endif //!__MOBILE__ && !NETSTANDARD2_0 && !NETCOREAPP2_0 && !NETCOREAPP2_1
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
                         else
                         {
                             Type listT = typeof(List<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
@@ -522,7 +522,7 @@ namespace Gurux.Common.Internal
                         {
                             if (!it.PropertyType.IsArray)
                             {
-#if !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETSTANDARD2_1
                                 s.Get = GXInternal.CreateGetHandler(it.PropertyType, it);
                                 s.Set = GXInternal.CreateSetHandler(it.PropertyType, it);
 #endif
@@ -924,7 +924,7 @@ namespace Gurux.Common.Internal
                     offset = TimeZoneInfo.Local.GetUtcOffset(dt).TotalMinutes;
                 }
             }
-            long value = (long)(dt.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, dt.Kind)).TotalMilliseconds;
+            long value = (long)(dt - new DateTime(1970, 1, 1, 0, 0, 0, dt.Kind)).TotalSeconds;
             if (offset != 0)
             {
                 string str;

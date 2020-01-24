@@ -1,4 +1,4 @@
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -153,4 +153,4 @@ namespace Gurux.Common
         }
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1

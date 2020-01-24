@@ -394,7 +394,7 @@ namespace Gurux.Common.JSon
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
                 GXFileSystemSecurity.UpdateDirectorySecurity(dir);
 #endif
             }
@@ -403,7 +403,7 @@ namespace Gurux.Common.JSon
             {
                 parser.Serialize(target, writer, false, false, true, false);
             }
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
             GXFileSystemSecurity.UpdateFileSecurity(path);
 #endif
         }

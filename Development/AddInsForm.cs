@@ -1,7 +1,7 @@
 //
 // --------------------------------------------------------------------------
 //  Gurux Ltd
-// 
+//
 //
 //
 // Filename:        $HeadURL$
@@ -19,17 +19,17 @@
 // This file is a part of Gurux Device Framework.
 //
 // Gurux Device Framework is Open Source software; you can redistribute it
-// and/or modify it under the terms of the GNU General Public License 
+// and/or modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; version 2 of the License.
 // Gurux Device Framework is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of 
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU General Public License for more details.
 //
-// This code is licensed under the GNU General Public License v2. 
+// This code is licensed under the GNU General Public License v2.
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
 using System;
 using System.Drawing;
 using System.Collections;
@@ -93,10 +93,10 @@ namespace Gurux.Common
             {
                 listView1.Items.Add(Resources.FindingProtocols);
                 OKBtn.Enabled = listView1.Enabled = false;
-            }                                   
+            }
             foreach (GXAddIn it in addIns)
             {
-                //Show only new AddIns.                
+                //Show only new AddIns.
                 if (onlyNew && (it.State != AddInStates.Available && it.State != AddInStates.Update))
                 {
                     continue;
@@ -126,14 +126,14 @@ namespace Gurux.Common
                 UpdateState(li, it.State);
             }
             ThreadPool.QueueUserWorkItem(CheckUpdates, this);
-        }        
+        }
 
         static public void CheckUpdates(object target)
         {
             AddInsForm form = target as AddInsForm;
             GXAddInList list = GXUpdateChecker.GetUpdatesOnline(!form.ShowAddins);
             if (list.Count != 0)
-            {                
+            {
                 if (form.IsHandleCreated)
                 {
                     form.BeginInvoke(new CheckUpdatesEventHandler(form.OnCheckUpdatesDone), list);
@@ -152,7 +152,7 @@ namespace Gurux.Common
                 OKBtn.Enabled = listView1.Enabled = true;
                 foreach (GXAddIn it in list)
                 {
-                    //Show only new AddIns.                
+                    //Show only new AddIns.
                     if (OnlyNewItems && (it.State != AddInStates.Available && it.State != AddInStates.Update))
                     {
                         continue;
@@ -186,7 +186,7 @@ namespace Gurux.Common
             {
                 foreach (GXAddIn it in list)
                 {
-                    //Show only new AddIns.                
+                    //Show only new AddIns.
                     if (OnlyNewItems && it.State != AddInStates.Available)
                     {
                         continue;
@@ -216,7 +216,7 @@ namespace Gurux.Common
                             item = li;
                             break;
                         }
-                    }                    
+                    }
                     if (item == null)
                     {
                         item = listView1.Items.Add(it.Name);
@@ -225,14 +225,14 @@ namespace Gurux.Common
                         item.Tag = it;
                     }
                     else
-                    {                        
+                    {
                         GXAddIn t = item.Tag as GXAddIn;
                         t.State = it.State;
                     }
                     UpdateState(item, it.State);
                 }
             }
-        }        
+        }
 
         static void UpdateState(ListViewItem it, AddInStates state)
         {
@@ -258,7 +258,7 @@ namespace Gurux.Common
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Cleans up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -289,9 +289,9 @@ namespace Gurux.Common
             this.AvailableCH = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // CancelBtn
-            // 
+            //
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelBtn.Location = new System.Drawing.Point(291, 237);
@@ -299,9 +299,9 @@ namespace Gurux.Common
             this.CancelBtn.Size = new System.Drawing.Size(80, 24);
             this.CancelBtn.TabIndex = 1;
             this.CancelBtn.Text = "Cancel";
-            // 
+            //
             // OKBtn
-            // 
+            //
             this.OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OKBtn.Location = new System.Drawing.Point(195, 237);
             this.OKBtn.Name = "OKBtn";
@@ -309,9 +309,9 @@ namespace Gurux.Common
             this.OKBtn.TabIndex = 2;
             this.OKBtn.Text = "OK";
             this.OKBtn.Click += new System.EventHandler(this.OKBtn_Click);
-            // 
+            //
             // listView1
-            // 
+            //
             this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -336,49 +336,49 @@ namespace Gurux.Common
             this.listView1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView1_PreviewKeyDown);
             this.listView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDown);
             this.listView1.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.listView1_DrawSubItem);
-            // 
+            //
             // NameCH
-            // 
+            //
             this.NameCH.Text = "Name";
             this.NameCH.Width = 161;
-            // 
+            //
             // StateCH
-            //             
-            // 
+            //
+            //
             this.StateCH.Text = "State";
-            // 
+            //
             // contextMenuStrip1
-            // 
+            //
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DownloadMnu,
             this.EnableMnu});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(129, 48);
-            // 
+            //
             // DownloadMnu
-            // 
+            //
             this.DownloadMnu.Name = "DownloadMnu";
             this.DownloadMnu.Size = new System.Drawing.Size(128, 22);
             this.DownloadMnu.Text = "Download";
             this.DownloadMnu.Click += new System.EventHandler(this.DownloadMnu_Click);
-            // 
+            //
             // EnableMnu
-            // 
+            //
             this.EnableMnu.Name = "EnableMnu";
             this.EnableMnu.Size = new System.Drawing.Size(128, 22);
             this.EnableMnu.Text = "Enable";
             this.EnableMnu.Click += new System.EventHandler(this.EnableMnu_Click);
-            // 
+            //
             // InstalledCH
-            // 
+            //
             this.InstalledCH.Text = "Installed";
-            // 
+            //
             // AvailableCH
-            // 
+            //
             this.AvailableCH.Text = "Available";
-            // 
+            //
             // AddInsForm
-            // 
+            //
             this.AcceptButton = this.OKBtn;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.CancelBtn;
@@ -461,7 +461,7 @@ namespace Gurux.Common
                     contextMenuStrip1.Enabled = true;
                     if ((addIn.State & AddInStates.Disabled) != 0)
                     {
-                        EnableMnu.Text = Resources.Enable;                        
+                        EnableMnu.Text = Resources.Enable;
                     }
                     else
                     {
@@ -501,7 +501,7 @@ namespace Gurux.Common
                     GXAddIn addIn = it.Tag as GXAddIn;
                     if (addIn.State == AddInStates.Available || addIn.State == AddInStates.Update)
                     {
-                        updatesAvailable = true;                        
+                        updatesAvailable = true;
                     }
                     //If user has select items to download do not notify.
                     else if (addIn.State == AddInStates.Download)
@@ -554,7 +554,7 @@ namespace Gurux.Common
                             AddIns.Add(addIn);
                         }
                     }
-                }                
+                }
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Indent = true;
                 settings.Encoding = System.Text.Encoding.UTF8;
@@ -626,4 +626,4 @@ namespace Gurux.Common
 
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1

@@ -157,7 +157,7 @@ namespace Gurux.Common
         /// <seealso cref="Open">Open</seealso>
         void Close();
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
         /// <summary>
         /// Shows the media Properties dialog.
         /// </summary>
@@ -172,7 +172,7 @@ namespace Gurux.Common
     {
         get;
     }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETCOREAPP2_1
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 !NETSTANDARD2_1 && && !NETCOREAPP2_1 && !NETCOREAPP3_1
 
 
         /// <summary>
