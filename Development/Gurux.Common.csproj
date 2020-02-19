@@ -19,7 +19,11 @@
     <PackageLicenseExpression>GPL-2.0-only</PackageLicenseExpression>
     <ApplicationIcon>Gurux.Common.ico</ApplicationIcon>
   </PropertyGroup>
- <ItemGroup>
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <ItemGroup>
 	<Reference Condition="'$(TargetFramework)' == 'net46'" Include="System.Windows.Forms" />
 	<Reference Condition="'$(TargetFramework)' == 'net45'" Include="System.Windows.Forms" />
 	<Reference Condition="'$(TargetFramework)' == 'net40'" Include="System.Windows.Forms" />
