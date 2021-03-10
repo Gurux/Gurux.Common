@@ -4,10 +4,10 @@
     <AssemblyName>Gurux.Common</AssemblyName>
     <Company>Gurux Ltd</Company>
     <Authors>Gurux Ltd</Authors>
-    <Copyright>Copyright (c) 1998-2020 Gurux Ltd. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 1998-2021 Gurux Ltd. All rights reserved.</Copyright>
     <PackageProjectUrl>www.gurux.fi</PackageProjectUrl>
     <Description>Gurux.Common class implements interfaces that are needed for Gurux Media components and Gurux Device Framework.</Description>
-  <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
+    <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <TargetFrameworks>net46;net40;net45;net35;netstandard2.1;netstandard2.0;netcoreapp3.1;netcoreapp2.0;netcoreapp2.1;</TargetFrameworks>
@@ -23,6 +23,15 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'netcoreapp2.1' or '$(TargetFramework)' == 'netcoreapp2.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
+     <Compile Remove="AboutBox1.cs" />
+     <Compile Remove="AboutBox1.Designer.cs" />
+     <Compile Remove="AddInsForm.cs" />
+     <Compile Remove="AddInsForm.Designer.cs" />
+     <Compile Remove="LibraryVersionsDlg.cs" />
+     <Compile Remove="LibraryVersionsDlg.Designer.cs" />
+  </ItemGroup>
+
   <ItemGroup>
 	<Reference Condition="'$(TargetFramework)' == 'net46'" Include="System.Windows.Forms" />
 	<Reference Condition="'$(TargetFramework)' == 'net45'" Include="System.Windows.Forms" />

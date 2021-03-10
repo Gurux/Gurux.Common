@@ -1,4 +1,4 @@
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
+
 using Gurux.Common.Properties;
 namespace Gurux.Common
 {
@@ -170,4 +170,3 @@ namespace Gurux.Common
 
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 &&!NETCOREAPP2_1 && !NETCOREAPP3_1

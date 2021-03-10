@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>Laus</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>Í boði AddIns</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>Laus:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>Lausar uppfærslur</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Lokar glugganum án þess að vista breytingar sem þú hefur gert.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Lokar glugganum án þess að vista breytingar sem þú hefur gert.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>Afrita</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Slökkva</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Öryrkjar</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Niðurhal</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Virkja</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>Að finna samskiptareglur.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>Ekkert hjálparefni tengist þessu atriði.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>Uppsett:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>Í notkun</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>Afritar skrár á klemmuspjaldið.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>Sýnir vöru- og bókasafnsútgáfur.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>Útgáfur bókasafns</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>Staðsetning</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>Nafn</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
     <value>.NET Framework 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>.Net ramma 3.5 SP1 verður að setja upp áður en hægt er að nota forritið.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>.Net ramma 3.5 SP1 eða 4.0 verður að setja upp áður en hægt er að nota forritið.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
     <value>.NET Framework 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>Nýjar uppfærslur í boði</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>Það eru nýjar uppfærslur í boði. Viltu hlaða þeim niður?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>Ekki hex strengur</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>Bókanir</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>SP</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>Óþekkt gerð</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>Uppfærsla í boði</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>Útgáfa</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Staða</value>
   </data>
 </root>

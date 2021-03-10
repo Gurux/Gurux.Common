@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>Disponibbli</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>Żidiet Disponibbli</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>Disponibbli:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>Aġġornamenti Disponibbli</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Agħlaq il-kaxxa tad-djalogu mingħajr ma ssalva l-ebda tibdil li għamilt.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Agħlaq il-kaxxa tad-djalogu mingħajr ma ssalva l-ebda tibdil li għamilt.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>Ikkopja</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Itfi</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Diżabbli</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Niżżel</value>
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>Sejba ta 'protokolli.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>L-ebda suġġett tal-Għajnuna mhu assoċjat ma 'dan l-oġġett.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>Installat:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>Fl-użu</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>Ikkopja fajls għall-clipboard.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>Turi verżjonijiet tal-prodott u tal-librerija.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>Verżjonijiet tal-Librerija</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>Post</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>Isem</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
+    <value>Qafas .NET 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>Qafas nett 3.5 SP1 għandu jkun installat qabel ma tkun tista 'tintuża l-applikazzjoni.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>Qafas nett 3.5 SP1 jew 4.0 għandu jkun installat qabel ma tkun tista 'tintuża l-applikazzjoni.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
+    <value>Qafas .NET 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>Aġġornamenti ġodda disponibbli</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>Hemm aġġornamenti ġodda disponibbli. Trid tniżżilhom?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>Mhux sekwenza hex</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>Protokolli</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
+    <value>SP</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>Tip mhux magħruf</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>Aġġornament disponibbli</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>Verżjoni</value>
   </data>
 </root>

@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>Disponebla</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>Disponeblaj Aldonaĵoj</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>Havebla:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>Haveblaj Ĝisdatigoj</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Fermas la dialogujon sen konservi iujn ajn ŝanĝojn faritajn de vi.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Fermas la dialogujon sen konservi iujn ajn ŝanĝojn faritajn de vi.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>Kopiu</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Malŝalti</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Malebligita</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Elŝuti</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Ebligi</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>Trovi protokolojn.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>Neniu Helpa temo estas ligita al ĉi tiu ero.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>Instalita:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>En uzo</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>Kopias dosierojn al la tondujo.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>Montras produktajn kaj bibliotekajn versiojn.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>Bibliotekaj Versioj</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>Loko</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>Nomo</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
     <value>.NET Framework 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>.Net Framework 3.5 SP1 devas esti instalita antaŭ ol la aplikaĵo uzeblas.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>.Net Framework 3.5 SP1 aŭ 4.0 devas esti instalita antaŭ ol la aplikaĵo uzeblas.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
     <value>.NET Framework 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>Novaj ĝisdatigoj haveblaj</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>Estas novaj ĝisdatigoj haveblaj. Ĉu vi volas elŝuti ilin?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>Ne deksesuma ŝnuro</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>Protokoloj</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>SP</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>Nekonata tipo</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>Ĝisdatigo disponebla</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>Versio</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Statuso</value>
   </data>
 </root>

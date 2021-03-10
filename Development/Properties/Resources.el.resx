@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>Διαθέσιμος</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>Διαθέσιμα πρόσθετα</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>Διαθέσιμος:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>Διαθέσιμες ενημερώσεις</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Κλείνει το πλαίσιο διαλόγου χωρίς να αποθηκεύσετε τυχόν αλλαγές που έχετε κάνει.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>Κλείνει το παράθυρο διαλόγου χωρίς να αποθηκεύσετε τις αλλαγές που έχετε κάνει</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>αντίγραφο</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Καθιστώ ανίκανο</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>άτομα με ειδικές ανάγκες</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Κατεβάστε</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>επιτρέπω</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>Εύρεση πρωτοκόλλων.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>Κανένα θέμα βοήθειας δεν σχετίζεται με αυτό το στοιχείο.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>Εγκατεστημένο:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>Σε χρήση</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>Αντιγράφει αρχεία στο πρόχειρο.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>Εμφανίζει εκδόσεις προϊόντων και βιβλιοθηκών.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>Εκδόσεις βιβλιοθήκης</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>Τοποθεσία</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>Ονομα</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
     <value>.NET Framework 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>Το καθαρό πλαίσιο 3.5 SP1 πρέπει να εγκατασταθεί πριν από τη χρήση της εφαρμογής.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>Πρέπει να εγκατασταθεί το καθαρό πλαίσιο 3.5 SP1 ή 4.0 πριν από τη χρήση της εφαρμογής.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
     <value>.NET Framework 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>Διατίθενται νέες ενημερώσεις</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>Υπάρχουν νέες διαθέσιμες ενημερώσεις. Θέλετε να τα κατεβάσετε;</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>Όχι εξαγωνική συμβολοσειρά</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>Πρωτόκολλα</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>SP</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>Άγνωστος τύπος</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>Διαθέσιμη ενημέρωση</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>Εκδοχή</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Κατάσταση</value>
   </data>
 </root>

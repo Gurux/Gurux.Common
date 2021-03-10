@@ -29,7 +29,7 @@
 // This code is licensed under the GNU General Public License v2.
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
+
 using System;
 using System.Drawing;
 using System.Collections;
@@ -42,9 +42,9 @@ using Gurux.Common.Properties;
 
 namespace Gurux.Common
 {
-	/// <summary>
-	/// This class is used to show a text editor in property grid.
-	/// </summary>
+    /// <summary>
+    /// This class is used to show a text editor in property grid.
+    /// </summary>
     internal class AddInsForm : System.Windows.Forms.Form
     {
         private System.Windows.Forms.Button CancelBtn;
@@ -69,7 +69,8 @@ namespace Gurux.Common
         {
             InitializeComponent();
             //Update resources.
-            this.CancelBtn.Text = Resources.CancelTxt;
+            OKBtn.Text = DialogResult.OK.ToString();
+            this.CancelBtn.Text = DialogResult.Cancel.ToString();
             this.NameCH.Text = Resources.NameTxt;
             this.StateCH.Text = Resources.State;
             this.InstalledCH.Text = Resources.Installed;
@@ -273,7 +274,7 @@ namespace Gurux.Common
             base.Dispose(disposing);
         }
 
-#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -397,7 +398,7 @@ namespace Gurux.Common
             this.ResumeLayout(false);
 
         }
-#endregion
+        #endregion
 
         private void EnableMnu_Click(object sender, EventArgs e)
         {
@@ -626,4 +627,3 @@ namespace Gurux.Common
 
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1

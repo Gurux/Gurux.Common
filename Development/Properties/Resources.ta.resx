@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>கிடைக்கிறது</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>கிடைக்கும் AddIns</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>கிடைக்கிறது:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>கிடைக்கும் புதுப்பிப்புகள்</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>நீங்கள் செய்த எந்த மாற்றங்களையும் சேமிக்காமல் உரையாடல் பெட்டியை மூடுகிறது.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>நீங்கள் செய்த எந்த மாற்றங்களையும் சேமிக்காமல் உரையாடல் பெட்டியை மூடுகிறது.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>நகலெடுக்கவும்</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>முடக்கு</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>முடக்கப்பட்டது</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>பதிவிறக்க Tamil</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>இயக்கு</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>நெறிமுறைகளைக் கண்டறிதல்.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>இந்த உருப்படியுடன் உதவி தலைப்பு எதுவும் இல்லை.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>நிறுவப்பட்ட:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>பயன்பாட்டில் உள்ளது</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>கோப்புகளை கிளிப்போர்டுக்கு நகலெடுக்கிறது.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>தயாரிப்பு மற்றும் நூலக பதிப்புகளைக் காட்டுகிறது.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>நூலக பதிப்புகள்</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>இடம்</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>பெயர்</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
+    <value>.நெட் கட்டமைப்பு 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>பயன்பாட்டைப் பயன்படுத்துவதற்கு முன்பு நெட் கட்டமைப்பை 3.5 SP1 நிறுவ வேண்டும்.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>பயன்பாட்டைப் பயன்படுத்துவதற்கு முன்பு நெட் கட்டமைப்பை 3.5 SP1 அல்லது 4.0 நிறுவ வேண்டும்.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
+    <value>நெட் கட்டமைப்பு 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>புதிய புதுப்பிப்புகள் கிடைக்கின்றன</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>புதிய புதுப்பிப்புகள் உள்ளன. அவற்றை பதிவிறக்க விரும்புகிறீர்களா?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>ஹெக்ஸ் சரம் அல்ல</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>நெறிமுறைகள்</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
+    <value>எஸ்.பி.</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>நிலை</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>தெரியாத வகை</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>புதுப்பிப்பு கிடைக்கிறது</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>பதிப்பு</value>
   </data>
 </root>

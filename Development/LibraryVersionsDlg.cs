@@ -1,4 +1,4 @@
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -27,7 +27,7 @@ namespace Gurux.Common
             try
             {
                 this.LocationHeader.Text = Resources.LocationTxt;
-                this.CancelBtn.Text = Resources.CancelTxt;
+                this.CancelBtn.Text = DialogResult.Cancel.ToString();
                 this.NameHeader.Text = Resources.NameTxt;
                 this.VersionHeader.Text = Resources.VersionTxt;
                 this.CopyBtn.Text = Resources.CopyTxt;
@@ -153,4 +153,3 @@ namespace Gurux.Common
         }
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1

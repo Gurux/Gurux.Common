@@ -103,16 +103,7 @@ namespace Gurux.Common.Properties {
             get {
                 return ResourceManager.GetString("CancelHelp", resourceCulture);
             }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        internal static string CancelTxt {
-            get {
-                return ResourceManager.GetString("CancelTxt", resourceCulture);
-            }
-        }
+        }       
         
         /// <summary>
         ///   Looks up a localized string similar to Closes the dialog box without saving any changes you have made..

@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>అందుబాటులో ఉంది</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>AddIns అందుబాటులో ఉంది</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>అందుబాటులో ఉంది:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>అందుబాటులో ఉన్న నవీకరణలు</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>మీరు చేసిన మార్పులను సేవ్ చేయకుండా డైలాగ్ బాక్స్‌ను మూసివేస్తుంది.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>మీరు చేసిన మార్పులను సేవ్ చేయకుండా డైలాగ్ బాక్స్‌ను మూసివేస్తుంది.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>కాపీ</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>డిసేబుల్</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>నిలిపివేయబడింది</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>డౌన్‌లోడ్</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>ప్రారంభించండి</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>ప్రోటోకాల్‌లను కనుగొనడం.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>ఈ అంశంతో సహాయ అంశం లేదు.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>వ్యవస్థాపించబడింది:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>వాడుకలో ఉన్నది</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>ఫైల్‌లను క్లిప్‌బోర్డ్‌కు కాపీ చేస్తుంది.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>ఉత్పత్తి మరియు లైబ్రరీ సంస్కరణలను చూపుతుంది.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>లైబ్రరీ వెర్షన్లు</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>స్థానం</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>పేరు</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
+    <value>.నెట్ ఫ్రేమ్‌వర్క్ 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>అప్లికేషన్‌ను ఉపయోగించే ముందు నెట్ ఫ్రేమ్‌వర్క్ 3.5 SP1 ని ఇన్‌స్టాల్ చేయాలి.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>అప్లికేషన్‌ను ఉపయోగించే ముందు నెట్ ఫ్రేమ్‌వర్క్ 3.5 SP1 లేదా 4.0 తప్పనిసరిగా ఇన్‌స్టాల్ చేయాలి.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
+    <value>.నెట్ ఫ్రేమ్‌వర్క్ 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>క్రొత్త నవీకరణలు అందుబాటులో ఉన్నాయి</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>కొత్త నవీకరణలు అందుబాటులో ఉన్నాయి. మీరు వాటిని డౌన్‌లోడ్ చేయాలనుకుంటున్నారా?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>హెక్స్ స్ట్రింగ్ కాదు</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>ప్రోటోకాల్స్</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
+    <value>ఎస్పీ</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>స్థితి</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>తెలియని రకం</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>అందుబాటులో నవీకరణ</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>సంస్కరణ: Telugu</value>
   </data>
 </root>

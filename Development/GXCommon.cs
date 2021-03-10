@@ -48,7 +48,7 @@ namespace Gurux.Common
     /// <summary>
     /// Common Gurux helpers.
     /// </summary>
-    public class GXCommon
+    public static class GXCommon
     {
         /// <summary>
         /// Is string guid.
@@ -352,16 +352,16 @@ namespace Gurux.Common
             {
                 return new byte[0];
             }
-            if (value is byte[])
+            if (value is byte[] v)
             {
-                return (byte[])value;
+                return v;
             }
             if (value is string)
             {
                 return Encoding.UTF8.GetBytes((string)value);
             }
-            int rawsize = 0;
-            byte[] rawdata = null;
+            int rawsize;
+            byte[] rawdata;
             GCHandle handle;
             if (value is Array)
             {

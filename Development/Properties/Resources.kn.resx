@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>ಲಭ್ಯವಿದೆ</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Available AddIns</value>
+    <value>ಲಭ್ಯವಿರುವ ಆಡ್ಇನ್‌ಗಳು</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
-    <value>Available:</value>
+    <value>ಲಭ್ಯವಿದೆ:</value>
   </data>
   <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>Available Updates</value>
+    <value>ಲಭ್ಯವಿರುವ ನವೀಕರಣಗಳು</value>
   </data>
   <data name="CancelHelp" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>ನೀವು ಮಾಡಿದ ಯಾವುದೇ ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸದೆ ಸಂವಾದ ಪೆಟ್ಟಿಗೆಯನ್ನು ಮುಚ್ಚುತ್ತದೆ.</value>
   </data>
   <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>Closes the dialog box without saving any changes you have made.</value>
+    <value>ನೀವು ಮಾಡಿದ ಯಾವುದೇ ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸದೆ ಸಂವಾದ ಪೆಟ್ಟಿಗೆಯನ್ನು ಮುಚ್ಚುತ್ತದೆ.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Copy</value>
+    <value>ನಕಲಿಸಿ</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>ಸಕ್ರಿಯಗೊಳಿಸಿ</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Finding protocols.</value>
+    <value>ಪ್ರೋಟೋಕಾಲ್ಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
-    <value>No Help topic is associated with this item.</value>
+    <value>ಯಾವುದೇ ಸಹಾಯ ವಿಷಯವು ಈ ಐಟಂನೊಂದಿಗೆ ಸಂಯೋಜಿತವಾಗಿಲ್ಲ.</value>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Installed:</value>
+    <value>ಸ್ಥಾಪಿಸಲಾಗಿದೆ:</value>
   </data>
   <data name="InUse" xml:space="preserve">
-    <value>In use</value>
+    <value>ಬಳಕೆಯಲ್ಲಿ</value>
   </data>
   <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>Copies files to the clipboard.</value>
+    <value>ಫೈಲ್‌ಗಳನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸುತ್ತದೆ.</value>
   </data>
   <data name="LibraryListHelp" xml:space="preserve">
-    <value>Shows product and library versions.</value>
+    <value>ಉತ್ಪನ್ನ ಮತ್ತು ಲೈಬ್ರರಿ ಆವೃತ್ತಿಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.</value>
   </data>
   <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>Library Versions</value>
+    <value>ಗ್ರಂಥಾಲಯ ಆವೃತ್ತಿಗಳು</value>
   </data>
   <data name="LocationTxt" xml:space="preserve">
-    <value>Location</value>
+    <value>ಸ್ಥಳ</value>
   </data>
   <data name="NameTxt" xml:space="preserve">
-    <value>Name</value>
+    <value>ಹೆಸರು</value>
   </data>
   <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
+    <value>.ನೆಟ್ ಫ್ರೇಮ್ವರ್ಕ್ 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 must be installed before the application can be used.</value>
+    <value>ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಬಳಸುವ ಮೊದಲು ನೆಟ್ ಫ್ರೇಮ್ವರ್ಕ್ 3.5 ಎಸ್ಪಿ 1 ಅನ್ನು ಸ್ಥಾಪಿಸಬೇಕು.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net framework 3.5 SP1 or 4.0 must be installed before the application can be used.</value>
+    <value>ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಬಳಸುವ ಮೊದಲು ನೆಟ್ ಫ್ರೇಮ್ವರ್ಕ್ 3.5 ಎಸ್ಪಿ 1 ಅಥವಾ 4.0 ಅನ್ನು ಸ್ಥಾಪಿಸಬೇಕು.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
+    <value>.ನೆಟ್ ಫ್ರೇಮ್ವರ್ಕ್ 4.0</value>
   </data>
   <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>New updates available</value>
+    <value>ಹೊಸ ನವೀಕರಣಗಳು ಲಭ್ಯವಿದೆ</value>
   </data>
   <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>There are new updates available. Do you want to download them?</value>
+    <value>ಹೊಸ ನವೀಕರಣಗಳು ಲಭ್ಯವಿದೆ. ನೀವು ಅವುಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಬಯಸುವಿರಾ?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Not hex string</value>
+    <value>ಹೆಕ್ಸ್ ಸ್ಟ್ರಿಂಗ್ ಅಲ್ಲ</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Protocols</value>
+    <value>ಪ್ರೋಟೋಕಾಲ್ಗಳು</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value> SP </value>
+    <value>ಎಸ್ಪಿ</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>ಸ್ಥಿತಿ</value>
   </data>
   <data name="UnknownType" xml:space="preserve">
-    <value>Unknown type </value>
+    <value>ಅಜ್ಞಾತ ಪ್ರಕಾರ</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>Update available</value>
+    <value>ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ</value>
   </data>
   <data name="VersionTxt" xml:space="preserve">
-    <value>Version</value>
+    <value>ಆವೃತ್ತಿ</value>
   </data>
 </root>
