@@ -104,7 +104,12 @@ namespace Gurux.Common.Internal
         /// <summary>
         /// Value is required.
         /// </summary>
-        IsRequired = 0x200
+        IsRequired = 0x200,
+        /// <summary>
+        /// Default value is set.
+        /// </summary>
+        DefaultValue = 0x200,
+
     }
 
     enum RelationType
