@@ -30,17 +30,40 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-namespace Gurux.Common
+using System;
+
+namespace Gurux.Common.Db
 {
     /// <summary>
-    /// This interface is used to tell that database class has unique ID.
+    /// Is table column indexed to DB.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IUnique<T>
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Property | AttributeTargets.Field)]
+    public class IndexAttribute : Attribute
     {
-        T Id 
-        { 
-            get; 
+        /// <summary>
+        /// Is index unique.
+        /// </summary>
+        public bool Unique
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// In default index is unique.
+        /// </summary>
+        public IndexAttribute()
+        {
+            Unique = true;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="unique">Is index unique</param>
+        public IndexAttribute(bool unique)
+        {
+            Unique = unique;
         }
     }
 }

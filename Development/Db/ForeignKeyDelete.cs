@@ -28,66 +28,33 @@
 //
 // This code is licensed under the GNU General Public License v2. 
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
-//--------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
 
-namespace Gurux.Common
+namespace Gurux.Common.Db
 {
     /// <summary>
-    /// Ignore type enumeration.
+    /// Foreign key delete actions.
     /// </summary>
-    [Flags]
-    public enum IgnoreType : int
+    public enum ForeignKeyDelete
     {
         /// <summary>
-        /// Nothing is ingoner.
+        /// Foreign key delete action is not used. This is a default.
         /// </summary>
-        None = 0,
+        None,
         /// <summary>
-        /// DB is ignored.
+        /// Items are removed from child table when parent item is removed.
         /// </summary>
-        Db = 1,
+        Cascade,
         /// <summary>
-        /// JSON formatter is ignored.
+        /// If parent item is try to remove and there are items on the child table deletion is rejected.
         /// </summary>
-        Json = 2,
+        Empty,
         /// <summary>
-        /// This is ignored always.
+        /// Deletion is restrict.
         /// </summary>
-        All = -1
-    }
-
-    /// <summary>
-    /// Properties with this IgnoreAttribute are ignored when building sql sentences 
-    /// and they are not saved to DB or JSON data.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class IgnoreAttribute : Attribute
-    {
-        /// <summary>
-        /// Ignore types.
-        /// </summary>
-        public IgnoreType IgnoreType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public IgnoreAttribute()
-        {
-            IgnoreType = IgnoreType.All;
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public IgnoreAttribute(IgnoreType ignore)
-        {
-            IgnoreType = ignore;
-        }
+        Restrict
     }
 }
