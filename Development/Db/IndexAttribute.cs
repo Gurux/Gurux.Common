@@ -50,6 +50,15 @@ namespace Gurux.Common.Db
         }
 
         /// <summary>
+        /// Data is sorted in descending order.
+        /// </summary>
+        public bool Descend
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// In default index is unique.
         /// </summary>
         public IndexAttribute()
@@ -60,10 +69,21 @@ namespace Gurux.Common.Db
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="unique">Is index unique</param>
+        /// <param name="unique">Is index unique.</param>
         public IndexAttribute(bool unique)
         {
             Unique = unique;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="unique">Is index unique.</param>
+        /// <param name="descend">Data is sorted in descending order.</param>
+        public IndexAttribute(bool unique, bool descend)
+        {
+            Unique = unique;
+            Descend = descend;
         }
     }
 }
