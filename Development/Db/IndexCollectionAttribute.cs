@@ -67,6 +67,16 @@ namespace Gurux.Common.Db
             get;
             private set;
         }
+
+        /// <summary>
+        /// Is this clustered or non-clustered index.
+        /// </summary>
+        public bool Clustered
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>

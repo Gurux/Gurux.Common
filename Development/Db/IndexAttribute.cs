@@ -59,6 +59,15 @@ namespace Gurux.Common.Db
         }
 
         /// <summary>
+        /// Is this clustered or non-clustered index.
+        /// </summary>
+        public bool Clustered
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// In default index is unique.
         /// </summary>
         public IndexAttribute()
