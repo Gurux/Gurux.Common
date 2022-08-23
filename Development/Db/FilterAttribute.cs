@@ -48,5 +48,34 @@ namespace Gurux.Common.Db
             get;
             set;
         }
+
+        /// <summary>
+        /// Default value when filter is ignored.
+        /// </summary>
+        public object DefaultValue
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="filterType">Filter type.</param>
+        public FilterAttribute(FilterType filterType)
+        {
+            FilterType = filterType;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="filterType">Filter type.</param>
+        /// <param name="defaultValue">Default value.</param>
+        public FilterAttribute(FilterType filterType, object defaultValue)
+        {
+            FilterType = filterType;
+            DefaultValue = defaultValue;
+        }
     }
 }
