@@ -91,5 +91,20 @@ namespace Gurux.Common.Db
         /// </summary>
         [EnumMember(Value = "8")]
         Contains = 8,
+        /// <summary>
+        /// String value contains the filtered value.
+        /// </summary>
+        [EnumMember(Value = "9")]
+        NotEqual = 9,
+        /// <summary>
+        /// If value is set it must be null.
+        /// </summary>
+        [EnumMember(Value = "10")]
+        Null = 10,
+        /// <summary>
+        /// If value is set it must be something else than null.
+        /// </summary>
+        [EnumMember(Value = "11")]
+        NotNull = 11,
     }
 }
