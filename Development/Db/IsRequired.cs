@@ -54,7 +54,7 @@ namespace Gurux.Common.Db
         /// </summary>
         public IsRequiredAttribute()
         {
-
+            IsRequired = true;
         }
         /// <summary>
         /// Constructor.
