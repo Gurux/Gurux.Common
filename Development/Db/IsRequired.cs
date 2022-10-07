@@ -35,15 +35,15 @@ using System;
 namespace Gurux.Common.Db
 {
     /// <summary>
-    /// AllowNull attribute can be used tell is null value allowed for the database column.
+    /// IsRequired attribute can be used tell is null value allowed for the database column.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class AllowNullAttribute : Attribute
+    public class IsRequiredAttribute : Attribute
     {
         /// <summary>
-        /// Is null allowed.
+        /// Is value required.
         /// </summary>
-        public bool AllowNull
+        public bool IsRequired
         {
             get;
             set;
@@ -52,17 +52,17 @@ namespace Gurux.Common.Db
         /// <summary>
         /// Constructor.
         /// </summary>
-        public AllowNullAttribute()
+        public IsRequiredAttribute()
         {
 
         }
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="allowNull">Is null allowed.</param>
-        public AllowNullAttribute(bool allowNull)
+        /// <param name="required">Is null value allowed.</param>
+        public IsRequiredAttribute(bool required)
         {
-            AllowNull = allowNull;
+            IsRequired = required;
         }
     }
 }
