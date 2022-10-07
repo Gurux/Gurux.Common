@@ -40,5 +40,29 @@ namespace Gurux.Common.Db
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class AllowNullAttribute : Attribute
     {
+        /// <summary>
+        /// Is null allowed.
+        /// </summary>
+        public bool AllowNull
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public AllowNullAttribute()
+        {
+
+        }
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="allowNull">Is null allowed.</param>
+        public AllowNullAttribute(bool allowNull)
+        {
+            AllowNull = allowNull;
+        }
     }
 }
