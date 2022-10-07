@@ -51,20 +51,7 @@ namespace Gurux.Common.Db
         {
             get;
             private set;
-        }
-
-        /// <summary>
-        /// Can foreign key be null. 
-        /// </summary
-        /// <remarks>
-        /// Foreign key can't be null as default.
-        /// </remarks>
-        public bool AllowNull
-        {
-            get;
-            set;
-        }
-
+        }      
 
         /// <summary>
         /// Constructor.
