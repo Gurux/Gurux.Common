@@ -31,6 +31,7 @@
 //---------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
 
 namespace Gurux.Common.Db
 {
@@ -53,6 +54,24 @@ namespace Gurux.Common.Db
         /// Data is sorted in descending order.
         /// </summary>
         public bool Descend
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Only null values are included in the index.
+        /// </summary>
+        public bool IncludeOnlyNull
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Are null values excluded in the index.
+        /// </summary>
+        public bool ExcludeNull
         {
             get;
             set;
