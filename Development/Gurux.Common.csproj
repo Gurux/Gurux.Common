@@ -21,6 +21,7 @@
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 <ItemGroup Condition="'$(TargetFramework)' == 'net60' or '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
      <Compile Remove="AboutBox1.cs" />
