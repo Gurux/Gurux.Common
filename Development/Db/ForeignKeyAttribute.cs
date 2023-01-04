@@ -41,12 +41,18 @@ namespace Gurux.Common.Db
     [AttributeUsage(AttributeTargets.Property)]
     public class ForeignKeyAttribute : Attribute
     {
+        /// <summary>
+        /// Foreign key attribute type.
+        /// </summary>
         public Type Type
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Foreign key attribute map table type.
+        /// </summary>
         public Type MapTable
         {
             get;
@@ -56,7 +62,6 @@ namespace Gurux.Common.Db
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="type">Foreign key type.</param>
         public ForeignKeyAttribute()
         {
             OnDelete = ForeignKeyDelete.None;

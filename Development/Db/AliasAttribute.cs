@@ -40,6 +40,9 @@ namespace Gurux.Common.Db
     [AttributeUsage(AttributeTargets.Class)]
     public class AliasAttribute : Attribute
     {
+        /// <summary>
+        /// Alias name.
+        /// </summary>
         public string Name
         {
             get;

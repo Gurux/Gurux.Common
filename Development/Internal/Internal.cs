@@ -37,7 +37,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Collections;
-using Gurux.Common.JSon;
+using Gurux.Common.Db;
 
 namespace Gurux.Common.Internal
 {
@@ -106,10 +106,17 @@ namespace Gurux.Common.Internal
         /// </summary>
         IsRequired = 0x200,
         /// <summary>
-        /// Default value is set.
+        /// Default value is used.
         /// </summary>
-        DefaultValue = 0x200,
-
+        DefaultValue = 0x400,
+        /// <summary>
+        /// Null value is allowed.
+        /// </summary>
+        AllowNull = 0x800,
+        /// <summary>
+        /// Filter is used.
+        /// </summary>
+        Filter = 0x1000
     }
 
     enum RelationType
@@ -185,6 +192,15 @@ namespace Gurux.Common.Internal
         /// </summary>
         public object DefaultValue;
         /// <summary>
+        /// Filter type.
+        /// </summary>
+        public FilterType FilterType;
+        /// <summary>
+        /// Filter value if given.
+        /// </summary>
+        public object FilterValue;
+
+        /// <summary>
         /// Set method.
         /// </summary>
         public SetHandler Set;
@@ -203,6 +219,8 @@ namespace Gurux.Common.Internal
             item.Type = Type;
             item.Target = Target;
             item.DefaultValue = DefaultValue;
+            item.FilterType = FilterType;
+            item.FilterValue = FilterValue;
             item.Set = Set;
             item.Get = Get;
             item.Attributes = Attributes;
@@ -428,22 +446,22 @@ namespace Gurux.Common.Internal
                             }
                             value = items;
                         }
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET5_0 && !NET6_0
                         else if (pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(System.Data.Linq.EntitySet<>))
                         {
                             Type listT = typeof(System.Data.Linq.EntitySet<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
-                            IList list = (IList)GXJsonParser.CreateInstance(listT);
+                            IList list = (IList)Activator.CreateInstance(listT);
                             foreach (object it in (IList)value)
                             {
                                 list.Add(it);
                             }
                             value = list;
                         }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET5_0 && !NET6_0
                         else
                         {
                             Type listT = typeof(List<>).MakeGenericType(new[] { GXInternal.GetPropertyType(pi.PropertyType) });
-                            IList list = (IList)GXJsonParser.CreateInstance(listT);
+                            IList list = (IList)Activator.CreateInstance(listT);
                             foreach (object it in (IList)value)
                             {
                                 list.Add(it);
@@ -901,6 +919,10 @@ namespace Gurux.Common.Internal
             if (types.Length == 0)
             {
                 if (target.BaseType == typeof(object))
+                {
+                    return target;
+                }
+                if (target.BaseType == typeof(GXTableBase))
                 {
                     return target;
                 }
