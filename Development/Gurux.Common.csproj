@@ -10,7 +10,7 @@
     <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-local</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <TargetFrameworks>net60;net6.0-windows;net462;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net60;net462;netstandard2.1;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/gurux/gurux.common</RepositoryUrl>
     <PackageTags>AMR, AMI IOT</PackageTags>
@@ -23,7 +23,21 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
-<ItemGroup Condition="'$(TargetFramework)' == 'net60' or '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
+
+ <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <TargetFramework>net60-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+   <Compile Update="Properties\Resources.Designer.cs">
+     <DesignTime>True</DesignTime>
+     <AutoGen>True</AutoGen>
+     <DependentUpon>Resources.resx</DependentUpon>
+   </Compile>
+ </ItemGroup>
+
+<ItemGroup Condition="'$(TargetFramework)' == 'net60' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
      <Compile Remove="AboutBox1.cs" />
      <Compile Remove="AboutBox1.Designer.cs" />
      <Compile Remove="AddInsForm.cs" />
@@ -31,16 +45,10 @@
      <Compile Remove="LibraryVersionsDlg.cs" />
      <Compile Remove="LibraryVersionsDlg.Designer.cs" />
   </ItemGroup>
-
-  <ItemGroup>
-	<Reference Condition="'$(TargetFramework)' == 'net6.0-windows'" Include="System.Windows.Forms" />
-	<Reference Condition="'$(TargetFramework)' == 'net462'" Include="System.Windows.Forms" />
-   </ItemGroup>
- <ItemGroup>
-	<Reference Condition="'$(TargetFramework)' == 'net6.0-windows'" Include="System.Data.Linq" />
-	<Reference Condition="'$(TargetFramework)' == 'net60'" Include="System.Data.Linq" />
-        <Reference Condition="'$(TargetFramework)' == 'net462'" Include="System.Data.Linq" />
-   </ItemGroup>
+<ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
    <PackageReference Include="System.Resources.Extensions">
      <Version>5.0.0</Version>
@@ -62,10 +70,11 @@
    </PackageReference>
  </ItemGroup>
  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <Reference Include="System.Windows.Forms" />
    <PackageReference Include="System.Resources.Extensions">
      <Version>6.0.0</Version>
    </PackageReference>
- </ItemGroup>
+ </ItemGroup>    
   <ItemGroup>
     <None Include="Gurux.Common.png" Pack="true" PackagePath="\" />
   </ItemGroup>

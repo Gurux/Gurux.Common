@@ -568,7 +568,9 @@ namespace Gurux.Common
                     x.WriteObject(writer, AddIns);
                     writer.Close();
                 }
+#if NET462_OR_GREATER
                 Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(path);
+#endif //NET462_OR_GREATER
                 GXUpdateChecker updater = new GXUpdateChecker();
                 updater.OnProgress += new GXUpdateChecker.ProgressEventHandler(updater_OnProgress);
                 Status = updater.UpdateProtocols();

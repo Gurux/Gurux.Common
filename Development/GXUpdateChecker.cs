@@ -30,19 +30,16 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if NET462_OR_GREATER || WINDOWS
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Xml;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading;
-using Microsoft.Win32;
 using Gurux.Common.Properties;
 
 namespace Gurux.Common
@@ -121,7 +118,9 @@ namespace Gurux.Common
                 if (!System.IO.Directory.Exists(backupPath))
                 {
                     System.IO.Directory.CreateDirectory(backupPath);
+#if NET462_OR_GREATER
                     Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(backupPath);
+#endif //if NET462_OR_GREATER
                 }
                 DataContractSerializer x = new DataContractSerializer(typeof(GXAddInList));
                 GXAddInList localAddins;
@@ -199,7 +198,9 @@ namespace Gurux.Common
                             {
                                 AddInPath = Path.Combine(AddInPath, it.File);
                                 System.IO.File.WriteAllBytes(AddInPath, client.DownloadData("http://www.gurux.org/updates/" + it.File));
+#if NET462_OR_GREATER
                                 Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(AddInPath);
+#endif //NET462_OR_GREATER
                                 System.Reflection.Assembly asm = System.Reflection.Assembly.LoadFile(AddInPath);
                                 System.Diagnostics.FileVersionInfo newVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
                                 it.Version = it.InstalledVersion = newVersion.FileVersion;
@@ -212,17 +213,28 @@ namespace Gurux.Common
                             if (!Directory.Exists(cachedPath))
                             {
                                 Directory.CreateDirectory(cachedPath);
-                                Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(cachedPath);
+#if NET462_OR_GREATER
+Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(cachedPath);
+#endif //NET462_OR_GREATER
                             }
                             cachedPath = Path.Combine(cachedPath, it.File);
                             System.IO.File.WriteAllBytes(cachedPath, client.DownloadData("http://www.gurux.org/updates/" + it.File));
-                            Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(cachedPath);
+#if NET462_OR_GREATER
+         Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(cachedPath);
+#endif //NET462_OR_GREATER
+#if NET462_OR_GREATER
                             AppDomain domain = AppDomain.CreateDomain("import", null, AppDomain.CurrentDomain.SetupInformation);
                             //Get version number and unload assmbly.
                             System.Reflection.Assembly asm = domain.Load(System.Reflection.AssemblyName.GetAssemblyName(cachedPath));
                             System.Diagnostics.FileVersionInfo newVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
                             it.Version = it.InstalledVersion = newVersion.FileVersion;
                             AppDomain.Unload(domain);
+#else
+                            //Get version number.
+                            System.Reflection.Assembly asm = System.Reflection.Assembly.Load(System.Reflection.AssemblyName.GetAssemblyName(cachedPath));
+                            System.Diagnostics.FileVersionInfo newVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
+                            it.Version = it.InstalledVersion = newVersion.FileVersion;
+#endif //NET462_OR_GREATER
                             status |= ProtocolUpdateStatus.Restart;
                         }
                         status |= ProtocolUpdateStatus.Changed;
@@ -241,8 +253,9 @@ namespace Gurux.Common
                         x.WriteObject(writer, localAddins);
                         writer.Close();
                     }
+#if NET462_OR_GREATER
                     Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(path);
-                    //TODO: GXDeviceList.UpdateProtocols();
+#endif //NET462_OR_GREATER
                 }
                 return status;
             }
@@ -537,14 +550,18 @@ namespace Gurux.Common
                         if (!System.IO.Directory.Exists(tmp))
                         {
                             Directory.CreateDirectory(tmp);
-                            Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(tmp);
+#if NET462_OR_GREATER
+                        Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(tmp);
+#endif //NET462_OR_GREATER
                         }
                         using (XmlWriter writer = XmlWriter.Create(path, settings))
                         {
                             x.WriteObject(writer, localAddins);
                             writer.Close();
                         }
+#if NET462_OR_GREATER
                         Gurux.Common.GXFileSystemSecurity.UpdateFileSecurity(path);
+#endif //NET462_OR_GREATER
                     }
                     return newItems;
                 }
@@ -621,4 +638,4 @@ namespace Gurux.Common
         internal event ProgressEventHandler OnProgress;
     }
 }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#endif //NET462_OR_GREATER || WINDOWS

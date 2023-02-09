@@ -394,18 +394,18 @@ namespace Gurux.Common.JSon
             if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if NET462_OR_GREATER
                 GXFileSystemSecurity.UpdateDirectorySecurity(dir);
-#endif
+#endif //NET462_OR_GREATER
             }
             GXJsonParser parser = new GXJsonParser();
             using (TextWriter writer = File.CreateText(path))
             {
                 parser.Serialize(target, writer, false, false, true, false);
             }
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if NET462_OR_GREATER
             GXFileSystemSecurity.UpdateFileSecurity(path);
-#endif
+#endif //NET462_OR_GREATER
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.Win32;
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if NET462_OR_GREATER || WINDOWS
 using System.Windows.Forms;
 #endif
 namespace Gurux.Common
@@ -78,7 +78,7 @@ namespace Gurux.Common
             }
         }
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if NET462_OR_GREATER || WINDOWS
         /// <summary>
         /// Check that correct framework is installed.
         /// </summary>
@@ -646,7 +646,7 @@ namespace Gurux.Common
             }
         }
 
-#if !NETCOREAPP2_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1 && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
+#if NET462_OR_GREATER || WINDOWS
         /// <summary>
         /// Shows an error message.
         /// </summary>
@@ -685,7 +685,9 @@ namespace Gurux.Common
                         }
                         tw.Close();
                     }
+#if NET462_OR_GREATER
                     GXFileSystemSecurity.UpdateFileSecurity(path);
+#endif //NET462_OR_GREATER
                 }
                 catch (Exception)
                 {
