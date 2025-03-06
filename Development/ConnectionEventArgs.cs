@@ -31,16 +31,13 @@
 //---------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Runtime.Serialization;
 
 namespace Gurux.Common
-{    
+{
     /// <summary>
-	/// Argument class for IGXMedia connection and disconnection events.
-	/// </summary>
+    /// Argument class for IGXMedia connection and disconnection events.
+    /// </summary>
     public class TraceEventArgs
     {
         /// <summary>

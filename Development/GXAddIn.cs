@@ -32,14 +32,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 
 // Gurux.Common class implements interfaces that are needed for 
 // Gurux Media components and Gurux Device Framework.
 namespace Gurux.Common
-{    
+{
     [CollectionDataContract()]
     internal class GXAddInList : List<GXAddIn> 
     { 
