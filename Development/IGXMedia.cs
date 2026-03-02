@@ -32,6 +32,7 @@
 using System;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Gurux.Common
 {
@@ -162,11 +163,11 @@ namespace Gurux.Common
         /// Shows the media Properties dialog.
         /// </summary>
         /// <param name="parent">Parent window.</param>
-        /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
+        /// <returns>Returns True if user has accepted changes. Otherwise false.</returns>
         bool Properties(System.Windows.Forms.Form parent);
 
     /// <summary>
-    /// Returns Media debended Properties form.
+    /// Returns Media dependent Properties form.
     /// </summary>
     System.Windows.Forms.Form PropertiesForm
     {
@@ -183,6 +184,16 @@ namespace Gurux.Common
         /// <param name="receiver">Media depend information of the receiver (optional).</param>
         /// <seealso cref="Receive">Receive</seealso>
         void Send(object data, string receiver);
+
+        /// <summary>
+        /// Sends data asynchronously. <br/>
+        /// No reply from the receiver, whether or not the operation was successful, is expected.
+        /// </summary>
+        /// <param name="data">Data to send to the device.</param>
+        /// <param name="receiver">Media depend information of the receiver (optional).</param>
+        /// <returns>A task that represents the asynchronous send operation.</returns>
+        /// <seealso cref="ReceiveAsync">ReceiveAsync</seealso>
+        Task SendAsync(object data, string receiver);
 
         /// <summary>
         /// Returns media type as a string.
@@ -237,6 +248,15 @@ namespace Gurux.Common
         /// <seealso cref="Send">SendSync</seealso>
         /// <seealso cref="Synchronous">Synchronous</seealso>
         bool Receive<T>(ReceiveParameters<T> args);
+
+        /// <summary>
+        /// Waits for more reply data After SendAsync if whole packet is not received yet.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="args">Receive data arguments.</param>
+        /// <returns>True, if the send operation was successful.</returns>
+        /// <seealso cref="SendAsync">SendAsync</seealso>
+        Task<bool> ReceiveAsync<T>(ReceiveParameters<T> args);
 
         /// <summary>
         /// Resets synchronous buffer.
