@@ -43,7 +43,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Optional four-part version override; blank = automatic'
+        description: 'Optional 9.0 four-part version override; blank = automatic'
         required: false
         type: string
 
@@ -115,7 +115,7 @@ jobs:
                 $revision = $now.Day * 100 + 1
                 $stable = @(
                     foreach ($published in $PublishedVersions) {
-                        if ($published -match '^\d+\.\d+\.\d+(\.\d+)?$') {
+                        if ($published -match '^9\.0\.\d+(\.\d+)?$') {
                             $parsed = $null
                             if ([version]::TryParse($published, [ref]$parsed)) {
                                 $parsed
@@ -125,7 +125,6 @@ jobs:
                 )
                 $latest = $stable | Sort-Object -Descending | Select-Object -First 1
                 if ($null -ne $latest) {
-                    $prefix = "$($latest.Major).$($latest.Minor).$month"
                     if ($latest.Build -gt [int]$month) {
                         throw "A future monthly version already exists: $latest. Enter a manual version."
                     }
@@ -135,8 +134,8 @@ jobs:
                 }
                 $version = "$prefix.$revision"
             }
-            if ($version -notmatch '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
-                throw 'Use a four-part numeric version, for example 9.0.2611.1201.'
+            if ($version -notmatch '^9\.0\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
+                throw 'Use a four-part numeric version starting with 9.0, for example 9.0.2611.1201.'
             }
             foreach ($part in $version.Split('.')) {
                 $number = 0
