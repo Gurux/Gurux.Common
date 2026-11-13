@@ -76,6 +76,9 @@ public abstract class GXMediaBase : IGXAsyncMedia, IDisposable, IAsyncDisposable
     public virtual string? Settings { get; set; }
 
     /// <inheritdoc/>
+    public virtual string? JsonSettings { get; set; }
+
+    /// <inheritdoc/>
     public object? Eop
     {
         get

@@ -156,9 +156,18 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Media settings in the transport's serialized format (for example XML or JSON).
+        /// Gets or replaces media settings in the legacy XML format.
         /// </summary>
         string? Settings
+        {
+            get;
+            set;
+        }
+
+        /// <summary>Gets or replaces the same media settings as <see cref="Settings"/> using JSON.</summary>
+        /// <remarks>Changing either serialized representation updates the transport configuration used by both properties.
+        /// Implementations apply the same lifecycle restrictions to XML and JSON settings changes.</remarks>
+        string? JsonSettings
         {
             get;
             set;
