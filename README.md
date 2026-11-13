@@ -1,7 +1,7 @@
 # Gurux.Common
 
 Shared media interfaces, event arguments and receive buffering for the Gurux
-Device Framework. Targets .NET 9 and .NET 10 without UI framework dependencies.
+Device Framework. Targets .NET 9, .NET 10 and .NET 11 without UI framework dependencies.
 Concrete transport implementations are provided by separate media libraries.
 
 For request/reply exchanges, call `BeginSynchronous()` before sending, then await
