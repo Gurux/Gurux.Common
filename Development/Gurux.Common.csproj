@@ -28,7 +28,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="Gurux.Common.png" Pack="true" PackagePath="/" />
+        <None Remove="Gurux.Common.png" />
+        <None Include="Gurux.Common.png" Pack="true" PackagePath="/" />
         <None Include="../LICENSE" Pack="true" PackagePath="/" />
         <None Include="../LICENSES/LicenseRef-Gurux-Commercial" Pack="true" PackagePath="LICENSES/" />
     </ItemGroup>
