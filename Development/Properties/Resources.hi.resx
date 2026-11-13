@@ -216,4 +216,44 @@
   <data name="State" xml:space="preserve">
     <value>स्थिति</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>मान में बाइट या पाठ होना चाहिए।</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>संचार चैनल बंद है।</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>स्रोत और लक्ष्य को एक ही प्रकार के संचार माध्यम का उपयोग करना चाहिए।</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>सेटिंग संपादक खोलने के लिए PropertiesAsync का उपयोग करें।</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>प्राप्ति बफ़र की क्षमता पार हो गई है।</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>कम से कम एक प्राप्ति शर्त निर्धारित करें: Count, Eop या AllData।</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>EOP पैटर्न खाली नहीं होने चाहिए।</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>केवल byte[] और UTF-8 पाठ वाले उत्तर समर्थित हैं।</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>अमान्य पैरामीटर: {0}।</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>पैरामीटर {0} का मान मौजूद नहीं है।</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

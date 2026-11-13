@@ -216,4 +216,44 @@
   <data name="VersionTxt" xml:space="preserve">
     <value>Različica</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>Vrednost mora vsebovati bajte ali besedilo.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>Komunikacijski kanal je zaprt.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>Izvor in cilj morata uporabljati isto vrsto komunikacijskega medija.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>Za odpiranje urejevalnika nastavitev uporabite PropertiesAsync.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>Zmogljivost sprejemnega medpomnilnika je presežena.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Nastavite vsaj en pogoj sprejema: Count, Eop ali AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>Vzorci EOP ne smejo biti prazni.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>Podprti so samo odgovori vrste byte[] in besedilni nizi UTF-8.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>Neveljaven parameter: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>Manjka vrednost parametra {0}.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

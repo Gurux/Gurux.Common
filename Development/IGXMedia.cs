@@ -1,137 +1,79 @@
-﻿//
 // --------------------------------------------------------------------------
-//  Gurux Ltd
+// Gurux Ltd
 //
+// Copyright (c) Gurux Ltd.
 //
+// This file is part of Gurux Device Framework.
 //
-// Filename:        $HeadURL$
+// Commit: $Format:%H$
+// Date:   $Format:%cI$
 //
-// Version:         $Revision$,
-//                  $Date$
-//                  $Author$
+// This software is available under either of the following licenses:
 //
-// Copyright (c) Gurux Ltd
+// 1. GNU General Public License, version 2 only (GPL-2.0-only).
+//    See the LICENSE file included with this distribution.
 //
-//---------------------------------------------------------------------------
+// 2. A commercial license granted by Gurux Ltd under a separate written
+//    agreement. Use under this option requires a valid commercial license
+//    and is governed by the terms of that agreement.
 //
-//  DESCRIPTION
+// If you have not obtained a commercial license from Gurux Ltd,
+// use of this software is governed by GPL-2.0-only.
 //
-// This file is a part of Gurux Device Framework.
+// Commercial licensing: https://www.gurux.fi/
 //
-// Gurux Device Framework is Open Source software; you can redistribute it
-// and/or modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; version 2 of the License.
-// Gurux Device Framework is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
-//
-// This code is licensed under the GNU General Public License v2.
-// Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
-//---------------------------------------------------------------------------
-using System;
+// SPDX-License-Identifier: GPL-2.0-only OR LicenseRef-Gurux-Commercial
+// --------------------------------------------------------------------------
+
 using System.ComponentModel;
-using System.Threading;
+using System.Diagnostics;
 
 namespace Gurux.Common
 {
     /// <summary>
-    /// Async work is done.
+    /// Defines transport-independent communication operations and events.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="result">Result of async work.</param>
-    public delegate void DoneEventHandler(object sender, object result);
-
-    /// <summary>
-    /// Represents the method that will handle the error event of a Gurux component.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="ex">An Exception object that contains the event data.</param>
-    public delegate void ErrorEventHandler(object sender, Exception ex);
-
-
-    /// <summary>
-    /// Media component sends received data through this method.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">Event arguments.</param>
-    public delegate void ReceivedEventHandler(object sender, ReceiveEventArgs e);
-
-    /// <summary>
-    /// Media component sends notification, when its state changes.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">Event arguments.</param>
-    public delegate void MediaStateChangeEventHandler(object sender, MediaStateEventArgs e);
-
-    /// <summary>
-    /// Called when the client is establishing a connection with a GXNet Server.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">Event arguments.</param>
-    public delegate void ClientConnectedEventHandler(object sender, ConnectionEventArgs e);
-
-    /// <summary>
-    /// Called when the client has been disconnected from the GXNet server.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">Event arguments.</param>
-    public delegate void ClientDisconnectedEventHandler(object sender, ConnectionEventArgs e);
-
-    /// <summary>
-    /// Called when the Media is sending or receiving data.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    /// <seealso cref="IGXMedia.Trace">Trace</seealso>seealso>
-    public delegate void TraceEventHandler(object sender, TraceEventArgs e);
-
-    /// <summary>
-    /// Common interface for all Media components.<br/>
-    /// Using this interface GXCommunication library enables communication with
-    /// different medias.
-    /// </summary>
+    /// <remarks>
+    /// Events may be raised on transport threads. UI consumers must marshal handlers to their UI thread.
+    /// While synchronous receive mode is active, incoming data is buffered for Receive instead of being delivered through OnReceived.
+    /// </remarks>
     public interface IGXMedia
     {
-        /// <inheritdoc cref="ReceivedEventHandler"/>
-        event ReceivedEventHandler OnReceived;
+        /// <summary>Occurs when received data is delivered.</summary>
+        event EventHandler<ReceiveEventArgs>? OnReceived;
 
-        /// <inheritdoc cref="ErrorEventHandler"/>
-        event ErrorEventHandler OnError;
+        /// <summary>Occurs when a communication error is reported.</summary>
+        event EventHandler<MediaErrorEventArgs>? OnError;
 
-        /// <inheritdoc cref="MediaStateChangeEventHandler"/>
-        event MediaStateChangeEventHandler OnMediaStateChange;
+        /// <summary>Occurs when the media reports a connection state change.</summary>
+        event EventHandler<MediaStateEventArgs>? OnMediaStateChange;
 
-        /// <inheritdoc cref="ClientConnectedEventHandler"/>
-        event ClientConnectedEventHandler OnClientConnected;
-
-        /// <inheritdoc cref="ClientDisconnectedEventHandler"/>
-        event ClientDisconnectedEventHandler OnClientDisconnected;
-
-        /// <inheritdoc cref="TraceEventHandler"/>
-        event TraceEventHandler OnTrace;
+        /// <summary>Occurs when the media emits a trace message.</summary>
+        event EventHandler<TraceEventArgs>? OnTrace;
 
         /// <summary>
-        /// Copies the content of the media to target media.
+        /// Copies the media configuration to another instance.
         /// </summary>
+        /// <param name="target">The destination instance supported by the implementation.</param>
         void Copy(object target);
 
+        /// <remarks>
+        /// Media name is used to identify media connection,
+        /// so two different media connection can not return same media name.
+        /// </remarks>
         /// <summary>
         /// Returns name of the media.
         /// </summary>
-        /// <remarks>
-        /// Media name is used to identify media connection, so two different media connection can not return same media name.
-        /// </remarks>
         string Name
         {
             get;
         }
 
-        /// <summary>
-        /// Trace level of the IGXMedia for System.Diagnostic.Trace.Writes.
-        /// </summary>
         /// <seealso cref="OnTrace"/>
-        System.Diagnostics.TraceLevel Trace
+        /// <summary>
+        /// The trace level specifies which types of trace messages are emitted.
+        /// </summary>
+        TraceLevel Trace
         {
             get;
             set;
@@ -157,27 +99,37 @@ namespace Gurux.Common
         /// <seealso cref="Open">Open</seealso>
         void Close();
 
-#if NET462_OR_GREATER || WINDOWS
         /// <summary>
-        /// Shows the media Properties dialog.
+        /// Shows the transport-specific configuration UI on the calling UI thread.
         /// </summary>
-        /// <param name="parent">Parent window.</param>
-        /// <returns>Returns True if user has accect changes. Otherwice false.</returns>
-        bool Properties(System.Windows.Forms.Form parent);
-
-    /// <summary>
-    /// Returns Media debended Properties form.
-    /// </summary>
-    System.Windows.Forms.Form PropertiesForm
-    {
-        get;
-    }
-#endif //!NETCOREAPP2_0 && !NETSTANDARD2_0 !NETSTANDARD2_1 && && !NETCOREAPP2_1 && !NETCOREAPP3_1 && !NET6_0
-
+        /// <param name="parent">The parent window, or null for no parent.</param>
+        /// <returns>True if changes are accepted; false if canceled or no configuration UI is available.</returns>
+        bool Properties(IGXWindow? parent = null);
 
         /// <summary>
-        /// Sends data asynchronously. <br/>
-        /// No reply from the receiver, whether or not the operation was successful, is expected.
+        /// Shows the transport-specific configuration UI asynchronously.
+        /// </summary>
+        /// <param name="parent">The parent window, or null for no parent.</param>
+        /// <param name="cancellationToken">A token requesting cancellation of the UI operation.</param>
+        /// <returns>True if changes are accepted; false if canceled by the user or no UI is available.</returns>
+        /// <exception cref="OperationCanceledException">The operation is canceled using the token.</exception>
+        /// <remarks>
+        /// Call on the platform UI thread. The media owns and releases its window resources.
+        /// Complete the task when the configuration UI closes. Token cancellation must close the UI and cancel the task.
+        /// </remarks>
+        Task<bool> PropertiesAsync(IGXWindow? parent = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Gets the transport-specific properties window, or null when no configuration UI is available.
+        /// Reading this property must not show the window. The media owns its window resources.
+        /// </summary>
+        IGXWindow? PropertiesForm
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Sends data without waiting for a reply from the receiver.
         /// </summary>
         /// <param name="data">Data to send to the device.</param>
         /// <param name="receiver">Media depend information of the receiver (optional).</param>
@@ -193,7 +145,7 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Return is media enabled.
+        /// Gets whether the media is available for use.
         /// </summary>
         /// <remarks>
         /// Media is disabled example if there is no serial port in the machine.
@@ -204,9 +156,9 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Media settings as a XML string.
+        /// Media settings in the transport's serialized format (for example XML or JSON).
         /// </summary>
-        string Settings
+        string? Settings
         {
             get;
             set;
@@ -215,7 +167,7 @@ namespace Gurux.Common
         /// <summary>
         /// Locking this property makes the connection synchronized and stops sending OnReceived events.
         /// </summary>
-        object Synchronous
+        object? Synchronous
         {
             get;
         }
@@ -230,11 +182,17 @@ namespace Gurux.Common
         }
 
         /// <summary>
-        /// Waits for more reply data After SendSync if whole packet is not received yet.
+        /// Waits synchronously for data according to the supplied receive conditions.
         /// </summary>
-        /// <param name="args">Receive data arguments.</param>
-        /// <returns>True, if the send operation was successful.</returns>
-        /// <seealso cref="Send">SendSync</seealso>
+        /// <typeparam name="T">The type used to return received data.</typeparam>
+        /// <param name="args">Receive conditions and the destination for the received reply.</param>
+        /// <returns>True when the receive conditions are satisfied; false on timeout or closure.
+        /// With AllData, false on timeout may still append partial bytes to the reply.</returns>
+        /// <remarks>
+        /// Shared buffering follows <see cref="ReceiveParameters{T}"/>. Returned bytes are consumed unless Peek
+        /// is enabled. Closure does not flush partial data. Use asynchronous receive on UI threads.
+        /// </remarks>
+        /// <seealso cref="Send"/>
         /// <seealso cref="Synchronous">Synchronous</seealso>
         bool Receive<T>(ReceiveParameters<T> args);
 
@@ -271,15 +229,14 @@ namespace Gurux.Common
         void ResetByteCounters();
 
         /// <summary>
-        /// Validate Media settings for connection open. Returns table of media properties that must be set before media is valid to open. Return NULL if media is capable to open with these settings.
+        /// Validates the current settings before opening the connection.
         /// </summary>
-        /// <returns>List of media properties that must set before connection can be established.</returns>
         void Validate();
 
         /// <summary>
         /// Data is buffered until EOP is received.
         /// </summary>
-        object Eop
+        object? Eop
         {
             get;
             set;
@@ -297,16 +254,7 @@ namespace Gurux.Common
         /// <summary>
         /// Gets or sets an object that contains data to associate with the item.
         /// </summary>
-        object Tag
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Parent media container if Gateway is used.
-        /// </summary>
-        IGXMediaContainer MediaContainer
+        object? Tag
         {
             get;
             set;
@@ -320,97 +268,5 @@ namespace Gurux.Common
         {
             get;
         }
-    }
-
-    /// <summary>
-    /// Common interface for all Media components.<br/>
-    /// Using this interface GXCommunication library enables communication with
-    /// different medias. IGXMedia2 improves functionality for async connections.
-    /// </summary>
-    public interface IGXMedia2 : IGXMedia
-    {
-        /// <summary>
-        /// Wait time for asynchronous messages.
-        /// </summary>
-        UInt32 AsyncWaitTime
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Wait handle for asynchronous messages. It's null if asynchronous messages is not used.
-        /// </summary>
-        EventWaitHandle AsyncWaitHandle
-        {
-            get;
-        }
-
-        /// <summary>
-        /// How long data from the media is waited before received data is handled.
-        /// </summary>
-        UInt32 ReceiveDelay
-        {
-            get;
-            set;
-        }
-    }
-
-    /// <summary>
-    /// Media container is used to create Gateway Media.
-    /// </summary>
-    public interface IGXMediaContainer
-    {
-        /// <summary>
-        /// Child media.
-        /// </summary>
-        IGXMedia Media
-        {
-            get;
-            set;
-        }
-    }
-
-    /// <summary>
-    /// Get value of virtual property.
-    /// </summary>
-    /// <param name="propertyName"></param>
-    /// <returns></returns>
-    public delegate string GetPropertyValueEventHandler(string propertyName);
-
-    /// <summary>
-    /// Virtual media is used to create virtual media.
-    /// </summary>
-    public interface IGXVirtualMedia
-    {
-        /// <summary>
-        /// Is media virtual.
-        /// </summary>
-        /// <remarks>
-        /// If media is virtual actual data is not send only notifications.
-        /// </remarks>
-        bool Virtual
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Occurs when a property value is asked.
-        /// </summary>
-        event GetPropertyValueEventHandler OnGetPropertyValue;
-
-        /// <summary>
-        /// Notifies that new data is received.
-        /// </summary>
-        event ReceivedEventHandler OnDataSend;
-
-        /// <summary>
-        /// Called when new data is received to the virtual media.
-        /// </summary>
-        /// <param name="data">Received data.</param>
-        /// <param name="sender">Data sender.</param>
-        void DataReceived(byte[] data, string sender);
-
     }
 }

@@ -216,4 +216,44 @@
   <data name="VersionTxt" xml:space="preserve">
     <value>نسخه</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>مقدار باید شامل بایت یا متن باشد.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>کانال ارتباطی بسته است.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>مبدأ و مقصد باید از یک نوع رسانهٔ ارتباطی استفاده کنند.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>برای باز کردن ویرایشگر تنظیمات از PropertiesAsync استفاده کنید.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>ظرفیت بافر دریافت بیش از حد مجاز شده است.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>حداقل یک شرط دریافت تعیین کنید: Count، Eop یا AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>الگوهای EOP نباید خالی باشند.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>فقط پاسخ‌های byte[] و رشته‌های متنی UTF-8 پشتیبانی می‌شوند.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>پارامتر نامعتبر: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>مقدار پارامتر {0} موجود نیست.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

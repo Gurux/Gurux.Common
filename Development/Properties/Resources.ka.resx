@@ -216,4 +216,44 @@
   <data name="State" xml:space="preserve">
     <value>სტატუსი</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>მნიშვნელობა უნდა შეიცავდეს ბაიტებს ან ტექსტს.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>საკომუნიკაციო არხი დახურულია.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>წყარო და სამიზნე უნდა იყენებდნენ ერთსა და იმავე ტიპის საკომუნიკაციო საშუალებას.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>პარამეტრების რედაქტორის გასახსნელად გამოიყენეთ PropertiesAsync.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>მიმღები ბუფერის ტევადობა გადაჭარბებულია.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>დააყენეთ მიღების სულ მცირე ერთი პირობა: Count, Eop ან AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>EOP შაბლონები ცარიელი არ უნდა იყოს.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>მხარდაჭერილია მხოლოდ byte[] ტიპის და UTF-8 ტექსტური პასუხები.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>არასწორი პარამეტრი: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>პარამეტრის {0} მნიშვნელობა აკლია.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

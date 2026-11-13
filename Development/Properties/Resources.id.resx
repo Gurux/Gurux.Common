@@ -216,4 +216,44 @@
   <data name="State" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>Nilai harus berisi byte atau teks.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>Saluran komunikasi ditutup.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>Sumber dan tujuan harus menggunakan jenis media komunikasi yang sama.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>Gunakan PropertiesAsync untuk membuka editor pengaturan.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>Kapasitas buffer penerimaan telah terlampaui.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Tetapkan setidaknya satu kondisi penerimaan: Count, Eop, atau AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>Pola EOP tidak boleh kosong.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>Hanya respons byte[] dan string UTF-8 yang didukung.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>Parameter tidak valid: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>Nilai untuk parameter {0} tidak tersedia.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

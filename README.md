@@ -1,11 +1,29 @@
-See An [Gurux](http://www.gurux.org/ "Gurux") for an overview.
+# Gurux.Common
 
-Join the Gurux Community or follow [@Gurux](https://twitter.com/guruxorg "@Gurux") for project updates.
+Shared media interfaces, event arguments and receive buffering for the Gurux
+Device Framework. Targets .NET 9 and .NET 10 without UI framework dependencies.
+Concrete transport implementations are provided by separate media libraries.
 
-Gurux.Common class implements interfaces that are needed for Gurux Media components and Gurux Device Framework. Purpose of Gurux Device Framework is help you to read your devices, meters and sensors easier.
+For request/reply exchanges, call `BeginSynchronous()` before sending, then await
+`ReceiveAsync()` and dispose the scope after the exchange. Use `byte[]` or
+UTF-8 `string` replies. Receive conditions are documented on `ReceiveParameters<T>`:
 
-For more info check out [Gurux](http://www.gurux.org/ "Gurux").
+| Option | Behavior |
+| --- | --- |
+| `Count` | Exact byte count without EOP; minimum packet length with EOP. |
+| `Eop` | Terminator included in the reply; an object array specifies alternatives. |
+| `AllData` | Returns all buffered bytes; timeout may return partial data with `false`. |
+| `Peek` | Leaves returned bytes in the buffer. |
+| `WaitTime` | Milliseconds including reader queue time; `0` polls and `-1` waits indefinitely. |
 
-We are updating documentation on Gurux web page. 
+Replies accumulate in `Reply`; returning bytes resets `Count` to zero.
+Cancellation throws without consuming unread bytes. Closing wakes pending reads
+with `false` without flushing partial data; starting a receive on closed media
+throws. Reopening clears the buffer and isolates readers from the old connection.
 
-If you have problems you can ask your questions in Gurux [Forum](http://www.gurux.org/forum).
+Localized messages are stored in `Development/Properties/Resources.resx`;
+typed resource properties are generated during the build.
+
+License: [GPL-2.0-only](LICENSE), or a separate
+[Gurux commercial license](LICENSES/LicenseRef-Gurux-Commercial).
+See [publishing instructions](docs/publishing.md) and [Gurux](https://www.gurux.fi/).

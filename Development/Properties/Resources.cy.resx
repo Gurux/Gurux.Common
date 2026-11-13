@@ -216,4 +216,44 @@
   <data name="VersionTxt" xml:space="preserve">
     <value>Fersiwn</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>Rhaid i&apos;r gwerth gynnwys beitiau neu destun.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>Mae&apos;r sianel gyfathrebu ar gau.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>Rhaid i&apos;r ffynhonnell a&apos;r targed ddefnyddio&apos;r un math o gyfrwng cyfathrebu.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>Defnyddiwch PropertiesAsync i agor y golygydd gosodiadau.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>Aethpwyd y tu hwnt i gapasiti&apos;r byffer derbyn.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Gosodwch o leiaf un amod derbyn: Count, Eop neu AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>Ni ddylai patrymau EOP fod yn wag.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>Dim ond ymatebion byte[] a llinynnau UTF-8 sy&apos;n cael eu cefnogi.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>Paramedr annilys: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>Mae gwerth paramedr {0} ar goll.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

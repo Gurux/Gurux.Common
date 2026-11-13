@@ -216,4 +216,44 @@
   <data name="VersionTxt" xml:space="preserve">
     <value>버전</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>값에는 바이트 또는 텍스트가 포함되어야 합니다.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>통신 채널이 닫혀 있습니다.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>원본과 대상은 동일한 통신 미디어 유형을 사용해야 합니다.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>설정 편집기를 열려면 PropertiesAsync를 사용하세요.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>수신 버퍼 용량을 초과했습니다.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Count, Eop 또는 AllData 중 하나 이상의 수신 조건을 설정하세요.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>EOP 패턴은 비어 있으면 안 됩니다.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>byte[] 형식 및 UTF-8 문자열 응답만 지원됩니다.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>잘못된 매개 변수: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>매개 변수 {0}의 값이 없습니다.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

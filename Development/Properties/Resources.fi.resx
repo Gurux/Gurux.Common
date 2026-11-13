@@ -121,7 +121,7 @@
     <value>Saatavilla</value>
   </data>
   <data name="AvailableAddIns" xml:space="preserve">
-    <value>Saatavilla olevat AddIns</value>
+    <value>Saatavilla olevat lisäosat</value>
   </data>
   <data name="AvailableTxt" xml:space="preserve">
     <value>Saatavilla:</value>
@@ -136,22 +136,22 @@
     <value>Sulkee valintaikkunan tallentamatta tekemiäsi muutoksia.</value>
   </data>
   <data name="CopyTxt" xml:space="preserve">
-    <value>Kopio</value>
+    <value>Kopioi</value>
   </data>
   <data name="Disable" xml:space="preserve">
     <value>Poista käytöstä</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Liikuntarajoitteinen</value>
+    <value>Poissa käytöstä</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>ladata</value>
+    <value>Lataa</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>ota käyttöön</value>
+    <value>Ota käyttöön</value>
   </data>
   <data name="FindingProtocols" xml:space="preserve">
-    <value>Protokollien etsiminen.</value>
+    <value>Etsitään protokollia.</value>
   </data>
   <data name="HelpNotAvailable" xml:space="preserve">
     <value>Tähän tuotteeseen ei ole liitetty ohjeaiheita.</value>
@@ -181,10 +181,10 @@
     <value>.NET Framework 3.5</value>
   </data>
   <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net Framework 3.5 SP1 on asennettava, ennen kuin sovellusta voidaan käyttää.</value>
+    <value>.NET Framework 3.5 SP1 on asennettava, ennen kuin sovellusta voidaan käyttää.</value>
   </data>
   <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net Framework 3.5 SP1 tai 4.0 on asennettava, ennen kuin sovellusta voidaan käyttää.</value>
+    <value>.NET Framework 3.5 SP1 tai 4.0 on asennettava, ennen kuin sovellusta voidaan käyttää.</value>
   </data>
   <data name="NETFramework40" xml:space="preserve">
     <value>.NET Framework 4.0</value>
@@ -196,10 +196,10 @@
     <value>Uusia päivityksiä on saatavilla. Haluatko ladata ne?</value>
   </data>
   <data name="NotHexString" xml:space="preserve">
-    <value>Ei kuusiokieliä</value>
+    <value>Arvo ei ole kelvollinen heksadesimaalimerkkijono.</value>
   </data>
   <data name="ProtocolsTxt" xml:space="preserve">
-    <value>Pöytäkirjat</value>
+    <value>Protokollat</value>
   </data>
   <data name="SP" xml:space="preserve">
     <value>SP</value>
@@ -215,5 +215,45 @@
   </data>
   <data name="State" xml:space="preserve">
     <value>Tila</value>
+  </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>Arvon on sisällettävä tavuja tai tekstiä.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>Tietoliikenneyhteys on suljettu.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>Lähteen ja kohteen on käytettävä samaa tietoliikennemediatyyppiä.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>Avaa asetusten muokkausnäkymä käyttämällä PropertiesAsync-metodia.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>Vastaanottopuskurin kapasiteetti on ylittynyt.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Määritä vähintään yksi vastaanottoehto: Count, Eop tai AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>EOP-kuviot eivät saa olla tyhjiä.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>Vain byte[]-tyyppisiä ja UTF-8-merkkijonovastauksia tuetaan.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>Virheellinen parametri: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>Parametrin {0} arvo puuttuu.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
   </data>
 </root>

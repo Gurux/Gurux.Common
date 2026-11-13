@@ -216,4 +216,44 @@
   <data name="VersionTxt" xml:space="preserve">
     <value>Toleo</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>Thamani lazima iwe na baiti au maandishi.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>Njia ya mawasiliano imefungwa.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>Chanzo na lengwa lazima vitumie aina sawa ya njia ya mawasiliano.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>Tumia PropertiesAsync kufungua kihariri cha mipangilio.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>Uwezo wa bafa ya kupokea umezidiwa.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Weka angalau sharti moja la kupokea: Count, Eop au AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>Miundo ya EOP haipaswi kuwa tupu.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>Majibu ya aina ya byte[] na mifuatano ya maandishi ya UTF-8 pekee ndiyo yanayotumika.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>Kigezo si halali: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>Thamani ya kigezo {0} haipo.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

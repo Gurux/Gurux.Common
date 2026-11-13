@@ -216,4 +216,44 @@
   <data name="State" xml:space="preserve">
     <value>الحالة</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>يجب أن تحتوي القيمة على بايتات أو نص.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>قناة الاتصال مغلقة.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>يجب أن يستخدم المصدر والهدف نوع وسيط الاتصال نفسه.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>استخدم PropertiesAsync لفتح محرر الإعدادات.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>تم تجاوز سعة مخزن الاستقبال المؤقت.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>عيّن شرط استقبال واحدًا على الأقل: Count أو Eop أو AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>يجب ألا تكون أنماط EOP فارغة.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>لا تُدعم إلا الاستجابات من النوع byte[] أو السلاسل النصية بترميز UTF-8.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>معامل غير صالح: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>قيمة المعامل {0} مفقودة.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>

@@ -216,4 +216,44 @@
   <data name="VersionTxt" xml:space="preserve">
     <value>Verżjoni</value>
   </data>
+  <data name="ExpectedBytesOrText" xml:space="preserve">
+    <value>Il-valur għandu jkun fih bytes jew test.</value>
+    <comment>Supported payloads for communication media are binary bytes or text.</comment>
+  </data>
+  <data name="MediaClosed" xml:space="preserve">
+    <value>Il-kanal ta&apos; komunikazzjoni huwa magħluq.</value>
+    <comment>The communication transport is not open.</comment>
+  </data>
+  <data name="MediaTypesMustMatch" xml:space="preserve">
+    <value>Is-sors u d-destinazzjoni għandhom jużaw l-istess tip ta&apos; mezz ta&apos; komunikazzjoni.</value>
+    <comment>Copying settings requires matching source and target media types.</comment>
+  </data>
+  <data name="AsyncSettingsEditorRequired" xml:space="preserve">
+    <value>Uża PropertiesAsync biex tiftaħ l-editur tas-settings.</value>
+    <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
+  </data>
+  <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
+    <value>Inqabżet il-kapaċità tal-buffer tar-riċezzjoni.</value>
+    <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
+  </data>
+  <data name="ReceiveConditionsRequired" xml:space="preserve">
+    <value>Issettja mill-inqas kundizzjoni waħda ta&apos; riċezzjoni: Count, Eop jew AllData.</value>
+    <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
+  </data>
+  <data name="EmptyEopPattern" xml:space="preserve">
+    <value>Il-mudelli EOP ma għandhomx ikunu vojta.</value>
+    <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
+  </data>
+  <data name="UnsupportedReplyType" xml:space="preserve">
+    <value>Huma appoġġjati biss tweġibiet tat-tip byte[] u sekwenzi ta&apos; test UTF-8.</value>
+    <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
+  </data>
+  <data name="InvalidParameter" xml:space="preserve">
+    <value>Parametru mhux validu: {0}.</value>
+    <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
+  </data>
+  <data name="MissingParameterValue" xml:space="preserve">
+    <value>Il-valur għall-parametru {0} huwa nieqes.</value>
+    <comment>{0}: command-line parameter tag whose required value is missing.</comment>
+  </data>
 </root>
