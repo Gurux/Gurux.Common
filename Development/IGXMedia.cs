@@ -238,9 +238,12 @@ namespace Gurux.Common
         void ResetByteCounters();
 
         /// <summary>
-        /// Validates the current settings before opening the connection.
+        /// Checks the current settings without opening or modifying the media.
         /// </summary>
-        void Validate();
+        /// <returns>
+        /// All configuration problems, or an empty list when the settings are valid.
+        /// </returns>
+        public IReadOnlyList<GXValidationError> Validate();
 
         /// <summary>
         /// Data is buffered until EOP is received.
@@ -255,15 +258,6 @@ namespace Gurux.Common
         /// Visible controls on the properties dialog.
         /// </summary>
         int ConfigurableSettings
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets an object that contains data to associate with the item.
-        /// </summary>
-        object? Tag
         {
             get;
             set;

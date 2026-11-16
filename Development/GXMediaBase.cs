@@ -101,10 +101,10 @@ public abstract class GXMediaBase : IGXAsyncMedia, IDisposable, IAsyncDisposable
 
     /// <inheritdoc/>
     public int ConfigurableSettings { get; set; } = -1;
-    /// <inheritdoc/>
-    public object? Tag { get; set; }
+
     /// <inheritdoc/>
     public object SyncRoot { get; } = new();
+
     /// <inheritdoc/>
     public object Synchronous => synchronous;
 
@@ -303,9 +303,11 @@ public abstract class GXMediaBase : IGXAsyncMedia, IDisposable, IAsyncDisposable
 
     /// <inheritdoc/>
     public virtual void ResetSynchronousBuffer() => ReceiveBuffer.Reset();
+
     /// <inheritdoc/>
-    public virtual void Validate()
+    public virtual IReadOnlyList<GXValidationError> Validate()
     {
+        return Array.Empty<GXValidationError>();
     }
 
     /// <inheritdoc/>
