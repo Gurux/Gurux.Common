@@ -17,13 +17,13 @@
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Name1"><value>this is my long string.</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
+        <value>[base64 mime encoded serialized .NET Framework object].</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object].</value>
         <comment>This is a comment</comment>
     </data>
                 
@@ -117,143 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Available" xml:space="preserve">
-    <value>دستیاب</value>
-  </data>
-  <data name="AvailableAddIns" xml:space="preserve">
-    <value>دستیاب اڈ انز</value>
-  </data>
-  <data name="AvailableTxt" xml:space="preserve">
-    <value>دستیاب:</value>
-  </data>
-  <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>دستیاب تازہ ترین معلومات</value>
-  </data>
-  <data name="CancelHelp" xml:space="preserve">
-    <value>آپ نے جو بھی تبدیلی کی ہے اسے محفوظ کیے بغیر ڈائیلاگ باکس بند کردیتا ہے۔</value>
-  </data>
-  <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>آپ نے جو بھی تبدیلی کی ہے اسے محفوظ کیے بغیر ڈائیلاگ باکس بند کردیتا ہے۔</value>
-  </data>
-  <data name="CopyTxt" xml:space="preserve">
-    <value>کاپی</value>
-  </data>
-  <data name="Disable" xml:space="preserve">
-    <value>غیر فعال کریں</value>
-  </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>غیر فعال</value>
-  </data>
-  <data name="Download" xml:space="preserve">
-    <value>ڈاؤن لوڈ کریں</value>
-  </data>
-  <data name="Enable" xml:space="preserve">
-    <value>فعال</value>
-  </data>
-  <data name="FindingProtocols" xml:space="preserve">
-    <value>پروٹوکول کی تلاش۔</value>
-  </data>
-  <data name="HelpNotAvailable" xml:space="preserve">
-    <value>مدد کا کوئی عنوان اس آئٹم سے وابستہ نہیں ہے۔</value>
-  </data>
-  <data name="Installed" xml:space="preserve">
-    <value>انسٹال ہوا:</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>استعمال میں</value>
-  </data>
-  <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>فائلوں کو کلپ بورڈ میں کاپی کریں۔</value>
-  </data>
-  <data name="LibraryListHelp" xml:space="preserve">
-    <value>پروڈکٹ اور لائبریری کے ورژن دکھاتا ہے۔</value>
-  </data>
-  <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>لائبریری کے ورژن</value>
-  </data>
-  <data name="LocationTxt" xml:space="preserve">
-    <value>مقام</value>
-  </data>
-  <data name="NameTxt" xml:space="preserve">
-    <value>نام</value>
-  </data>
-  <data name="NETFramework35" xml:space="preserve">
-    <value>.NET فریم ورک 3.5</value>
-  </data>
-  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>نیٹ ورک فریم ورک 3.5 ایس پی 1 کو انسٹال کرنا ضروری ہے اس سے پہلے کہ ایپلی کیشن استعمال ہوسکے۔</value>
-  </data>
-  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.NET فریم ورک 3.5 SP1 یا 4.0 انسٹال کرنا ضروری ہے اس سے پہلے کہ ایپلی کیشن استعمال ہوسکے۔</value>
-  </data>
-  <data name="NETFramework40" xml:space="preserve">
-    <value>.NET فریم ورک 4.0</value>
-  </data>
-  <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>نئی تازہ کارییں دستیاب ہیں</value>
-  </data>
-  <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>نئی تازہ کارییں دستیاب ہیں۔ کیا آپ انہیں ڈاؤن لوڈ کرنا چاہتے ہیں؟</value>
-  </data>
-  <data name="NotHexString" xml:space="preserve">
-    <value>ہیکس تار نہیں</value>
-  </data>
-  <data name="ProtocolsTxt" xml:space="preserve">
-    <value>پروٹوکول</value>
-  </data>
-  <data name="SP" xml:space="preserve">
-    <value>ایس پی</value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>حالت</value>
-  </data>
-  <data name="UnknownType" xml:space="preserve">
-    <value>نامعلوم قسم</value>
-  </data>
-  <data name="UpdateAvailable" xml:space="preserve">
-    <value>تازہ کاری دستیاب ہے</value>
-  </data>
-  <data name="VersionTxt" xml:space="preserve">
-    <value>ورژن</value>
-  </data>
   <data name="ExpectedBytesOrText" xml:space="preserve">
-    <value>قدر میں بائٹس یا متن ہونا ضروری ہے۔</value>
+    <value>قدر میں بائٹس یا متن ہونا ضروری ہے.</value>
     <comment>Supported payloads for communication media are binary bytes or text.</comment>
   </data>
   <data name="MediaClosed" xml:space="preserve">
-    <value>مواصلاتی چینل بند ہے۔</value>
+    <value>مواصلاتی چینل بند ہے.</value>
     <comment>The communication transport is not open.</comment>
   </data>
   <data name="MediaTypesMustMatch" xml:space="preserve">
-    <value>ماخذ اور منزل کو ایک ہی قسم کا مواصلاتی ذریعہ استعمال کرنا چاہیے۔</value>
+    <value>ماخذ اور منزل کو ایک ہی قسم کا مواصلاتی ذریعہ استعمال کرنا چاہیے.</value>
     <comment>Copying settings requires matching source and target media types.</comment>
   </data>
   <data name="AsyncSettingsEditorRequired" xml:space="preserve">
-    <value>ترتیبات کا ایڈیٹر کھولنے کے لیے PropertiesAsync استعمال کریں۔</value>
+    <value>ترتیبات کا ایڈیٹر کھولنے کے لیے PropertiesAsync استعمال کریں.</value>
     <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
   </data>
   <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
-    <value>وصولی بفر کی گنجائش سے تجاوز ہو گیا ہے۔</value>
+    <value>وصولی بفر کی گنجائش سے تجاوز ہو گیا ہے.</value>
     <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
   </data>
   <data name="ReceiveConditionsRequired" xml:space="preserve">
-    <value>وصولی کی کم از کم ایک شرط مقرر کریں: Count، Eop یا AllData۔</value>
+    <value>وصولی کی کم از کم ایک شرط مقرر کریں: Count، Eop یا AllData.</value>
     <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
   </data>
   <data name="EmptyEopPattern" xml:space="preserve">
-    <value>EOP پیٹرن خالی نہیں ہونے چاہئیں۔</value>
+    <value>EOP پیٹرن خالی نہیں ہونے چاہئیں.</value>
     <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
   </data>
   <data name="UnsupportedReplyType" xml:space="preserve">
-    <value>صرف byte[] اور UTF-8 متنی جوابات معاونت یافتہ ہیں۔</value>
+    <value>صرف byte[] اور UTF-8 متنی جوابات معاونت یافتہ ہیں.</value>
     <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
   </data>
   <data name="InvalidParameter" xml:space="preserve">
-    <value>غلط پیرامیٹر: {0}۔</value>
+    <value>غلط پیرامیٹر: {0}.</value>
     <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
   </data>
   <data name="MissingParameterValue" xml:space="preserve">
-    <value>پیرامیٹر {0} کی قدر موجود نہیں ہے۔</value>
+    <value>پیرامیٹر {0} کی قدر موجود نہیں ہے.</value>
     <comment>{0}: command-line parameter tag whose required value is missing.</comment>
   </data>
 </root>

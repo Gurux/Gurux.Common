@@ -17,13 +17,13 @@
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Name1"><value>this is my long string.</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
+        <value>[base64 mime encoded serialized .NET Framework object].</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object].</value>
         <comment>This is a comment</comment>
     </data>
                 
@@ -117,143 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Available" xml:space="preserve">
-    <value>มีจำหน่าย</value>
-  </data>
-  <data name="AvailableAddIns" xml:space="preserve">
-    <value>AddIns ที่มีอยู่</value>
-  </data>
-  <data name="AvailableTxt" xml:space="preserve">
-    <value>มีจำหน่าย:</value>
-  </data>
-  <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>การอัปเดตที่มีอยู่</value>
-  </data>
-  <data name="CancelHelp" xml:space="preserve">
-    <value>ปิดกล่องโต้ตอบโดยไม่บันทึกการเปลี่ยนแปลงใด ๆ ที่คุณทำไว้</value>
-  </data>
-  <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>ปิดกล่องโต้ตอบโดยไม่บันทึกการเปลี่ยนแปลงใด ๆ ที่คุณทำไว้</value>
-  </data>
-  <data name="CopyTxt" xml:space="preserve">
-    <value>สำเนา</value>
-  </data>
-  <data name="Disable" xml:space="preserve">
-    <value>ปิดการใช้งาน</value>
-  </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>ปิดการใช้งาน</value>
-  </data>
-  <data name="Download" xml:space="preserve">
-    <value>ดาวน์โหลด</value>
-  </data>
-  <data name="Enable" xml:space="preserve">
-    <value>เปิดใช้งาน</value>
-  </data>
-  <data name="FindingProtocols" xml:space="preserve">
-    <value>การค้นหาโปรโตคอล</value>
-  </data>
-  <data name="HelpNotAvailable" xml:space="preserve">
-    <value>ไม่มีหัวข้อวิธีใช้ที่เชื่อมโยงกับรายการนี้</value>
-  </data>
-  <data name="Installed" xml:space="preserve">
-    <value>ติดตั้ง:</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>ในการใช้งาน</value>
-  </data>
-  <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>คัดลอกไฟล์ไปยังคลิปบอร์ด</value>
-  </data>
-  <data name="LibraryListHelp" xml:space="preserve">
-    <value>แสดงเวอร์ชันผลิตภัณฑ์และไลบรารี</value>
-  </data>
-  <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>เวอร์ชันไลบรารี</value>
-  </data>
-  <data name="LocationTxt" xml:space="preserve">
-    <value>สถานที่</value>
-  </data>
-  <data name="NameTxt" xml:space="preserve">
-    <value>ชื่อ</value>
-  </data>
-  <data name="NETFramework35" xml:space="preserve">
-    <value>.NET Framework 3.5</value>
-  </data>
-  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>ต้องติดตั้ง. Net framework 3.5 SP1 ก่อนจึงจะสามารถใช้งานแอปพลิเคชันได้</value>
-  </data>
-  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>ต้องติดตั้ง. Net framework 3.5 SP1 หรือ 4.0 ก่อนจึงจะสามารถใช้งานแอปพลิเคชันได้</value>
-  </data>
-  <data name="NETFramework40" xml:space="preserve">
-    <value>.NET Framework 4.0</value>
-  </data>
-  <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>มีการอัปเดตใหม่</value>
-  </data>
-  <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>มีการอัปเดตใหม่ ๆ คุณต้องการดาวน์โหลดหรือไม่</value>
-  </data>
-  <data name="NotHexString" xml:space="preserve">
-    <value>ไม่ใช่สตริงฐานสิบหก</value>
-  </data>
-  <data name="ProtocolsTxt" xml:space="preserve">
-    <value>โปรโตคอล</value>
-  </data>
-  <data name="SP" xml:space="preserve">
-    <value>SP</value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>สถานะ</value>
-  </data>
-  <data name="UnknownType" xml:space="preserve">
-    <value>ประเภทที่ไม่รู้จัก</value>
-  </data>
-  <data name="UpdateAvailable" xml:space="preserve">
-    <value>มีการอัปเดต</value>
-  </data>
-  <data name="VersionTxt" xml:space="preserve">
-    <value>เวอร์ชัน</value>
-  </data>
   <data name="ExpectedBytesOrText" xml:space="preserve">
-    <value>ค่าต้องประกอบด้วยไบต์หรือข้อความ</value>
+    <value>ค่าต้องประกอบด้วยไบต์หรือข้อความ.</value>
     <comment>Supported payloads for communication media are binary bytes or text.</comment>
   </data>
   <data name="MediaClosed" xml:space="preserve">
-    <value>ช่องทางการสื่อสารถูกปิดแล้ว</value>
+    <value>ช่องทางการสื่อสารถูกปิดแล้ว.</value>
     <comment>The communication transport is not open.</comment>
   </data>
   <data name="MediaTypesMustMatch" xml:space="preserve">
-    <value>ต้นทางและปลายทางต้องใช้สื่อการสื่อสารประเภทเดียวกัน</value>
+    <value>ต้นทางและปลายทางต้องใช้สื่อการสื่อสารประเภทเดียวกัน.</value>
     <comment>Copying settings requires matching source and target media types.</comment>
   </data>
   <data name="AsyncSettingsEditorRequired" xml:space="preserve">
-    <value>ใช้ PropertiesAsync เพื่อเปิดตัวแก้ไขการตั้งค่า</value>
+    <value>ใช้ PropertiesAsync เพื่อเปิดตัวแก้ไขการตั้งค่า.</value>
     <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
   </data>
   <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
-    <value>เกินความจุของบัฟเฟอร์รับข้อมูลแล้ว</value>
+    <value>เกินความจุของบัฟเฟอร์รับข้อมูลแล้ว.</value>
     <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
   </data>
   <data name="ReceiveConditionsRequired" xml:space="preserve">
-    <value>กำหนดเงื่อนไขการรับอย่างน้อยหนึ่งรายการ: Count, Eop หรือ AllData</value>
+    <value>กำหนดเงื่อนไขการรับอย่างน้อยหนึ่งรายการ: Count, Eop หรือ AllData.</value>
     <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
   </data>
   <data name="EmptyEopPattern" xml:space="preserve">
-    <value>รูปแบบ EOP ต้องไม่ว่างเปล่า</value>
+    <value>รูปแบบ EOP ต้องไม่ว่างเปล่า.</value>
     <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
   </data>
   <data name="UnsupportedReplyType" xml:space="preserve">
-    <value>รองรับเฉพาะการตอบกลับแบบ byte[] และสตริง UTF-8 เท่านั้น</value>
+    <value>รองรับเฉพาะการตอบกลับแบบ byte[] และสตริง UTF-8 เท่านั้น.</value>
     <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
   </data>
   <data name="InvalidParameter" xml:space="preserve">
-    <value>พารามิเตอร์ไม่ถูกต้อง: {0}</value>
+    <value>พารามิเตอร์ไม่ถูกต้อง: {0}.</value>
     <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
   </data>
   <data name="MissingParameterValue" xml:space="preserve">
-    <value>ไม่มีค่าสำหรับพารามิเตอร์ {0}</value>
+    <value>ไม่มีค่าสำหรับพารามิเตอร์ {0}.</value>
     <comment>{0}: command-line parameter tag whose required value is missing.</comment>
   </data>
 </root>

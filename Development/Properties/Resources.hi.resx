@@ -17,13 +17,13 @@
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Name1"><value>this is my long string.</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
+        <value>[base64 mime encoded serialized .NET Framework object].</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object].</value>
         <comment>This is a comment</comment>
     </data>
                 
@@ -117,143 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Available" xml:space="preserve">
-    <value>उपलब्ध</value>
-  </data>
-  <data name="AvailableAddIns" xml:space="preserve">
-    <value>उपलब्ध AddIns</value>
-  </data>
-  <data name="AvailableTxt" xml:space="preserve">
-    <value>उपलब्ध:</value>
-  </data>
-  <data name="AvailableUpdatesTxt" xml:space="preserve">
-    <value>उपलब्ध अद्यतन</value>
-  </data>
-  <data name="CancelHelp" xml:space="preserve">
-    <value>आपके द्वारा किए गए परिवर्तनों को सहेजे बिना संवाद बॉक्स को बंद कर देता है।</value>
-  </data>
-  <data name="ClosesTheDialogBoxWithoutSavingAnyChangesYouHaveMade" xml:space="preserve">
-    <value>आपके द्वारा किए गए परिवर्तनों को सहेजे बिना संवाद बॉक्स को बंद कर देता है।</value>
-  </data>
-  <data name="CopyTxt" xml:space="preserve">
-    <value>प्रतिलिपि</value>
-  </data>
-  <data name="Disable" xml:space="preserve">
-    <value>अक्षम</value>
-  </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>विकलांग</value>
-  </data>
-  <data name="Download" xml:space="preserve">
-    <value>डाउनलोड</value>
-  </data>
-  <data name="Enable" xml:space="preserve">
-    <value>सक्षम</value>
-  </data>
-  <data name="FindingProtocols" xml:space="preserve">
-    <value>प्रोटोकॉल ढूँढना।</value>
-  </data>
-  <data name="HelpNotAvailable" xml:space="preserve">
-    <value>इस मद से कोई सहायता विषय जुड़ा नहीं है।</value>
-  </data>
-  <data name="Installed" xml:space="preserve">
-    <value>स्थापित:</value>
-  </data>
-  <data name="InUse" xml:space="preserve">
-    <value>उपयोग में</value>
-  </data>
-  <data name="LibraryCopyHelp" xml:space="preserve">
-    <value>फ़ाइलों को क्लिपबोर्ड पर कॉपी करता है।</value>
-  </data>
-  <data name="LibraryListHelp" xml:space="preserve">
-    <value>उत्पाद और लाइब्रेरी संस्करण दिखाता है।</value>
-  </data>
-  <data name="LibraryVersionsTxt" xml:space="preserve">
-    <value>लाइब्रेरी संस्करण</value>
-  </data>
-  <data name="LocationTxt" xml:space="preserve">
-    <value>स्थान</value>
-  </data>
-  <data name="NameTxt" xml:space="preserve">
-    <value>नाम</value>
-  </data>
-  <data name="NETFramework35" xml:space="preserve">
-    <value>.NET फ्रेमवर्क 3.5</value>
-  </data>
-  <data name="NetFramework35SP1MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net फ्रेमवर्क 3.5 SP1 को अनुप्रयोग के उपयोग से पहले स्थापित किया जाना चाहिए।</value>
-  </data>
-  <data name="NetFramework35SP1Or40MustBeInstalledBeforeTheApplicationCanBeUsed" xml:space="preserve">
-    <value>.Net फ्रेमवर्क 3.5 SP1 या 4.0 अनुप्रयोग का उपयोग करने से पहले स्थापित किया जाना चाहिए।</value>
-  </data>
-  <data name="NETFramework40" xml:space="preserve">
-    <value>.NET फ्रेमवर्क 4.0</value>
-  </data>
-  <data name="NewProtocolsAvailableTxt" xml:space="preserve">
-    <value>नए अपडेट उपलब्ध हैं</value>
-  </data>
-  <data name="NewProtocolsDownloadTxt" xml:space="preserve">
-    <value>नए अपडेट उपलब्ध हैं। क्या आप उन्हें डाउनलोड करना चाहते हैं?</value>
-  </data>
-  <data name="NotHexString" xml:space="preserve">
-    <value>हेक्स स्ट्रिंग नहीं</value>
-  </data>
-  <data name="ProtocolsTxt" xml:space="preserve">
-    <value>प्रोटोकॉल</value>
-  </data>
-  <data name="SP" xml:space="preserve">
-    <value>सपा</value>
-  </data>
-  <data name="UnknownType" xml:space="preserve">
-    <value>अज्ञात प्रकार</value>
-  </data>
-  <data name="UpdateAvailable" xml:space="preserve">
-    <value>अपडेट उपलब्ध</value>
-  </data>
-  <data name="VersionTxt" xml:space="preserve">
-    <value>संस्करण</value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>स्थिति</value>
-  </data>
   <data name="ExpectedBytesOrText" xml:space="preserve">
-    <value>मान में बाइट या पाठ होना चाहिए।</value>
+    <value>मान में बाइट या पाठ होना चाहिए.</value>
     <comment>Supported payloads for communication media are binary bytes or text.</comment>
   </data>
   <data name="MediaClosed" xml:space="preserve">
-    <value>संचार चैनल बंद है।</value>
+    <value>संचार चैनल बंद है.</value>
     <comment>The communication transport is not open.</comment>
   </data>
   <data name="MediaTypesMustMatch" xml:space="preserve">
-    <value>स्रोत और लक्ष्य को एक ही प्रकार के संचार माध्यम का उपयोग करना चाहिए।</value>
+    <value>स्रोत और लक्ष्य को एक ही प्रकार के संचार माध्यम का उपयोग करना चाहिए.</value>
     <comment>Copying settings requires matching source and target media types.</comment>
   </data>
   <data name="AsyncSettingsEditorRequired" xml:space="preserve">
-    <value>सेटिंग संपादक खोलने के लिए PropertiesAsync का उपयोग करें।</value>
+    <value>सेटिंग संपादक खोलने के लिए PropertiesAsync का उपयोग करें.</value>
     <comment>PropertiesAsync is a method name and must remain unchanged.</comment>
   </data>
   <data name="ReceiveBufferCapacityExceeded" xml:space="preserve">
-    <value>प्राप्ति बफ़र की क्षमता पार हो गई है।</value>
+    <value>प्राप्ति बफ़र की क्षमता पार हो गई है.</value>
     <comment>Incoming data exceeded the configured receive-buffer size limit.</comment>
   </data>
   <data name="ReceiveConditionsRequired" xml:space="preserve">
-    <value>कम से कम एक प्राप्ति शर्त निर्धारित करें: Count, Eop या AllData।</value>
+    <value>कम से कम एक प्राप्ति शर्त निर्धारित करें: Count, Eop या AllData.</value>
     <comment>Count, Eop and AllData are property names and must remain unchanged.</comment>
   </data>
   <data name="EmptyEopPattern" xml:space="preserve">
-    <value>EOP पैटर्न खाली नहीं होने चाहिए।</value>
+    <value>EOP पैटर्न खाली नहीं होने चाहिए.</value>
     <comment>EOP identifies an end-of-packet delimiter pattern.</comment>
   </data>
   <data name="UnsupportedReplyType" xml:space="preserve">
-    <value>केवल byte[] और UTF-8 पाठ वाले उत्तर समर्थित हैं।</value>
+    <value>केवल byte[] और UTF-8 पाठ वाले उत्तर समर्थित हैं.</value>
     <comment>byte[] and UTF-8 identify supported reply types and must remain unchanged.</comment>
   </data>
   <data name="InvalidParameter" xml:space="preserve">
-    <value>अमान्य पैरामीटर: {0}।</value>
+    <value>अमान्य पैरामीटर: {0}.</value>
     <comment>{0}: invalid command-line parameter supplied by the caller.</comment>
   </data>
   <data name="MissingParameterValue" xml:space="preserve">
-    <value>पैरामीटर {0} का मान मौजूद नहीं है।</value>
+    <value>पैरामीटर {0} का मान मौजूद नहीं है.</value>
     <comment>{0}: command-line parameter tag whose required value is missing.</comment>
   </data>
 </root>
