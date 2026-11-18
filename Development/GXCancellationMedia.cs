@@ -34,7 +34,7 @@ namespace Gurux.Common
     /// <param name="applicationToken">Token that cancels communication when the application is interrupted.</param>
     /// <exception cref="ArgumentNullException">The wrapped transport is null.</exception>
     /// <remarks>Wrapping the transport does not transfer ownership of its resources.</remarks>
-    internal sealed class GXCancellationMedia(IGXAsyncMedia inner, CancellationToken applicationToken) : IGXAsyncMedia
+    public sealed class GXCancellationMedia(IGXAsyncMedia inner, CancellationToken applicationToken) : IGXAsyncMedia
     {
         /// <summary>Transport receiving forwarded operations and retaining ownership of its resources.</summary>
         private readonly IGXAsyncMedia inner = inner ?? throw new ArgumentNullException(nameof(inner));
